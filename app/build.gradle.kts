@@ -70,5 +70,6 @@ dependencies {
 
     implementation(libs.androidx.compose.material.iconsExtended)
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.31.3-beta")
+    implementation ("com.google.accompanist:accompanist-webview:0.31.3-beta")
 
 }

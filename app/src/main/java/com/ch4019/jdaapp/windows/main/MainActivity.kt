@@ -91,11 +91,11 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun ContentUiView() {
     val navigationBarItems = listOf(
-        NavigationBarItem(title = "教务系统", icon = Icons.Outlined.Upcoming,selectedIcons = Icons.Default.Upcoming),
-        NavigationBarItem(title = "信息门户", icon = Icons.Outlined.Dns,selectedIcons = Icons.Default.Dns),
+        NavigationBarItem(title = "信息门户", icon = Icons.Outlined.Upcoming,selectedIcons = Icons.Default.Upcoming),
+        NavigationBarItem(title = "教务系统", icon = Icons.Outlined.Dns,selectedIcons = Icons.Default.Dns),
         NavigationBarItem(title = "我的", icon = Icons.Outlined.Person,selectedIcons = Icons.Default.Person),
     )
-    val titles = listOf("教务系统","信息门户","我的")
+    val titles = listOf("信息门户","教务系统","我的")
     val topIcon = listOf(Icons.Default.Refresh, Icons.Default.Refresh,null)
     val topIcon1 = listOf(Icons.Default.Share, Icons.Default.Share,null)
     val topIcon2 = listOf(Icons.Default.Send, Icons.Default.Send,null)
@@ -237,9 +237,17 @@ fun ViewPager(
     navigator1: WebViewNavigator,
     navigator2: WebViewNavigator,
 ) {
+    //尝试解决滑动冲突问题
+//    val pagerScrollState by remember { mutableStateOf(false) }
+//    val webPageScrollDistance by remember{ mutableStateOf("0f")}
+//    LaunchedEffect(this){
+//        if (webPageScrollDistance == )
+//    }
     HorizontalPager(
         state = pagerState,
         beyondBoundsPageCount = 3,
+        //关闭页面滑动(防止页面滑动冲突，暂时未解决该问题)
+        userScrollEnabled = false,
         modifier = Modifier
             .padding(paddingValues),
     ) {

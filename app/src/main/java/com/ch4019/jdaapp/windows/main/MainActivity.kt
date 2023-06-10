@@ -237,26 +237,33 @@ fun ViewPager(
     navigator1: WebViewNavigator,
     navigator2: WebViewNavigator,
 ) {
-    //尝试解决滑动冲突问题
-//    val pagerScrollState by remember { mutableStateOf(false) }
-//    val webPageScrollDistance by remember{ mutableStateOf("0f")}
-//    LaunchedEffect(this){
-//        if (webPageScrollDistance == )
-//    }
-    HorizontalPager(
-        state = pagerState,
-        beyondBoundsPageCount = 3,
-        //关闭页面滑动(防止页面滑动冲突，暂时未解决该问题)
-        userScrollEnabled = false,
-        modifier = Modifier
-            .padding(paddingValues),
-    ) {
-        when (it) {
-            0 -> HomePage(urlState1,navigator1)
-            1 -> SecondPage(urlState2,navigator2)
-            2 -> PersonalPage()
+//    Column {
+        //尝试解决滑动冲突问题
+//        var pagerScrollState by remember { mutableStateOf(false) }
+//        val webPageScrollDistance by remember { mutableStateOf("") }
+//        LaunchedEffect(this) {
+//            while (webPageScrollDistance.toInt() == 0) {
+//                pagerScrollState = true
+//            }
+//            while (webPageScrollDistance.toInt() != 0) {
+//                pagerScrollState = false
+//            }
+//        }
+        HorizontalPager(
+            state = pagerState,
+            beyondBoundsPageCount = 3,
+            //关闭页面滑动(防止页面滑动冲突，暂时未解决该问题)
+            userScrollEnabled = false,
+            modifier = Modifier
+                .padding(paddingValues),
+        ) {
+            when (it) {
+                0 -> HomePage(urlState1, navigator1)
+                1 -> SecondPage(urlState2, navigator2)
+                2 -> PersonalPage()
+            }
         }
-    }
+//   }
 }
 
 @OptIn(ExperimentalFoundationApi::class)

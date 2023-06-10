@@ -30,7 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.ch4019.jdaapp.model.SettingListItem
+import com.ch4019.jdaapp.model.CardListItem
 import com.ch4019.jdaapp.ui.theme.JdaAppTheme
 
 @Composable
@@ -40,7 +40,7 @@ fun PersonalPage() {
             .fillMaxSize()
     ){
         UserIcon()
-        SettingCard()
+        ListCard()
     }
 }
 
@@ -93,27 +93,27 @@ fun UserIcon() {
 }
 
 @Composable
-fun SettingCard() {
+fun ListCard() {
     Card (
         modifier = Modifier
             .padding(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 8.dp)
             .fillMaxWidth()
             .clip(shape = RoundedCornerShape(20.dp))
     ){
-        SettingList()
+        CardList()
     }
 }
 
 @Composable
-fun SettingList() {
-    val settingListItems= listOf(
-        SettingListItem(stringResourceId = "检查更新",imageResourceId = Icons.Outlined.UploadFile),
-        SettingListItem(stringResourceId = "设置",imageResourceId = Icons.Outlined.Settings),
-        SettingListItem(stringResourceId = "问题反馈",imageResourceId = Icons.Outlined.BugReport),
-        SettingListItem(stringResourceId = "关于",imageResourceId = Icons.Outlined.AssignmentLate),
+fun CardList() {
+    val cardListItems= listOf(
+        CardListItem(stringResourceId = "检查更新",imageResourceId = Icons.Outlined.UploadFile),
+        CardListItem(stringResourceId = "设置",imageResourceId = Icons.Outlined.Settings),
+        CardListItem(stringResourceId = "问题反馈",imageResourceId = Icons.Outlined.BugReport),
+        CardListItem(stringResourceId = "关于",imageResourceId = Icons.Outlined.AssignmentLate),
     )
     LazyColumn {
-        items(settingListItems) {
+        items(cardListItems) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()

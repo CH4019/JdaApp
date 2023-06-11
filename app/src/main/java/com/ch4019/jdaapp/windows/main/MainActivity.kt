@@ -295,7 +295,9 @@ fun BottomBar(
                 selected = selected,
                 onClick = {
                     scope.launch {
-                        pagerState.scrollToPage(index)
+                        //pagerState.scrollToPage(index)
+                        //增加切换页面支持显示切换动画
+                        pagerState.animateScrollToPage(index)
                     }
                 },
                 icon = {

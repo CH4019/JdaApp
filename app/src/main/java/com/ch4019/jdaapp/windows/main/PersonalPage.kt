@@ -107,17 +107,20 @@ fun ListCard() {
 @Composable
 fun CardList() {
     val cardListItems= listOf(
-        CardListItem(stringResourceId = "检查更新",imageResourceId = Icons.Outlined.UploadFile),
-        CardListItem(stringResourceId = "设置",imageResourceId = Icons.Outlined.Settings),
-        CardListItem(stringResourceId = "问题反馈",imageResourceId = Icons.Outlined.BugReport),
-        CardListItem(stringResourceId = "关于",imageResourceId = Icons.Outlined.AssignmentLate),
+        CardListItem(stringResourceId = "检查更新",imageResourceId = Icons.Outlined.UploadFile, settingRouterPage = "profile"),
+        CardListItem(stringResourceId = "设置",imageResourceId = Icons.Outlined.Settings,settingRouterPage = "profile"),
+        CardListItem(stringResourceId = "问题反馈",imageResourceId = Icons.Outlined.BugReport,settingRouterPage = "profile"),
+        CardListItem(stringResourceId = "关于",imageResourceId = Icons.Outlined.AssignmentLate,settingRouterPage = "profile"),
     )
+
     LazyColumn {
         items(cardListItems) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clickable { }
+                    .clickable {
+
+                    },
             ) {
                 Row (
                     modifier = Modifier

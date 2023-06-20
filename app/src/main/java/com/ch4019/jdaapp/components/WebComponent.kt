@@ -1,5 +1,6 @@
 package com.ch4019.jdaapp.components
 
+import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.util.Log
 import android.webkit.WebView
@@ -13,6 +14,7 @@ import com.google.accompanist.web.WebView
 import com.google.accompanist.web.WebViewNavigator
 import com.google.accompanist.web.WebViewState
 
+@SuppressLint("SetJavaScriptEnabled")
 @Composable
 fun WebComponent(
     urlState: WebViewState,

@@ -1,4 +1,4 @@
-package com.ch4019.jdaapp.components
+package com.ch4019.jdaapp.ui.components
 
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
@@ -49,3 +49,4 @@ fun WebComponent(
         )
     }
 }
+

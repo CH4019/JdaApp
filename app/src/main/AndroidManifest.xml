@@ -13,7 +13,7 @@
         android:theme="@style/Theme.JdaApp"
         tools:targetApi="31">
         <activity
-            android:name=".windows.main.MainActivity"
+            android:name=".MainActivity"
             android:exported="true"
             android:theme="@style/Theme.JdaApp">
             <intent-filter>

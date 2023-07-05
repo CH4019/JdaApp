@@ -62,7 +62,19 @@ fun StartPageView(appNavHostController: NavHostController) {
             contentVisibleShow = true
         }
         delay(1000)
-        appNavHostController.navigate(AppRoute.MAIN_NAV)
+        appNavHostController.navigate(AppRoute.MAIN_NAV){
+            // 弹出到图表的起始目的地
+            // 避免建立大量目标
+            // 在用户选择项目时的后退堆栈上
+            popUpTo(AppRoute.START_SCREEN) {
+                saveState = true
+                inclusive = true
+            }
+            // 重新选择同一项目时避免同一目标的多个副本
+            launchSingleTop = true
+            // 重新选择先前选定的项目时恢复状态
+            restoreState = true
+        }
     }
     Scaffold {
         Column (

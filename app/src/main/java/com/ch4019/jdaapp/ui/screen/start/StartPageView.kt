@@ -50,7 +50,7 @@ fun StartPageView(appNavHostController: NavHostController) {
     }
 //    val roundRectColor= LightColor.IconColor1
 //    val roundRectColor2= LightColor.IconColor2
-    val logo= ImageBitmap.imageResource(R.drawable.logo)
+    val logo = ImageBitmap.imageResource(R.drawable.logo)
     LaunchedEffect(Unit){
 //        进入调度器，子协程
         withContext(Dispatchers.IO) {

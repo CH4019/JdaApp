@@ -9,14 +9,19 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForwardIos
+import androidx.compose.material.icons.outlined.Assignment
 import androidx.compose.material.icons.outlined.AssignmentLate
+import androidx.compose.material.icons.outlined.Bookmarks
 import androidx.compose.material.icons.outlined.BugReport
-import androidx.compose.material.icons.outlined.Settings
-import androidx.compose.material.icons.outlined.UploadFile
+import androidx.compose.material.icons.outlined.Cable
+import androidx.compose.material.icons.outlined.CreditCard
+import androidx.compose.material.icons.outlined.DesktopWindows
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -42,19 +47,27 @@ fun PersonalPage(
     mainNavController: NavHostController
 ) {
 
-    val cardListItems= listOf(
-        CardListItem(stringResourceId = "检查更新",imageResourceId = Icons.Outlined.UploadFile, settingRouterPage = MainNavRoute.SETTING_PAGE),
-        CardListItem(stringResourceId = "设置",imageResourceId = Icons.Outlined.Settings,settingRouterPage = MainNavRoute.SETTING_PAGE),
-        CardListItem(stringResourceId = "问题反馈",imageResourceId = Icons.Outlined.BugReport,settingRouterPage = MainNavRoute.SETTING_PAGE),
-        CardListItem(stringResourceId = "关于",imageResourceId = Icons.Outlined.AssignmentLate,settingRouterPage = MainNavRoute.SETTING_PAGE),
+    val cardListSchoolItems= listOf(
+        CardListItem(stringResourceId = "一卡通官网",imageResourceId = Icons.Outlined.CreditCard, routerPageId = MainNavRoute.ONE_CARD_PAGE),
+        CardListItem(stringResourceId = "体育部通知",imageResourceId = Icons.Outlined.Assignment,routerPageId = MainNavRoute.SPORTS_PAGE),
+        CardListItem(stringResourceId = "实验系统入口",imageResourceId = Icons.Outlined.Cable,routerPageId = MainNavRoute.LIMS_PAGE),
+        CardListItem(stringResourceId = "教务系统备用入口",imageResourceId = Icons.Outlined.Bookmarks,routerPageId = MainNavRoute.SETTING_PAGE),
+    )
+
+    val cardListPersonalItems= listOf(
+        CardListItem(stringResourceId = "软件官网",imageResourceId = Icons.Outlined.DesktopWindows,routerPageId = MainNavRoute.SETTING_PAGE),
+        CardListItem(stringResourceId = "问题反馈",imageResourceId = Icons.Outlined.BugReport,routerPageId = MainNavRoute.SETTING_PAGE),
+        CardListItem(stringResourceId = "设置",imageResourceId = Icons.Outlined.AssignmentLate,routerPageId = MainNavRoute.SETTING_PAGE),
     )
 
     Column (
         modifier = Modifier
             .fillMaxSize()
+            .verticalScroll(rememberScrollState())
     ){
         UserIcon()
-        CardListView(mainNavController,cardListItems)
+        CardListView(mainNavController,cardListSchoolItems)
+        CardListView(mainNavController,cardListPersonalItems)
     }
 }
 

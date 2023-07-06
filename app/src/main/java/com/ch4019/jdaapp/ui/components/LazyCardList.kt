@@ -1,11 +1,12 @@
 package com.ch4019.jdaapp.ui.components
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowForwardIos
@@ -22,7 +23,7 @@ import androidx.navigation.NavHostController
 import com.ch4019.jdaapp.model.CardListItem
 
 @Composable
-fun CardListView(
+fun LazyCardListView(
     mainNavController: NavHostController,
     cardListItems : List<CardListItem>,
 ) {
@@ -32,18 +33,18 @@ fun CardListView(
             .fillMaxWidth()
             .clip(shape = RoundedCornerShape(20.dp))
     ){
-        CardListComponent(mainNavController,cardListItems)
+        LazyCardListComponent(mainNavController,cardListItems)
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CardListComponent(
+fun LazyCardListComponent(
     mainNavController: NavHostController,
     cardListItems: List<CardListItem>,
 ) {
-    Column {
-        cardListItems.forEach {
+    LazyColumn {
+        items(cardListItems) {
             Card(
                 onClick = {
                     mainNavController.navigate(it.routerPageId){

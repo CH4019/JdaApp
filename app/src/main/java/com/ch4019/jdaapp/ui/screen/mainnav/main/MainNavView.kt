@@ -8,6 +8,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.ch4019.jdaapp.config.MainNavRoute
 import com.ch4019.jdaapp.ui.screen.mainnav.personal.setting.SettingPage
+import com.ch4019.jdaapp.ui.screen.mainnav.personal.setting.about.AboutPage
+import com.ch4019.jdaapp.ui.screen.other.LIMSPage
+import com.ch4019.jdaapp.ui.screen.other.OneCardPage
+import com.ch4019.jdaapp.ui.screen.other.SportsPage
 
 @Composable
 fun MainNavController() {
@@ -27,8 +31,27 @@ fun MainNavController() {
         composable(
             MainNavRoute.SETTING_PAGE
         ) {
-            SettingPage ()
+            SettingPage (mainNavController)
         }
-
+        composable(
+            MainNavRoute.ABOUT_PAGE
+        ) {
+            AboutPage(mainNavController)
+        }
+        composable(
+            MainNavRoute.ONE_CARD_PAGE
+        ) {
+            OneCardPage(mainNavController)
+        }
+        composable(
+            MainNavRoute.SPORTS_PAGE
+        ) {
+            SportsPage(mainNavController)
+        }
+        composable(
+            MainNavRoute.LIMS_PAGE
+        ){
+            LIMSPage(mainNavController)
+        }
     }
 }

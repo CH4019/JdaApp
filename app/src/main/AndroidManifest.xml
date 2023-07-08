@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
     <!-- Used for loading images from the network -->
     <uses-permission android:name="android.permission.INTERNET" />
+<!--    <application-->
+<!--        android:name=".model.MyApp"-->
     <application
         android:allowBackup="true"
         android:usesCleartextTraffic="true"

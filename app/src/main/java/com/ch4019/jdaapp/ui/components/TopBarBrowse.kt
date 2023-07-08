@@ -52,7 +52,6 @@ fun TopBarBrowseView(
     ){
         BrowseView(it, urlState, navigator)
     }
-
 }
 
 @Composable

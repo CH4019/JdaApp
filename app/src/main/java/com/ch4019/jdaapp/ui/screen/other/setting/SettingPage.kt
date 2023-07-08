@@ -1,4 +1,4 @@
-package com.ch4019.jdaapp.ui.screen.mainnav.personal.setting
+package com.ch4019.jdaapp.ui.screen.other.setting
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -10,6 +10,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBackIosNew
 import androidx.compose.material.icons.outlined.AssignmentLate
 import androidx.compose.material.icons.outlined.BugReport
+import androidx.compose.material.icons.outlined.Language
 import androidx.compose.material.icons.outlined.UploadFile
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -64,6 +65,7 @@ fun SettingView(
 ) {
     val cardListSettingItems= listOf(
         CardListItem(stringResourceId = "检查更新",imageResourceId = Icons.Outlined.UploadFile,routerPageId = MainNavRoute.ABOUT_PAGE),
+        CardListItem(stringResourceId = "语言",imageResourceId = Icons.Outlined.Language,routerPageId = MainNavRoute.ABOUT_PAGE),
         CardListItem(stringResourceId = "问题反馈",imageResourceId = Icons.Outlined.BugReport,routerPageId = MainNavRoute.ABOUT_PAGE),
         CardListItem(stringResourceId = "关于",imageResourceId = Icons.Outlined.AssignmentLate,routerPageId = MainNavRoute.ABOUT_PAGE),
     )

@@ -13,9 +13,10 @@ import com.ch4019.jdaapp.config.AppRoute
 import com.ch4019.jdaapp.ui.screen.mainnav.main.MainNavController
 import com.ch4019.jdaapp.ui.screen.start.StartPageView
 import com.ch4019.jdaapp.ui.theme.JdaAppTheme
+import dagger.hilt.android.AndroidEntryPoint
 
 
-
+//@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +26,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             JdaAppTheme {
                 val appNavHostController = rememberNavController()
-                //指定起始页面 startDestination = NavScreen.AScreen.route
+                //指定起始页面 startDestination = AppRoute.START_SCREEN
                 NavHost(
                     navController = appNavHostController,
                     startDestination = AppRoute.START_SCREEN
@@ -36,15 +37,7 @@ class MainActivity : ComponentActivity() {
                     composable(AppRoute.MAIN_NAV) {
                         MainNavController()
                     }
-
                 }
-                // A surface container using the 'background' color from the theme
-//                Surface(
-//                    modifier = Modifier.fillMaxSize(),
-//                    color = MaterialTheme.colorScheme.background
-//                ) {
-//                    NavController()
-//                }
             }
         }
     }

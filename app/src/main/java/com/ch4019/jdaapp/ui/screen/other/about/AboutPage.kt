@@ -1,4 +1,4 @@
-package com.ch4019.jdaapp.ui.screen.mainnav.personal.setting.about
+package com.ch4019.jdaapp.ui.screen.other.about
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

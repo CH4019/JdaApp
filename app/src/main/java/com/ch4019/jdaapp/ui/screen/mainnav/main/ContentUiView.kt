@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableIntState
 import androidx.navigation.NavHostController
 import com.ch4019.jdaapp.model.NavigationBarItem
+import com.ch4019.jdaapp.ui.screen.mainnav.personal.UserState
 import com.google.accompanist.web.rememberWebViewNavigator
 import com.google.accompanist.web.rememberWebViewState
 
@@ -22,6 +23,7 @@ import com.google.accompanist.web.rememberWebViewState
 @Composable
 fun ContentUiView(
     mainNavController: NavHostController,
+    userState: UserState,
     currentPage: MutableIntState
 ) {
     val navigationBarItems = listOf(
@@ -45,7 +47,7 @@ fun ContentUiView(
             TopBar(pagerState, titles ,urlState1,urlState2,navigator1,navigator2,topIcon,topIcon1,topIcon2)
         },
         content = {
-            ViewPager(it, pagerState,urlState1,urlState2,navigator1,navigator2,mainNavController)
+            ViewPager(it, pagerState,urlState1,urlState2,navigator1,navigator2,mainNavController,userState)
         },
         bottomBar = {
             BottomBar(pagerState, navigationBarItems,currentPage)

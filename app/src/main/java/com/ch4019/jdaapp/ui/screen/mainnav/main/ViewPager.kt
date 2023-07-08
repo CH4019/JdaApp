@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import com.ch4019.jdaapp.ui.screen.mainnav.home.HomePage
 import com.ch4019.jdaapp.ui.screen.mainnav.personal.PersonalPage
+import com.ch4019.jdaapp.ui.screen.mainnav.personal.UserState
 import com.ch4019.jdaapp.ui.screen.mainnav.second.SecondPage
 import com.google.accompanist.web.WebViewNavigator
 import com.google.accompanist.web.WebViewState
@@ -23,7 +24,8 @@ fun ViewPager(
     urlState2: WebViewState,
     navigator1: WebViewNavigator,
     navigator2: WebViewNavigator,
-    mainNavController: NavHostController
+    mainNavController: NavHostController,
+    userState: UserState
 ) {
     HorizontalPager(
         state = pagerState,
@@ -36,7 +38,7 @@ fun ViewPager(
         when (it) {
             0 -> HomePage(urlState1, navigator1)
             1 -> SecondPage(urlState2, navigator2)
-            2 -> PersonalPage(mainNavController)
+            2 -> PersonalPage(mainNavController,userState)
         }
     }
 }

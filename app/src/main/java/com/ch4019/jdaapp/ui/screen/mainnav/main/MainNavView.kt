@@ -6,8 +6,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -24,8 +22,8 @@ import com.ch4019.jdaapp.ui.screen.other.user.UserPage
 fun MainNavController() {
     val mainNavController = rememberNavController()
     val currentPage = remember { mutableIntStateOf(0) }
-    //val userViewModel: UserViewModel = hiltViewModel()
-    val userViewModel: UserViewModel = viewModel()
+    val userViewModel: UserViewModel = hiltViewModel()
+    //val userViewModel: UserViewModel = viewModel()
     val userState by userViewModel.userState.collectAsState()
     //指定起始页面 startDestination = MainNavRoute.MAIN_NAV
     NavHost(

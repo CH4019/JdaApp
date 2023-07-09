@@ -28,8 +28,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.ch4019.jdaapp.ui.screen.mainnav.personal.UserIntent
 import com.ch4019.jdaapp.ui.screen.mainnav.personal.UserState
@@ -136,13 +134,25 @@ fun UserView(
             Spacer(modifier = Modifier.height(64.dp))
             FilledTonalButton(
                 onClick = {
-                    userViewModel.refreshUserIntent(
-                        UserIntent.ChangeUserState(
-                            userName1.value,
-                            qqNumber1.value,
-                            studentNumber1.value
+                    if (qqNumber1.value.isBlank()){
+                        userViewModel.refreshUserIntent(
+                            UserIntent.ChangeUserState(
+                                userName1.value,
+                                qqNumber1.value,
+                                studentNumber1.value,
+                                false
+                            )
                         )
-                    )
+                    }else{
+                        userViewModel.refreshUserIntent(
+                            UserIntent.ChangeUserState(
+                                userName1.value,
+                                qqNumber1.value,
+                                studentNumber1.value,
+                                true
+                            )
+                        )
+                    }
                     mainNavController.popBackStack()
                 },
                 modifier = Modifier

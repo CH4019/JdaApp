@@ -21,19 +21,21 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 sealed class UserIntent {
-  data class ChangeUserState(
-      val userName: String,
-      val qqNumber: String,
-      val studentNumber: String,
-      val isLogin: Boolean
-  ) : UserIntent()
+    data class ChangeUserState(
+        val userName: String,
+        val qqNumber: String,
+        val studentNumber: String,
+        val isLogin: Boolean
+    ) : UserIntent()
 }
+
 @HiltViewModel
 class UserViewModel @Inject constructor(
     private val dataStore: DataStore<Preferences>
-):ViewModel() {
+) : ViewModel() {
     private val _userState = MutableStateFlow(UserState())
     val userState = _userState.asStateFlow()
+
     init {
         initUser()
         viewModelScope.launch {
@@ -48,13 +50,13 @@ class UserViewModel @Inject constructor(
     private suspend fun getUserQQ(): String = getValue(USER_QQ) ?: ""
     private suspend fun setUserQQ(newUserQQ: String) = setValue(USER_QQ, newUserQQ)
     private suspend fun getUserStudent(): String = getValue(USER_STUDENT) ?: ""
-    private suspend fun setUserStudent(studentNumber: String) =setValue(USER_STUDENT, studentNumber)
+    private suspend fun setUserStudent(studentNumber: String) = setValue(USER_STUDENT, studentNumber)
 
-    private suspend fun initUserState() = withContext(Dispatchers.IO){
+    private suspend fun initUserState() = withContext(Dispatchers.IO) {
         val getUserName = getUserName().ifBlank { "请绑定QQ昵称" }
         val getUserQQ = getUserQQ().ifBlank { "" }
         val getUserStudent = getUserStudent().ifBlank { "" }
-        _userState.value =  _userState.value.copy(
+        _userState.value = _userState.value.copy(
             isLogin = getIsLogin(),
             userName = getUserName,
             qqNumber = getUserQQ,
@@ -62,10 +64,10 @@ class UserViewModel @Inject constructor(
         )
     }
 
-    fun refreshUserIntent(userIntent: UserIntent){
-        when(userIntent){
+    fun refreshUserIntent(userIntent: UserIntent) {
+        when (userIntent) {
             is UserIntent.ChangeUserState ->
-                viewModelScope.launch (Dispatchers.IO){
+                viewModelScope.launch(Dispatchers.IO) {
                     setIsLogin(userIntent.isLogin)
                     setUserName(userIntent.userName)
                     setUserQQ(userIntent.qqNumber)
@@ -75,9 +77,9 @@ class UserViewModel @Inject constructor(
         }
     }
 
-    private fun initUser(){
+    private fun initUser() {
         _userState.apply {
-            value= userState.value.copy(
+            value = userState.value.copy(
                 userName = "请绑定QQ昵称",
                 qqNumber = "",
                 studentNumber = "",
@@ -85,7 +87,7 @@ class UserViewModel @Inject constructor(
         }
     }
 
-    private fun  updateUserState() {
+    private fun updateUserState() {
         viewModelScope.launch(Dispatchers.IO) {
             _userState.apply {
                 while (true) {

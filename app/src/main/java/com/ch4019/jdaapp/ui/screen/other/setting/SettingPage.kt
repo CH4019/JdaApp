@@ -33,13 +33,13 @@ import com.ch4019.jdaapp.ui.theme.JdaAppTheme
 fun SettingPage(
     mainNavController: NavHostController
 ) {
-    Scaffold (
+    Scaffold(
         topBar = {
             TopAppBar(
                 title = {
-                        Text(text = "设置")
+                    Text(text = "设置")
                 },
-                navigationIcon={
+                navigationIcon = {
                     IconButton(
                         onClick = {
                             mainNavController.popBackStack()
@@ -53,8 +53,8 @@ fun SettingPage(
                 },
             )
         }
-    ){
-        SettingView(it,mainNavController)
+    ) {
+        SettingView(it, mainNavController)
     }
 }
 
@@ -63,23 +63,37 @@ fun SettingView(
     paddingValues: PaddingValues,
     mainNavController: NavHostController
 ) {
-    val cardListSettingItems= listOf(
-        CardListItem(stringResourceId = "检查更新",imageResourceId = Icons.Outlined.UploadFile,routerPageId = MainNavRoute.ABOUT_PAGE),
-        CardListItem(stringResourceId = "语言",imageResourceId = Icons.Outlined.Language,routerPageId = MainNavRoute.ABOUT_PAGE),
-        CardListItem(stringResourceId = "问题反馈",imageResourceId = Icons.Outlined.BugReport,routerPageId = MainNavRoute.ABOUT_PAGE),
-        CardListItem(stringResourceId = "关于",imageResourceId = Icons.Outlined.AssignmentLate,routerPageId = MainNavRoute.ABOUT_PAGE),
+    val cardListSettingItems = listOf(
+        CardListItem(
+            stringResourceId = "检查更新",
+            imageResourceId = Icons.Outlined.UploadFile,
+            routerPageId = MainNavRoute.ABOUT_PAGE
+        ),
+        CardListItem(
+            stringResourceId = "语言",
+            imageResourceId = Icons.Outlined.Language,
+            routerPageId = MainNavRoute.ABOUT_PAGE
+        ),
+        CardListItem(
+            stringResourceId = "问题反馈",
+            imageResourceId = Icons.Outlined.BugReport,
+            routerPageId = MainNavRoute.ABOUT_PAGE
+        ),
+        CardListItem(
+            stringResourceId = "关于",
+            imageResourceId = Icons.Outlined.AssignmentLate,
+            routerPageId = MainNavRoute.ABOUT_PAGE
+        ),
     )
-    Column (
+    Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(paddingValues)
             .verticalScroll(rememberScrollState()),
     ) {
-        CardListView(mainNavController,cardListSettingItems)
+        CardListView(mainNavController, cardListSettingItems)
     }
 }
-
-
 
 @Preview(showBackground = true)
 @Composable

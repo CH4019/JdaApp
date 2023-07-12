@@ -20,10 +20,10 @@ fun WebComponent(
     urlState: WebViewState,
     navigator: WebViewNavigator,
 ) {
-    Column (
+    Column(
         modifier = Modifier
             .fillMaxSize()
-    ){
+    ) {
         // A custom WebViewClient and WebChromeClient can be provided via subclassing
         val webClient = remember {
             object : AccompanistWebViewClient() {

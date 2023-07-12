@@ -10,7 +10,9 @@ import com.google.accompanist.web.rememberWebViewState
 fun LIMSPage(
     mainNavController: NavHostController
 ) {
-    val urlState = rememberWebViewState("http://sso.ahjzu.edu.cn/sso/login?service=http://219.231.0.154/sjjx/index.aspx")
+    val urlState = rememberWebViewState(
+        "http://sso.ahjzu.edu.cn/sso/login?service=http://219.231.0.154/sjjx/index.aspx"
+    )
     val navigator = rememberWebViewNavigator()
     TopBarBrowseView(mainNavController, "实验系统", urlState, navigator)
 }

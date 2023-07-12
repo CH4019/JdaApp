@@ -30,7 +30,7 @@ fun BottomBar(
     val scope = rememberCoroutineScope()
     BottomAppBar {
         navigationBarItems.forEachIndexed { index, navigationBarItem ->
-            NavigationItem(index, navigationBarItem, pagerState,currentPage, scope)
+            NavigationItem(index, navigationBarItem, pagerState, currentPage, scope)
         }
     }
 }
@@ -44,18 +44,17 @@ fun RowScope.NavigationItem(
     currentPage: MutableIntState,
     scope: CoroutineScope
 ) {
-
     val selected = currentPage.intValue == index
-    //val selected = pagerState.currentPage == index
+    // val selected = pagerState.currentPage == index
     val durationMillis = 400
     val animationSpec = TweenSpec<Color>(
         durationMillis = durationMillis,
         easing = FastOutLinearInEasing
     )
     val tint by animateColorAsState(
-        targetValue = if (selected)
+        targetValue = if (selected) {
             MaterialTheme.colorScheme.primary
-        else
+        } else
             MaterialTheme.colorScheme.primary.copy(alpha = .5f),
         animationSpec = animationSpec,
         label = "tint"
@@ -64,10 +63,10 @@ fun RowScope.NavigationItem(
         alwaysShowLabel = false,
         selected = selected,
         onClick = {
-            scope.launch (scope.coroutineContext){
+            scope.launch(scope.coroutineContext) {
                 currentPage.intValue = index
-                //pagerState.scrollToPage(index)
-                //增加切换页面支持显示切换动画
+                // pagerState.scrollToPage(index)
+                // 增加切换页面支持显示切换动画
                 pagerState.animateScrollToPage(index)
             }
         },

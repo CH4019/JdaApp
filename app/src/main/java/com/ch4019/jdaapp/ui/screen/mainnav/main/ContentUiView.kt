@@ -31,11 +31,11 @@ fun ContentUiView(
         NavigationBarItem(title = "教务系统", icon = Icons.Outlined.Dns),
         NavigationBarItem(title = "我的", icon = Icons.Outlined.Person),
     )
-    val titles = listOf("信息门户","教务系统","我的")
-    val topIcon = listOf(Icons.Default.Refresh, Icons.Default.Refresh,null)
-    val topIcon1 = listOf(Icons.Default.Share, Icons.Default.Share,null)
-    val topIcon2 = listOf(Icons.Default.Send, Icons.Default.Send,null)
-    val pagerState =  rememberPagerState(0) {3}
+    val titles = listOf("信息门户", "教务系统", "我的")
+    val topIcon = listOf(Icons.Default.Refresh, Icons.Default.Refresh, null)
+    val topIcon1 = listOf(Icons.Default.Share, Icons.Default.Share, null)
+    val topIcon2 = listOf(Icons.Default.Send, Icons.Default.Send, null)
+    val pagerState = rememberPagerState(0) { 3 }
 
     val urlState1 = rememberWebViewState("https://portal.ahjzu.edu.cn/web/guest")
     val urlState2 = rememberWebViewState("https://219-231-0-156.webvpn.ahjzu.edu.cn/xtgl/login_slogin.html")
@@ -44,13 +44,13 @@ fun ContentUiView(
 
     Scaffold(
         topBar = {
-            TopBar(pagerState, titles ,urlState1,urlState2,navigator1,navigator2,topIcon,topIcon1,topIcon2)
+            TopBar(pagerState, titles, urlState1, urlState2, navigator1, navigator2, topIcon, topIcon1, topIcon2)
         },
         content = {
-            ViewPager(it, pagerState,urlState1,urlState2,navigator1,navigator2,mainNavController,userState)
+            ViewPager(it, pagerState, urlState1, urlState2, navigator1, navigator2, mainNavController, userState)
         },
         bottomBar = {
-            BottomBar(pagerState, navigationBarItems,currentPage)
+            BottomBar(pagerState, navigationBarItems, currentPage)
         }
     )
 }

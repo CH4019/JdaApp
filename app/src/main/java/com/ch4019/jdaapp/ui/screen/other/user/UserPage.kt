@@ -40,13 +40,13 @@ fun UserPage(
     userViewModel: UserViewModel,
     userState: UserState
 ) {
-    Scaffold (
+    Scaffold(
         topBar = {
             TopAppBar(
                 title = {
                     Text(text = "用户信息")
                 },
-                navigationIcon={
+                navigationIcon = {
                     IconButton(
                         onClick = {
                             mainNavController.popBackStack()
@@ -60,8 +60,8 @@ fun UserPage(
                 },
             )
         }
-    ){
-        UserView(it,mainNavController,userViewModel,userState)
+    ) {
+        UserView(it, mainNavController, userViewModel, userState)
     }
 }
 
@@ -83,7 +83,7 @@ fun UserView(
         mutableStateOf(userState.studentNumber)
     }
 
-    Column (
+    Column(
         modifier = Modifier
             .padding(paddingValues)
             .fillMaxSize()
@@ -91,11 +91,11 @@ fun UserView(
             .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Column (
+        Column(
             modifier = Modifier
                 .padding(32.dp),
             horizontalAlignment = Alignment.CenterHorizontally
-        ){
+        ) {
             OutlinedTextField(
                 value = userName1.value,
                 onValueChange = {
@@ -134,7 +134,7 @@ fun UserView(
             Spacer(modifier = Modifier.height(64.dp))
             FilledTonalButton(
                 onClick = {
-                    if (qqNumber1.value.isBlank()){
+                    if (qqNumber1.value.isBlank()) {
                         userViewModel.refreshUserIntent(
                             UserIntent.ChangeUserState(
                                 userName1.value,
@@ -143,7 +143,7 @@ fun UserView(
                                 false
                             )
                         )
-                    }else{
+                    } else {
                         userViewModel.refreshUserIntent(
                             UserIntent.ChangeUserState(
                                 userName1.value,
@@ -162,12 +162,12 @@ fun UserView(
             }
         }
         Spacer(modifier = Modifier.weight(1f))
-        Column (
+        Column(
             modifier = Modifier
                 .padding(16.dp)
                 .fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
-        ){
+        ) {
             Text(
                 text = "本页面信息用于显示头像,昵称等",
                 color = MaterialTheme.colorScheme.secondary

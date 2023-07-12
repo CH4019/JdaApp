@@ -16,14 +16,14 @@ fun HomePage(
     urlState1: WebViewState,
     navigator1: WebViewNavigator,
 ) {
-    Column (
+    Column(
         modifier = Modifier
             .fillMaxSize()
     ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-            //.verticalScroll(rememberScrollState()),
+            // .verticalScroll(rememberScrollState()),
         ) {
             val loadingState = urlState1.loadingState
             if (loadingState is LoadingState.Loading) {

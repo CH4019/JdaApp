@@ -51,18 +51,18 @@ fun StartPageView(appNavHostController: NavHostController) {
 //    val roundRectColor= LightColor.IconColor1
 //    val roundRectColor2= LightColor.IconColor2
     val logo = ImageBitmap.imageResource(R.drawable.logo)
-    LaunchedEffect(Unit){
+    LaunchedEffect(Unit) {
 //        进入调度器，子协程
         withContext(Dispatchers.IO) {
             delay(500)
-            iconVisibleShow=true
+            iconVisibleShow = true
         }
-        withContext(Dispatchers.IO){
+        withContext(Dispatchers.IO) {
             delay(750)
             contentVisibleShow = true
         }
         delay(1000)
-        appNavHostController.navigate(AppRoute.MAIN_NAV){
+        appNavHostController.navigate(AppRoute.MAIN_NAV) {
             // 弹出到图表的起始目的地
             // 避免建立大量目标
             // 在用户选择项目时的后退堆栈上
@@ -77,13 +77,13 @@ fun StartPageView(appNavHostController: NavHostController) {
         }
     }
     Scaffold {
-        Column (
+        Column(
             modifier = Modifier
                 .fillMaxSize()
                 .background(MaterialTheme.colorScheme.background),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
-        ){
+        ) {
             AnimatedVisibility(
                 visible = iconVisibleShow,
                 enter = scaleIn(),
@@ -123,7 +123,7 @@ fun StartPageView(appNavHostController: NavHostController) {
             }
             AnimatedVisibility(
                 visible = contentVisibleShow,
-                enter = expandVertically(expandFrom = Alignment.Bottom)+ fadeIn(
+                enter = expandVertically(expandFrom = Alignment.Bottom) + fadeIn(
                     initialAlpha = 0.3f
                 ),
             ) {
@@ -135,7 +135,6 @@ fun StartPageView(appNavHostController: NavHostController) {
                         style = MaterialTheme.typography.bodyLarge
                     )
                 }
-
             }
         }
     }

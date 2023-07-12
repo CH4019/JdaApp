@@ -13,24 +13,24 @@ import com.ch4019.jdaapp.R
 
 @Composable
 fun UserIcon(
-    content:String,
-    isLogin:Boolean
+    content: String,
+    isLogin: Boolean
 ) {
-    Column (
+    Column(
         modifier = Modifier
             .size(50.dp)
             .clip(shape = CircleShape)
-    ){
-        if (isLogin){
+    ) {
+        if (isLogin) {
             AsyncImage(
-                //model = "https://q1.qlogo.cn/g?b=qq&nk=$content&s=100",
+                // model = "https://q1.qlogo.cn/g?b=qq&nk=$content&s=100",
                 model = "https://api.kuizuo.cn/api/qqimg?qq=$content",
                 contentDescription = null,
                 modifier = Modifier
                     .size(50.dp),
                 contentScale = ContentScale.Crop,
             )
-        }else{
+        } else {
             AsyncImage(
                 model = R.drawable.app_icon,
                 contentDescription = null,

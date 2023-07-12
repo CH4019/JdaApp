@@ -10,7 +10,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.ch4019.jdaapp.config.MainNavRoute
-import com.ch4019.jdaapp.ui.screen.mainnav.personal.UserViewModel
+import com.ch4019.jdaapp.model.UserViewModel
 import com.ch4019.jdaapp.ui.screen.other.LIMSPage
 import com.ch4019.jdaapp.ui.screen.other.OneCardPage
 import com.ch4019.jdaapp.ui.screen.other.SportsPage
@@ -25,7 +25,8 @@ fun MainNavController() {
     val userViewModel: UserViewModel = hiltViewModel()
     // val userViewModel: UserViewModel = viewModel()
     val userState by userViewModel.userState.collectAsState()
-    // 指定起始页面 startDestination = MainNavRoute.MAIN_NAV
+    val appState by userViewModel.appState.collectAsState()
+    //指定起始页面 startDestination = MainNavRoute.MAIN_NAV
     NavHost(
         navController = mainNavController,
         startDestination = MainNavRoute.MAIN_NAV
@@ -43,7 +44,7 @@ fun MainNavController() {
         composable(
             MainNavRoute.ABOUT_PAGE
         ) {
-            AboutPage(mainNavController)
+            AboutPage(userViewModel,appState,mainNavController)
         }
         composable(
             MainNavRoute.ONE_CARD_PAGE

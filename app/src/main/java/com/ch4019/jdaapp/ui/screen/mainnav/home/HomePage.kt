@@ -23,7 +23,6 @@ fun HomePage(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-            // .verticalScroll(rememberScrollState()),
         ) {
             val loadingState = urlState1.loadingState
             if (loadingState is LoadingState.Loading) {

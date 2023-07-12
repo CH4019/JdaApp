@@ -23,9 +23,9 @@ fun MainNavController() {
     val mainNavController = rememberNavController()
     val currentPage = remember { mutableIntStateOf(0) }
     val userViewModel: UserViewModel = hiltViewModel()
-    //val userViewModel: UserViewModel = viewModel()
+    // val userViewModel: UserViewModel = viewModel()
     val userState by userViewModel.userState.collectAsState()
-    //指定起始页面 startDestination = MainNavRoute.MAIN_NAV
+    // 指定起始页面 startDestination = MainNavRoute.MAIN_NAV
     NavHost(
         navController = mainNavController,
         startDestination = MainNavRoute.MAIN_NAV
@@ -33,12 +33,12 @@ fun MainNavController() {
         composable(
             MainNavRoute.MAIN_NAV
         ) {
-            ContentUiView (mainNavController,userState,currentPage)
+            ContentUiView(mainNavController, userState, currentPage)
         }
         composable(
             MainNavRoute.SETTING_PAGE
         ) {
-            SettingPage (mainNavController)
+            SettingPage(mainNavController)
         }
         composable(
             MainNavRoute.ABOUT_PAGE
@@ -57,13 +57,13 @@ fun MainNavController() {
         }
         composable(
             MainNavRoute.LIMS_PAGE
-        ){
+        ) {
             LIMSPage(mainNavController)
         }
         composable(
             MainNavRoute.USER_PAGE
-        ){
-            UserPage(mainNavController,userViewModel,userState)
+        ) {
+            UserPage(mainNavController, userViewModel, userState)
         }
     }
 }

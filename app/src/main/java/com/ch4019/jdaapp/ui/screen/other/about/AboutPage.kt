@@ -43,13 +43,13 @@ import com.ch4019.jdaapp.R
 fun AboutPage(
     mainNavController: NavHostController
 ) {
-    Scaffold (
+    Scaffold(
         topBar = {
             TopAppBar(
                 title = {
                     Text(text = "关于")
                 },
-                navigationIcon={
+                navigationIcon = {
                     IconButton(
                         onClick = {
                             mainNavController.popBackStack()
@@ -66,7 +66,7 @@ fun AboutPage(
         bottomBar = {
             AboutBottomPromise()
         }
-    ){
+    ) {
         AboutView(it)
     }
 }
@@ -76,14 +76,14 @@ fun AboutView(
     paddingValues: PaddingValues,
 ) {
     val logo = ImageBitmap.imageResource(R.drawable.app_icon)
-    Column (
+    Column(
         modifier = Modifier
             .padding(paddingValues)
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
             .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally
-    ){
+    ) {
         Spacer(modifier = Modifier.size(32.dp))
         Image(
             bitmap = logo,
@@ -117,43 +117,40 @@ fun AboutBottomPromise() {
             color = MaterialTheme.colorScheme.inversePrimary,
             modifier = Modifier
                 .clickable {
-
                 }
-            )
+        )
         Text(text = "和")
         Text(
             text = "隐私政策",
             color = MaterialTheme.colorScheme.inversePrimary,
             modifier = Modifier
                 .clickable {
-
                 }
         )
     }
 }
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun UpDateView() {
-    Card (
+    Card(
         modifier = Modifier
             .padding(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 8.dp)
             .fillMaxWidth()
             .clip(shape = RoundedCornerShape(15.dp))
-    ){
+    ) {
         Card(
             onClick = {
             },
             modifier = Modifier
                 .fillMaxWidth()
         ) {
-            Row (
+            Row(
                 modifier = Modifier
                     .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 16.dp)
                     .fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
-            ){
+            ) {
                 Text(text = "当前版本")
                 Spacer(modifier = Modifier.weight(1f))
                 Text(text = "1.0.0")
@@ -161,6 +158,7 @@ fun UpDateView() {
         }
     }
 }
+
 @Preview(showBackground = true)
 @Composable
 fun AboutPagePreview() {

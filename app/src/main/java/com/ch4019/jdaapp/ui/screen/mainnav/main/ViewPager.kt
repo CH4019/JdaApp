@@ -30,7 +30,7 @@ fun ViewPager(
     HorizontalPager(
         state = pagerState,
         beyondBoundsPageCount = 3,
-        //关闭页面滑动(防止页面滑动冲突，暂时未解决该问题)
+        // 关闭页面滑动(防止页面滑动冲突，暂时未解决该问题)
         userScrollEnabled = false,
         modifier = Modifier
             .padding(paddingValues),
@@ -38,7 +38,7 @@ fun ViewPager(
         when (it) {
             0 -> HomePage(urlState1, navigator1)
             1 -> SecondPage(urlState2, navigator2)
-            2 -> PersonalPage(mainNavController,userState)
+            2 -> PersonalPage(mainNavController, userState)
         }
     }
 }

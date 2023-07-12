@@ -16,15 +16,15 @@ fun SecondPage(
     urlState2: WebViewState,
     navigator2: WebViewNavigator,
 ) {
-    Column (
+    Column(
         modifier = Modifier
             .fillMaxSize(),
     ) {
-        Column (
+        Column(
             modifier = Modifier
                 .fillMaxSize()
-            //.verticalScroll(rememberScrollState()),
-        ){
+            // .verticalScroll(rememberScrollState()),
+        ) {
             val loadingState = urlState2.loadingState
             if (loadingState is LoadingState.Loading) {
                 LinearProgressIndicator(

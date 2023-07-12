@@ -4,18 +4,18 @@
 
 基于jetpack compose 的建大助手App,边学习边开发中...
 
-> 由于无教务系统接口等(ps：技术太菜)前期计划实现页面使用webview包括网页，尽力学习技术来完善本项目，欢迎大家一起来参与...
+> 由于无教务系统接口等(ps：技术太菜)前期计划实现页面使用 WebView 包括网页，尽力学习技术来完善本项目，欢迎大家一起来参与...
 
 ## 项目准备：
 
 - kotlin
 
-- jetpack compose
+  - jetpack compose
 
 # 2、涉及技术点：
 
 - android compose compose工具包
-- webview 网页加载
+- WebView 网页加载
 - permission 权限
 - material/material3 组件
 
@@ -33,7 +33,7 @@
 
 - [x] 设置页面
 
-- [x] webview页面
+- [x] WebView页面
 
 - [x] 授权
 

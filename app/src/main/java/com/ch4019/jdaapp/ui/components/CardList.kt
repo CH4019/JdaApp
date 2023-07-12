@@ -24,15 +24,15 @@ import com.ch4019.jdaapp.model.CardListItem
 @Composable
 fun CardListView(
     mainNavController: NavHostController,
-    cardListItems : List<CardListItem>,
+    cardListItems: List<CardListItem>,
 ) {
-    Card (
+    Card(
         modifier = Modifier
             .padding(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 8.dp)
             .fillMaxWidth()
             .clip(shape = RoundedCornerShape(20.dp))
-    ){
-        CardListComponent(mainNavController,cardListItems)
+    ) {
+        CardListComponent(mainNavController, cardListItems)
     }
 }
 
@@ -46,7 +46,7 @@ fun CardListComponent(
         cardListItems.forEach {
             Card(
                 onClick = {
-                    mainNavController.navigate(it.routerPageId){
+                    mainNavController.navigate(it.routerPageId) {
                         // 重新选择同一项目时避免同一目标的多个副本
                         launchSingleTop = true
                         // 重新选择先前选定的项目时恢复状态
@@ -56,12 +56,12 @@ fun CardListComponent(
                 modifier = Modifier
                     .fillMaxWidth()
             ) {
-                Row (
+                Row(
                     modifier = Modifier
                         .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 16.dp)
                         .fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically
-                ){
+                ) {
                     Icon(
                         imageVector = it.imageResourceId,
                         contentDescription = null

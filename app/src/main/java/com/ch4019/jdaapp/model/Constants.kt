@@ -8,7 +8,8 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = DataStoreCont.DATA_STORE_NAME)
-object DataStoreCont{
+
+object DataStoreCont {
     const val DATA_STORE_NAME = "app"
     val IS_LOGIN = booleanPreferencesKey("isLogin")
     val USER_NAME = stringPreferencesKey("user_Name")

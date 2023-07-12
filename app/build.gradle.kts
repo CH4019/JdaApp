@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
-
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
     alias(libs.plugins.androidApplication)
@@ -79,16 +77,15 @@ dependencies {
 
     implementation("androidx.datastore:datastore-preferences:1.0.0")
     implementation("androidx.datastore:datastore-preferences-core:1.0.0")
-    //    导入Hilt依赖
+    // Hilt
     implementation("com.google.dagger:hilt-android:2.44")
     kapt("com.google.dagger:hilt-android-compiler:2.44")
-//    kapt("androidx.hilt:hilt-compiler:1.0.0")
     implementation("androidx.hilt:hilt-navigation-compose:1.1.0-alpha01")
 
     implementation(libs.androidx.compose.material.iconsExtended)
-    implementation ("com.google.accompanist:accompanist-webview:0.31.3-beta")
-    implementation ("androidx.core:core-splashscreen:1.0.1")
-    implementation ("androidx.navigation:navigation-compose:2.6.0-alpha08")
+    implementation("com.google.accompanist:accompanist-webview:0.31.3-beta")
+    implementation("androidx.core:core-splashscreen:1.0.1")
+    implementation("androidx.navigation:navigation-compose:2.6.0-alpha08")
     implementation("io.coil-kt:coil-compose:2.4.0")
-    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
 }

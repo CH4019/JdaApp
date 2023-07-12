@@ -29,13 +29,13 @@ fun TopBarBrowseView(
     urlState: WebViewState,
     navigator: WebViewNavigator
 ) {
-    Scaffold (
+    Scaffold(
         topBar = {
             TopAppBar(
                 title = {
                     Text(text = title)
                 },
-                navigationIcon={
+                navigationIcon = {
                     IconButton(
                         onClick = {
                             mainNavController.popBackStack()
@@ -49,7 +49,7 @@ fun TopBarBrowseView(
                 },
             )
         }
-    ){
+    ) {
         BrowseView(it, urlState, navigator)
     }
 }
@@ -60,7 +60,7 @@ fun BrowseView(
     urlState: WebViewState,
     navigator: WebViewNavigator
 ) {
-    Column (
+    Column(
         modifier = Modifier
             .padding(paddingValues)
             .fillMaxSize()

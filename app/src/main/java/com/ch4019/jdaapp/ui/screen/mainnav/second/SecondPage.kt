@@ -23,7 +23,6 @@ fun SecondPage(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-            // .verticalScroll(rememberScrollState()),
         ) {
             val loadingState = urlState2.loadingState
             if (loadingState is LoadingState.Loading) {

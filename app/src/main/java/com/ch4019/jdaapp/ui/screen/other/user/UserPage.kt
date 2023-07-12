@@ -29,9 +29,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.ch4019.jdaapp.ui.screen.mainnav.personal.UserIntent
+import com.ch4019.jdaapp.model.UserIntent
 import com.ch4019.jdaapp.ui.screen.mainnav.personal.UserState
-import com.ch4019.jdaapp.ui.screen.mainnav.personal.UserViewModel
+import com.ch4019.jdaapp.model.UserViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

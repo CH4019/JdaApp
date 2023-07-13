@@ -11,6 +11,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableIntState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import com.ch4019.jdaapp.model.NavigationBarItem
@@ -20,11 +21,13 @@ import kotlinx.coroutines.launch
 @Composable
 fun BottomBar(
     pagerState: PagerState,
-    navigationBarItems: List<NavigationBarItem>
+    navigationBarItems: List<NavigationBarItem>,
+    currentPage: MutableIntState
 ) {
     BottomAppBar {
+        val scope = rememberCoroutineScope()
         navigationBarItems.forEachIndexed { index, navigationBarItem ->
-            val selected = pagerState.currentPage == index
+            val selected = currentPage.intValue == index
             val tint by animateColorAsState(
                 targetValue = if (selected) {
                     MaterialTheme.colorScheme.primary
@@ -36,12 +39,13 @@ fun BottomBar(
                 ),
                 label = "tint"
             )
-            val scope = rememberCoroutineScope()
             NavigationBarItem(
                 alwaysShowLabel = false,
                 selected = selected,
                 onClick = {
                     scope.launch(scope.coroutineContext) {
+//                        使用animateScrollToPage时如果使用pagerState.currentPage则会出现选项问题
+                        currentPage.intValue = index
                         pagerState.animateScrollToPage(index)
                     }
                 },

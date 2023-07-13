@@ -11,6 +11,7 @@ import androidx.compose.material.icons.outlined.Upcoming
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableIntState
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import com.ch4019.jdaapp.model.NavigationBarItem
@@ -22,14 +23,15 @@ import com.google.accompanist.web.rememberWebViewState
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
 fun ContentUiView(
-    navController: NavHostController
+    navController: NavHostController,
+    currentPage: MutableIntState
 ) {
     val navigationBarItems = listOf(
         NavigationBarItem(title = "信息门户", icon = Icons.Outlined.Upcoming),
         NavigationBarItem(title = "教务系统", icon = Icons.Outlined.Dns),
         NavigationBarItem(title = "我的", icon = Icons.Outlined.Person),
     )
-    val pagerState = rememberPagerState() { navigationBarItems.size }
+    val pagerState = rememberPagerState { navigationBarItems.size }
 
     val webViewNavigator = rememberWebViewNavigator()
 
@@ -59,7 +61,7 @@ fun ContentUiView(
             }
         },
         bottomBar = {
-            BottomBar(pagerState, navigationBarItems)
+            BottomBar(pagerState, navigationBarItems,currentPage)
         }
     )
 }

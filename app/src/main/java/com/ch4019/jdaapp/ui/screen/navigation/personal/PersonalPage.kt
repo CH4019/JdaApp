@@ -3,9 +3,11 @@ package com.ch4019.jdaapp.ui.screen.navigation.personal
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -53,7 +55,10 @@ fun PersonalPage(
     val cardListSchoolItems = createSchoolItem()
     val cardListPersonalItems = createSettingItem()
 
-    Column {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+    ) {
         UserCard(navHostController)
         CardListView(navHostController, cardListSchoolItems)
         CardListView(navHostController, cardListPersonalItems)
@@ -127,7 +132,7 @@ private fun UserCard(
             verticalAlignment = Alignment.CenterVertically
         ) {
             UserAvatar(userState.qqNumber, userState.isLogin)
-            Spacer(modifier = Modifier.size(32.dp))
+            Spacer(modifier = Modifier.width(32.dp))
             Column {
                 Text(
                     text = "用户名:${userState.userName}",

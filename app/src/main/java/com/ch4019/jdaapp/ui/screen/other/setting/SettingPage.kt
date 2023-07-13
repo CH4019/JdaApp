@@ -36,13 +36,11 @@ fun SettingPage(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = {
-                    Text(text = "设置")
-                },
+                title = { Text("设置") },
                 navigationIcon = {
                     IconButton(
                         onClick = {
-                            mainNavController.popBackStack()
+                            mainNavController.navigateUp()
                         }
                     ) {
                         Icon(

@@ -1,6 +1,5 @@
 package com.ch4019.jdaapp.ui.screen.navigation.personal
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -19,33 +18,45 @@ import androidx.compose.material.icons.outlined.Cable
 import androidx.compose.material.icons.outlined.CreditCard
 import androidx.compose.material.icons.outlined.DesktopWindows
 import androidx.compose.material3.Card
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.State
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.ch4019.jdaapp.R
 import com.ch4019.jdaapp.config.MainNavRoute
 import com.ch4019.jdaapp.model.NavigationItem
+import com.ch4019.jdaapp.model.UserViewModel
 import com.ch4019.jdaapp.ui.components.CardListView
 
 @Composable
 fun PersonalPage(
-    mainNavController: NavHostController,
-    userState: UserState
+    navHostController: NavHostController
 ) {
     val cardListSchoolItems = createSchoolItem()
     val cardListPersonalItems = createSettingItem()
+
     Column {
-        UserCard(mainNavController, userState)
-        CardListView(mainNavController, cardListSchoolItems)
-        CardListView(mainNavController, cardListPersonalItems)
+        UserCard(navHostController)
+        CardListView(navHostController, cardListSchoolItems)
+        CardListView(navHostController, cardListPersonalItems)
     }
 }
 
@@ -85,6 +96,7 @@ private fun createSchoolItem() = listOf(
         Icons.Outlined.Cable,
         MainNavRoute.LIMS_PAGE
     ),
+    // todo 这里错了
     NavigationItem(
         "教务系统备用入口",
         Icons.Outlined.Bookmarks,
@@ -92,55 +104,62 @@ private fun createSchoolItem() = listOf(
     ),
 )
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun UserCard(
-    mainNavController: NavHostController,
-    userState: UserState
+    navController: NavHostController
 ) {
+    val userViewModel = hiltViewModel<UserViewModel>()
+    val userState by userViewModel.userState.collectAsState()
+    val lifecycleState = LocalLifecycleOwner.current.lifecycle.observeAsState()
+
     Card(
+        onClick = { navController.navigate(MainNavRoute.USER_PAGE) },
         modifier = Modifier
             .padding(horizontal = 16.dp, vertical = 8.dp)
-            .fillMaxWidth()
-            .clip(shape = RoundedCornerShape(20.dp))
-            .clickable {
-                mainNavController.navigate(MainNavRoute.USER_PAGE) {
-                    // 重新选择同一项目时避免同一目标的多个副本
-                    launchSingleTop = true
-                    // 重新选择先前选定的项目时恢复状态
-                    restoreState = true
-                }
-            },
+            .fillMaxWidth(),
+        shape = RoundedCornerShape(20.dp),
     ) {
-        Column(
+        Row(
             modifier = Modifier
-                .padding(16.dp)
-                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 8.dp)
+                .fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                UserAvatar(userState.qqNumber, userState.isLogin)
-                Spacer(modifier = Modifier.size(32.dp))
-                Column {
-                    Text(
-                        text = "用户名:${userState.userName}",
-                        style = MaterialTheme.typography.bodyLarge
-                    )
-                    Text(
-                        text = "QQ号:${userState.qqNumber}",
-                        style = MaterialTheme.typography.bodySmall
-                    )
-                }
-                Spacer(modifier = Modifier.weight(1f))
-                Icon(
-                    imageVector = Icons.Default.ArrowForwardIos,
-                    contentDescription = null
+            UserAvatar(userState.qqNumber, userState.isLogin)
+            Spacer(modifier = Modifier.size(32.dp))
+            Column {
+                Text(
+                    text = "用户名:${userState.userName}",
+                    style = MaterialTheme.typography.bodyLarge
+                )
+                Text(
+                    text = "QQ号:${userState.qqNumber}",
+                    style = MaterialTheme.typography.bodySmall
                 )
             }
+            Spacer(modifier = Modifier.weight(1f))
+            Icon(
+                imageVector = Icons.Default.ArrowForwardIos,
+                contentDescription = null,
+            )
         }
     }
+}
+
+@Composable
+fun Lifecycle.observeAsState(): State<Lifecycle.Event> {
+    val state = remember { mutableStateOf(Lifecycle.Event.ON_ANY) }
+    DisposableEffect(this) {
+        val observer = LifecycleEventObserver { _, event ->
+            state.value = event
+        }
+        this@observeAsState.addObserver(observer)
+        onDispose {
+            this@observeAsState.removeObserver(observer)
+        }
+    }
+    return state
 }
 
 @Composable

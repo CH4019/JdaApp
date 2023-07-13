@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -28,57 +29,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import coil.compose.AsyncImage
+import com.ch4019.jdaapp.R
 import com.ch4019.jdaapp.config.MainNavRoute
 import com.ch4019.jdaapp.model.CardListItem
 import com.ch4019.jdaapp.ui.components.CardListView
-import com.ch4019.jdaapp.ui.components.UserIcon
 
 @Composable
 fun PersonalPage(
     mainNavController: NavHostController,
     userState: UserState
 ) {
-    val cardListSchoolItems = listOf(
-        CardListItem(
-            "一卡通官网",
-            Icons.Outlined.CreditCard,
-            MainNavRoute.ONE_CARD_PAGE
-        ),
-        CardListItem(
-            "体育部通知",
-            Icons.Outlined.Assignment,
-            MainNavRoute.SPORTS_PAGE
-        ),
-        CardListItem(
-            "实验系统入口",
-            Icons.Outlined.Cable,
-            MainNavRoute.LIMS_PAGE
-        ),
-        CardListItem(
-            "教务系统备用入口",
-            Icons.Outlined.Bookmarks,
-            MainNavRoute.SETTING_PAGE
-        ),
-    )
-    val cardListPersonalItems = listOf(
-        CardListItem(
-            "软件官网",
-            Icons.Outlined.DesktopWindows,
-            MainNavRoute.SETTING_PAGE
-        ),
-        CardListItem(
-            "问题反馈",
-            Icons.Outlined.BugReport,
-            MainNavRoute.SETTING_PAGE
-        ),
-        CardListItem(
-            "设置",
-            Icons.Outlined.AssignmentLate,
-            MainNavRoute.SETTING_PAGE
-        ),
-    )
+    val cardListSchoolItems = createSchoolItem()
+    val cardListPersonalItems = createSettingItem()
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -91,13 +57,56 @@ fun PersonalPage(
 }
 
 @Composable
-fun UserCard(
+private fun createSettingItem() = listOf(
+    CardListItem(
+        "软件官网",
+        Icons.Outlined.DesktopWindows,
+        MainNavRoute.SETTING_PAGE
+    ),
+    CardListItem(
+        "问题反馈",
+        Icons.Outlined.BugReport,
+        MainNavRoute.SETTING_PAGE
+    ),
+    CardListItem(
+        "设置",
+        Icons.Outlined.AssignmentLate,
+        MainNavRoute.SETTING_PAGE
+    ),
+)
+
+@Composable
+private fun createSchoolItem() = listOf(
+    CardListItem(
+        "一卡通官网",
+        Icons.Outlined.CreditCard,
+        MainNavRoute.ONE_CARD_PAGE
+    ),
+    CardListItem(
+        "体育部通知",
+        Icons.Outlined.Assignment,
+        MainNavRoute.SPORTS_PAGE
+    ),
+    CardListItem(
+        "实验系统入口",
+        Icons.Outlined.Cable,
+        MainNavRoute.LIMS_PAGE
+    ),
+    CardListItem(
+        "教务系统备用入口",
+        Icons.Outlined.Bookmarks,
+        MainNavRoute.SETTING_PAGE
+    ),
+)
+
+@Composable
+private fun UserCard(
     mainNavController: NavHostController,
     userState: UserState
 ) {
     Card(
         modifier = Modifier
-            .padding(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 8.dp)
+            .padding(horizontal = 16.dp, vertical = 8.dp)
             .fillMaxWidth()
             .clip(shape = RoundedCornerShape(20.dp))
             .clickable {
@@ -119,7 +128,7 @@ fun UserCard(
                     .fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                UserIcon(userState.qqNumber, userState.isLogin)
+                UserAvatar(userState.qqNumber, userState.isLogin)
                 Spacer(modifier = Modifier.size(32.dp))
                 Column {
                     Text(
@@ -139,4 +148,28 @@ fun UserCard(
             }
         }
     }
+}
+
+@Composable
+private fun UserAvatar(
+    content: String,
+    isLogin: Boolean
+) {
+    if (isLogin) {
+        Avatar("https://api.kuizuo.cn/api/qqimg?qq=$content")
+    } else {
+        Avatar(R.drawable.app_icon)
+    }
+}
+
+@Composable
+private fun Avatar(avatar: Any) {
+    AsyncImage(
+        model = avatar,
+        contentDescription = null,
+        modifier = Modifier
+            .size(50.dp)
+            .clip(CircleShape),
+        contentScale = ContentScale.Crop,
+    )
 }

@@ -60,12 +60,12 @@ fun AboutPage(
     val context = LocalContext.current
     val packageInfo = context.packageManager.getPackageInfo(context.packageName, 0)
     val versionName = packageInfo.versionName
-    val versionCode=  getLongVersionCode(packageInfo)
+    val versionCode = getLongVersionCode(packageInfo)
     val isShow0 = remember {
         mutableStateOf(false)
     }
-    UpDataAppDialog(appState,versionName,isShow0)
-    Scaffold (
+    UpDataAppDialog(appState, versionName, isShow0)
+    Scaffold(
         topBar = {
             TopAppBar(
                 title = {
@@ -88,8 +88,8 @@ fun AboutPage(
         bottomBar = {
             AboutBottomPromise()
         }
-    ){
-        AboutView(it,userViewModel,appState,versionName,versionCode,isShow0)
+    ) {
+        AboutView(it, userViewModel, appState, versionName, versionCode, isShow0)
     }
 }
 
@@ -100,9 +100,9 @@ fun UpDataAppDialog(
     isShow0: MutableState<Boolean>
 ) {
     if (isShow0.value) {
-        Dialog(onDismissRequest = {isShow0.value=false}) {
+        Dialog(onDismissRequest = { isShow0.value = false }) {
             Card(
-                shape=RoundedCornerShape(15.dp),
+                shape = RoundedCornerShape(15.dp),
                 modifier = Modifier
                     .padding(8.dp)
                     .fillMaxWidth()
@@ -151,14 +151,14 @@ fun UpDataAppDialog(
                     Spacer(modifier = Modifier.height(8.dp))
                     Row {
                         FilledTonalButton(
-                            onClick = { isShow0.value=false},
+                            onClick = { isShow0.value = false },
                             colors = buttonColors()
                         ) {
                             Text(text = "取消")
                         }
                         Spacer(modifier = Modifier.width(16.dp))
                         FilledTonalButton(
-                            onClick = { isShow0.value=false },
+                            onClick = { isShow0.value = false },
                             colors = buttonColors()
                         ) {
                             Text(text = "确认")
@@ -199,7 +199,7 @@ fun AboutView(
             fontWeight = FontWeight.Bold
         )
         Spacer(modifier = Modifier.size(32.dp))
-        UpDateView(userViewModel,appState,versionName,versionCode,isShow0)
+        UpDateView(userViewModel, appState, versionName, versionCode, isShow0)
         Spacer(modifier = Modifier.weight(1f))
         Text(
             text = "纵然世间黑暗      仍有一点星光",
@@ -248,20 +248,20 @@ fun UpDateView(
         onClick = {
             scope.launch {
                 userViewModel.updateAppState(UserIntent.ChangeAppState(versionCode))
-                isShow0.value=appState.isUpdateApp
+                isShow0.value = appState.isUpdateApp
             }
         },
-        shape=RoundedCornerShape(15.dp),
+        shape = RoundedCornerShape(15.dp),
         modifier = Modifier
             .padding(horizontal = 16.dp, vertical = 8.dp)
             .fillMaxWidth()
     ) {
-        Row (
+        Row(
             modifier = Modifier
                 .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 16.dp)
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
-        ){
+        ) {
             Text(text = "当前版本")
             Spacer(modifier = Modifier.weight(1f))
             Text(text = versionName)

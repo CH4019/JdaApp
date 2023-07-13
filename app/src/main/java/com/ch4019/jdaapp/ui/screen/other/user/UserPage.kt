@@ -23,6 +23,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -30,8 +31,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.ch4019.jdaapp.model.UserIntent
-import com.ch4019.jdaapp.ui.screen.mainnav.personal.UserState
 import com.ch4019.jdaapp.model.UserViewModel
+import com.ch4019.jdaapp.ui.screen.navigation.personal.UserState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -43,9 +44,7 @@ fun UserPage(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = {
-                    Text(text = "用户信息")
-                },
+                title = { Text("用户信息") },
                 navigationIcon = {
                     IconButton(
                         onClick = {
@@ -67,19 +66,19 @@ fun UserPage(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun UserView(
+private fun UserView(
     paddingValues: PaddingValues,
     mainNavController: NavHostController,
     userViewModel: UserViewModel,
     userState: UserState
 ) {
-    val userName1 = remember {
+    val userName = remember {
         mutableStateOf(userState.userName)
     }
-    val qqNumber1 = remember {
+    val qqNumber = remember {
         mutableStateOf(userState.qqNumber)
     }
-    val studentNumber1 = remember {
+    val studentNumber = remember {
         mutableStateOf(userState.studentNumber)
     }
 
@@ -96,22 +95,12 @@ fun UserView(
                 .padding(32.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            OutlinedTextField(
-                value = userName1.value,
-                onValueChange = {
-                    userName1.value = it
-                },
-                modifier = Modifier
-                    .fillMaxWidth(),
-                label = {
-                    Text(text = "昵称")
-                },
-            )
+            NickName(userName)
             Spacer(modifier = Modifier.height(16.dp))
             OutlinedTextField(
-                value = qqNumber1.value,
+                value = qqNumber.value,
                 onValueChange = {
-                    qqNumber1.value = it
+                    qqNumber.value = it
                 },
                 modifier = Modifier
                     .fillMaxWidth(),
@@ -121,9 +110,9 @@ fun UserView(
             )
             Spacer(modifier = Modifier.height(16.dp))
             OutlinedTextField(
-                value = studentNumber1.value,
+                value = studentNumber.value,
                 onValueChange = {
-                    studentNumber1.value = it
+                    studentNumber.value = it
                 },
                 modifier = Modifier
                     .fillMaxWidth(),
@@ -134,21 +123,21 @@ fun UserView(
             Spacer(modifier = Modifier.height(64.dp))
             FilledTonalButton(
                 onClick = {
-                    if (qqNumber1.value.isBlank()) {
+                    if (qqNumber.value.isBlank()) {
                         userViewModel.refreshUserIntent(
                             UserIntent.ChangeUserState(
-                                userName1.value,
-                                qqNumber1.value,
-                                studentNumber1.value,
+                                userName.value,
+                                qqNumber.value,
+                                studentNumber.value,
                                 false
                             )
                         )
                     } else {
                         userViewModel.refreshUserIntent(
                             UserIntent.ChangeUserState(
-                                userName1.value,
-                                qqNumber1.value,
-                                studentNumber1.value,
+                                userName.value,
+                                qqNumber.value,
+                                studentNumber.value,
                                 true
                             )
                         )
@@ -158,7 +147,7 @@ fun UserView(
                 modifier = Modifier
                     .width(150.dp)
             ) {
-                Text(text = "确认")
+                Text("确认")
             }
         }
         Spacer(modifier = Modifier.weight(1f))
@@ -174,4 +163,21 @@ fun UserView(
             )
         }
     }
+}
+
+@Composable
+@OptIn(ExperimentalMaterial3Api::class)
+private fun NickName(userName: MutableState<String>) {
+    OutlinedTextField(
+        value = userName.value,
+        onValueChange = {
+            userName.value = it
+        },
+        modifier = Modifier
+            .fillMaxWidth(),
+        label = {
+            Text("昵称")
+        },
+        placeholder = { Text("请绑定QQ昵称") }
+    )
 }

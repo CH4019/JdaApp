@@ -1,4 +1,4 @@
-package com.ch4019.jdaapp.ui.screen.mainnav.second
+package com.ch4019.jdaapp.ui.screen.navigation.second
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize

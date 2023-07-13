@@ -1,4 +1,4 @@
-package com.ch4019.jdaapp.ui.screen.mainnav.home
+package com.ch4019.jdaapp.ui.screen.navigation.home
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,8 +13,8 @@ import com.google.accompanist.web.WebViewState
 
 @Composable
 fun HomePage(
-    urlState1: WebViewState,
-    navigator1: WebViewNavigator,
+    webState: WebViewState,
+    webViewNavigator: WebViewNavigator,
 ) {
     Column(
         modifier = Modifier
@@ -24,14 +24,14 @@ fun HomePage(
             modifier = Modifier
                 .fillMaxSize()
         ) {
-            val loadingState = urlState1.loadingState
+            val loadingState = webState.loadingState
             if (loadingState is LoadingState.Loading) {
                 LinearProgressIndicator(
                     progress = loadingState.progress,
                     modifier = Modifier.fillMaxWidth()
                 )
             }
-            WebComponent(urlState1, navigator1)
+            WebComponent(webState, webViewNavigator)
         }
     }
 }

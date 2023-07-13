@@ -1,4 +1,4 @@
-package com.ch4019.jdaapp.ui.screen.mainnav.personal
+package com.ch4019.jdaapp.ui.screen.navigation.personal
 
 data class UserState(
     val userName: String = "",

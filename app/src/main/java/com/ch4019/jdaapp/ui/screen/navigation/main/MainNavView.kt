@@ -1,4 +1,4 @@
-package com.ch4019.jdaapp.ui.screen.mainnav.main
+package com.ch4019.jdaapp.ui.screen.navigation.main
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState

@@ -12,7 +12,7 @@
     <ID>FinalNewline:Sports.kt$com.ch4019.jdaapp.ui.screen.other.Sports.kt</ID>
     <ID>FinalNewline:Theme.kt$com.ch4019.jdaapp.ui.theme.Theme.kt</ID>
     <ID>FinalNewline:Type.kt$com.ch4019.jdaapp.ui.theme.Type.kt</ID>
-    <ID>FinalNewline:UserState.kt$com.ch4019.jdaapp.ui.screen.mainnav.personal.UserState.kt</ID>
+    <ID>FinalNewline:UserState.kt$com.ch4019.jdaapp.ui.screen.navigation.personal.UserState.kt</ID>
     <ID>ForbiddenComment:build.gradle.kts$// TODO: Remove once KTIJ-19369 is fixed</ID>
     <ID>ImportOrdering:ExampleInstrumentedTest.kt$import androidx.test.platform.app.InstrumentationRegistry import androidx.test.ext.junit.runners.AndroidJUnit4 import org.junit.Test import org.junit.runner.RunWith import org.junit.Assert.*</ID>
     <ID>ImportOrdering:ExampleUnitTest.kt$import org.junit.Test import org.junit.Assert.*</ID>
@@ -67,7 +67,7 @@
     <ID>NewLineAtEndOfFile:Sports.kt$com.ch4019.jdaapp.ui.screen.other.Sports.kt</ID>
     <ID>NewLineAtEndOfFile:Theme.kt$com.ch4019.jdaapp.ui.theme.Theme.kt</ID>
     <ID>NewLineAtEndOfFile:Type.kt$com.ch4019.jdaapp.ui.theme.Type.kt</ID>
-    <ID>NewLineAtEndOfFile:UserState.kt$com.ch4019.jdaapp.ui.screen.mainnav.personal.UserState.kt</ID>
+    <ID>NewLineAtEndOfFile:UserState.kt$com.ch4019.jdaapp.ui.screen.navigation.personal.UserState.kt</ID>
     <ID>NoConsecutiveBlankLines:MainActivity.kt$ </ID>
     <ID>NoConsecutiveBlankLines:WebComponent.kt$ </ID>
     <ID>NoWildcardImports:ExampleInstrumentedTest.kt$import org.junit.Assert.*</ID>

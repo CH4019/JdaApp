@@ -1,17 +1,14 @@
-package com.ch4019.jdaapp.ui.screen.mainnav.personal
+package com.ch4019.jdaapp.ui.screen.navigation.personal
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForwardIos
 import androidx.compose.material.icons.outlined.Assignment
@@ -45,11 +42,7 @@ fun PersonalPage(
 ) {
     val cardListSchoolItems = createSchoolItem()
     val cardListPersonalItems = createSettingItem()
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState())
-    ) {
+    Column {
         UserCard(mainNavController, userState)
         CardListView(mainNavController, cardListSchoolItems)
         CardListView(mainNavController, cardListPersonalItems)

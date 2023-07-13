@@ -1,4 +1,4 @@
-package com.ch4019.jdaapp.ui.screen.mainnav.main
+package com.ch4019.jdaapp.ui.screen.navigation.main
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.pager.rememberPagerState
@@ -15,7 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableIntState
 import androidx.navigation.NavHostController
 import com.ch4019.jdaapp.model.NavigationBarItem
-import com.ch4019.jdaapp.ui.screen.mainnav.personal.UserState
+import com.ch4019.jdaapp.ui.screen.navigation.personal.UserState
 import com.google.accompanist.web.rememberWebViewNavigator
 import com.google.accompanist.web.rememberWebViewState
 

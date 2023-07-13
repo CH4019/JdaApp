@@ -8,7 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.ch4019.jdaapp.config.AppRoute
-import com.ch4019.jdaapp.ui.screen.mainnav.main.MainNavController
+import com.ch4019.jdaapp.ui.screen.navigation.main.MainNavController
 import com.ch4019.jdaapp.ui.screen.start.StartPageView
 import com.ch4019.jdaapp.ui.theme.JdaAppTheme
 import dagger.hilt.android.AndroidEntryPoint

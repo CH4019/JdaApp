@@ -4,7 +4,7 @@
     <!-- Used for loading images from the network -->
     <uses-permission android:name="android.permission.INTERNET" />
     <application
-        android:name=".model.MyApp"
+        android:name=".JdaApp"
         android:allowBackup="true"
         android:usesCleartextTraffic="true"
         android:dataExtractionRules="@xml/data_extraction_rules"

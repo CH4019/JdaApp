@@ -24,7 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.ch4019.jdaapp.config.MainNavRoute
-import com.ch4019.jdaapp.model.CardListItem
+import com.ch4019.jdaapp.model.NavigationItem
 import com.ch4019.jdaapp.ui.components.CardListView
 import com.ch4019.jdaapp.ui.theme.JdaAppTheme
 
@@ -64,22 +64,22 @@ fun SettingView(
     mainNavController: NavHostController
 ) {
     val cardListSettingItems = listOf(
-        CardListItem(
+        NavigationItem(
             title = "检查更新",
             icon = Icons.Outlined.UploadFile,
             routerId = MainNavRoute.ABOUT_PAGE
         ),
-        CardListItem(
+        NavigationItem(
             title = "语言",
             icon = Icons.Outlined.Language,
             routerId = MainNavRoute.ABOUT_PAGE
         ),
-        CardListItem(
+        NavigationItem(
             title = "问题反馈",
             icon = Icons.Outlined.BugReport,
             routerId = MainNavRoute.ABOUT_PAGE
         ),
-        CardListItem(
+        NavigationItem(
             title = "关于",
             icon = Icons.Outlined.AssignmentLate,
             routerId = MainNavRoute.ABOUT_PAGE

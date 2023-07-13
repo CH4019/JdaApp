@@ -20,12 +20,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.ch4019.jdaapp.model.CardListItem
+import com.ch4019.jdaapp.model.NavigationItem
 
 @Composable
 fun LazyCardListView(
     mainNavController: NavHostController,
-    cardListItems: List<CardListItem>,
+    navigationItems: List<NavigationItem>,
 ) {
     Card(
         modifier = Modifier
@@ -33,7 +33,7 @@ fun LazyCardListView(
             .fillMaxWidth()
             .clip(shape = RoundedCornerShape(20.dp))
     ) {
-        LazyCardListComponent(mainNavController, cardListItems)
+        LazyCardListComponent(mainNavController, navigationItems)
     }
 }
 
@@ -41,10 +41,10 @@ fun LazyCardListView(
 @Composable
 fun LazyCardListComponent(
     mainNavController: NavHostController,
-    cardListItems: List<CardListItem>,
+    navigationItems: List<NavigationItem>,
 ) {
     LazyColumn {
-        items(cardListItems) {
+        items(navigationItems) {
             Card(
                 onClick = {
                     mainNavController.navigate(it.routerId) {

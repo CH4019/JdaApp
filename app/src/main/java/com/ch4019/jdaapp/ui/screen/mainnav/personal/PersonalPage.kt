@@ -35,7 +35,7 @@ import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.ch4019.jdaapp.R
 import com.ch4019.jdaapp.config.MainNavRoute
-import com.ch4019.jdaapp.model.CardListItem
+import com.ch4019.jdaapp.model.NavigationItem
 import com.ch4019.jdaapp.ui.components.CardListView
 
 @Composable
@@ -58,17 +58,17 @@ fun PersonalPage(
 
 @Composable
 private fun createSettingItem() = listOf(
-    CardListItem(
+    NavigationItem(
         "软件官网",
         Icons.Outlined.DesktopWindows,
         MainNavRoute.SETTING_PAGE
     ),
-    CardListItem(
+    NavigationItem(
         "问题反馈",
         Icons.Outlined.BugReport,
         MainNavRoute.SETTING_PAGE
     ),
-    CardListItem(
+    NavigationItem(
         "设置",
         Icons.Outlined.AssignmentLate,
         MainNavRoute.SETTING_PAGE
@@ -77,22 +77,22 @@ private fun createSettingItem() = listOf(
 
 @Composable
 private fun createSchoolItem() = listOf(
-    CardListItem(
+    NavigationItem(
         "一卡通官网",
         Icons.Outlined.CreditCard,
         MainNavRoute.ONE_CARD_PAGE
     ),
-    CardListItem(
+    NavigationItem(
         "体育部通知",
         Icons.Outlined.Assignment,
         MainNavRoute.SPORTS_PAGE
     ),
-    CardListItem(
+    NavigationItem(
         "实验系统入口",
         Icons.Outlined.Cable,
         MainNavRoute.LIMS_PAGE
     ),
-    CardListItem(
+    NavigationItem(
         "教务系统备用入口",
         Icons.Outlined.Bookmarks,
         MainNavRoute.SETTING_PAGE

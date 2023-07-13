@@ -19,12 +19,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.ch4019.jdaapp.model.CardListItem
+import com.ch4019.jdaapp.model.NavigationItem
 
 @Composable
 fun CardListView(
     mainNavController: NavHostController,
-    cardListItems: List<CardListItem>,
+    navigationItems: List<NavigationItem>,
 ) {
     Card(
         modifier = Modifier
@@ -32,7 +32,7 @@ fun CardListView(
             .fillMaxWidth()
             .clip(shape = RoundedCornerShape(20.dp))
     ) {
-        CardListComponent(mainNavController, cardListItems)
+        CardListComponent(mainNavController, navigationItems)
     }
 }
 
@@ -40,10 +40,10 @@ fun CardListView(
 @Composable
 fun CardListComponent(
     mainNavController: NavHostController,
-    cardListItems: List<CardListItem>,
+    navigationItems: List<NavigationItem>,
 ) {
     Column {
-        cardListItems.forEach {
+        navigationItems.forEach {
             Card(
                 onClick = {
                     mainNavController.navigate(it.routerId) {

@@ -20,51 +20,35 @@ import com.ch4019.jdaapp.ui.screen.other.user.UserPage
 
 @Composable
 fun MainNavController() {
-    val mainNavController = rememberNavController()
+    val navController = rememberNavController()
     val currentPage = remember { mutableIntStateOf(0) }
     val userViewModel: UserViewModel = hiltViewModel()
-    // val userViewModel: UserViewModel = viewModel()
     val userState by userViewModel.userState.collectAsState()
     val appState by userViewModel.appState.collectAsState()
-    //指定起始页面 startDestination = MainNavRoute.MAIN_NAV
     NavHost(
-        navController = mainNavController,
+        navController = navController,
         startDestination = MainNavRoute.MAIN_NAV
     ) {
-        composable(
-            MainNavRoute.MAIN_NAV
-        ) {
-            ContentUiView(mainNavController, userState, currentPage)
+        composable(MainNavRoute.MAIN_NAV) {
+            ContentUiView(navController, userState, currentPage)
         }
-        composable(
-            MainNavRoute.SETTING_PAGE
-        ) {
-            SettingPage(mainNavController)
+        composable(MainNavRoute.SETTING_PAGE) {
+            SettingPage(navController)
         }
-        composable(
-            MainNavRoute.ABOUT_PAGE
-        ) {
-            AboutPage(userViewModel,appState,mainNavController)
+        composable(MainNavRoute.ABOUT_PAGE) {
+            AboutPage(userViewModel, appState, navController)
         }
-        composable(
-            MainNavRoute.ONE_CARD_PAGE
-        ) {
-            OneCardPage(mainNavController)
+        composable(MainNavRoute.ONE_CARD_PAGE) {
+            OneCardPage(navController)
         }
-        composable(
-            MainNavRoute.SPORTS_PAGE
-        ) {
-            SportsPage(mainNavController)
+        composable(MainNavRoute.SPORTS_PAGE) {
+            SportsPage(navController)
         }
-        composable(
-            MainNavRoute.LIMS_PAGE
-        ) {
-            LIMSPage(mainNavController)
+        composable(MainNavRoute.LIMS_PAGE) {
+            LIMSPage(navController)
         }
-        composable(
-            MainNavRoute.USER_PAGE
-        ) {
-            UserPage(mainNavController, userViewModel, userState)
+        composable(MainNavRoute.USER_PAGE) {
+            UserPage(navController)
         }
     }
 }

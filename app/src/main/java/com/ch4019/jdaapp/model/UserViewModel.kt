@@ -69,7 +69,7 @@ class UserViewModel @Inject constructor(
     }
 
     private fun initUserState() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             val userName = preferencesRepository.getUserName().ifBlank { "请绑定QQ昵称" }
             val userQQ = preferencesRepository.getUserQQ().ifBlank { "" }
             val userStudent = preferencesRepository.getUserStudent().ifBlank { "" }

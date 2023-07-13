@@ -18,7 +18,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBackIosNew
-import androidx.compose.material3.ButtonDefaults.buttonColors
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilledTonalButton
@@ -44,6 +44,7 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.core.content.pm.PackageInfoCompat.getLongVersionCode
@@ -52,6 +53,7 @@ import androidx.navigation.NavHostController
 import com.ch4019.jdaapp.R
 import com.ch4019.jdaapp.model.UserIntent
 import com.ch4019.jdaapp.model.UserViewModel
+import com.ch4019.jdaapp.ui.theme.JdaAppTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -101,7 +103,6 @@ fun UpDataAppDialog(
             Card(
                 shape = RoundedCornerShape(15.dp),
                 modifier = Modifier
-                    .padding(8.dp)
                     .fillMaxWidth()
             ) {
                 Column(
@@ -114,7 +115,9 @@ fun UpDataAppDialog(
                     Text(text = "发现新版本")
                     Spacer(modifier = Modifier.height(8.dp))
                     Row(
-                        verticalAlignment = Alignment.CenterVertically
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Center
                     ) {
                         Image(
                             painter = painterResource(R.drawable.app_icon),
@@ -133,37 +136,60 @@ fun UpDataAppDialog(
                                 fontWeight = FontWeight.Bold
                             )
                             Row {
-                                Text(
-                                    text = "2.45MB",
-                                )
-                                Text(
-                                    text = " | ",
-                                )
-                                Text(
-                                    text = "$versionName->${appState.newVersionName}",
-                                )
+                                Text(text = "2.45MB")
+                                Text(text = " | ")
+                                Text(text = "$versionName -> ${appState.newVersionName}")
                             }
                         }
                     }
-                    Spacer(modifier = Modifier.height(8.dp))
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Column(
+                        modifier = Modifier
+                            .padding(horizontal = 8.dp,vertical = 4.dp)
+                    ) {
+                        Text(text = "更新日志:")
+                        Text(text = "测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试")
+                    }
+                    Spacer(modifier = Modifier.height(4.dp))
                     Row {
                         FilledTonalButton(
-                            onClick = { isShow0.value = false },
-                            colors = buttonColors()
+                            onClick = {isShow0.value = false},
+                            colors = ButtonDefaults.outlinedButtonColors()
                         ) {
-                            Text(text = "取消")
+                            Text(
+                                text = "取消",
+                                color = MaterialTheme.colorScheme.error
+                            )
                         }
-                        Spacer(modifier = Modifier.width(16.dp))
+                        Spacer(modifier = Modifier.width(32.dp))
                         FilledTonalButton(
                             onClick = { isShow0.value = false },
-                            colors = buttonColors()
+                            colors = ButtonDefaults.outlinedButtonColors()
                         ) {
-                            Text(text = "确认")
+                            Text(
+                                text = "确认",
+                                color = MaterialTheme.colorScheme.primary
+                            )
                         }
                     }
                 }
             }
         }
+    }
+}
+@Preview(showBackground = true)
+@Composable
+fun AboutPreview() {
+    JdaAppTheme {
+        UpDataAppDialog(
+            appState = AppState(
+                isUpdateApp = false,
+                versionCode = 0,
+                newVersionName = "2.0.0"
+            ),
+            versionName = "1.0.0",
+            isShow0 = remember { mutableStateOf(true) }
+        )
     }
 }
 

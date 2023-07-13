@@ -17,12 +17,14 @@ import androidx.navigation.NavHostController
 import com.ch4019.jdaapp.model.NavigationBarItem
 import com.ch4019.jdaapp.ui.components.LoadWeb
 import com.ch4019.jdaapp.ui.screen.navigation.personal.PersonalPage
+import com.ch4019.jdaapp.ui.screen.navigation.personal.UserState
 import com.google.accompanist.web.rememberWebViewNavigator
 import com.google.accompanist.web.rememberWebViewState
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
 fun ContentUiView(
+    userState:UserState,
     navController: NavHostController,
     currentPage: MutableIntState
 ) {
@@ -56,12 +58,12 @@ fun ContentUiView(
                         webViewNavigator
                     )
 
-                    2 -> PersonalPage(navController)
+                    2 -> PersonalPage(userState, navController)
                 }
             }
         },
         bottomBar = {
-            BottomBar(pagerState, navigationBarItems,currentPage)
+            BottomBar(pagerState, navigationBarItems, currentPage)
         }
     )
 }

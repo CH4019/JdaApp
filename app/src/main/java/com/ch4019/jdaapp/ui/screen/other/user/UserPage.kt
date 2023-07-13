@@ -27,14 +27,16 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.ch4019.jdaapp.model.UserIntent
 import com.ch4019.jdaapp.model.UserViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun UserPage(navController: NavHostController) {
+fun UserPage(
+    userViewModel: UserViewModel,
+    navController: NavHostController
+) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -54,7 +56,7 @@ fun UserPage(navController: NavHostController) {
             )
         }
     ) {
-        UserView(it, navController)
+        UserView(it, userViewModel, navController)
     }
 }
 
@@ -62,8 +64,12 @@ fun UserPage(navController: NavHostController) {
 @Composable
 private fun UserView(
     paddingValues: PaddingValues,
+    userViewModel: UserViewModel,
     navController: NavHostController,
 ) {
+    var userName by remember { mutableStateOf("") }
+    var qqNumber by remember { mutableStateOf("") }
+    var studentNumber by remember { mutableStateOf("") }
     Column(
         modifier = Modifier
             .padding(paddingValues)
@@ -72,7 +78,6 @@ private fun UserView(
             .background(MaterialTheme.colorScheme.background),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        var userName by remember { mutableStateOf("") }
         OutlinedTextField(
             value = userName,
             onValueChange = { userName = it },
@@ -80,8 +85,6 @@ private fun UserView(
             label = { Text("昵称") },
             placeholder = { Text("请绑定QQ昵称") }
         )
-
-        var qqNumber by remember { mutableStateOf("") }
         OutlinedTextField(
             value = qqNumber,
             onValueChange = { qqNumber = it },
@@ -90,8 +93,6 @@ private fun UserView(
                 .padding(top = 16.dp),
             label = { Text("QQ号") },
         )
-
-        var studentNumber by remember { mutableStateOf("") }
         OutlinedTextField(
             value = studentNumber,
             onValueChange = { studentNumber = it },
@@ -100,7 +101,7 @@ private fun UserView(
                 .padding(top = 16.dp),
             label = { Text("学号") },
         )
-        ConfirmButton(qqNumber, userName, studentNumber, navController)
+        ConfirmButton(userViewModel, qqNumber, userName, studentNumber, navController)
         Spacer(modifier = Modifier.weight(1f))
         Text(
             "本页面信息用于显示头像,昵称等",
@@ -114,12 +115,12 @@ private fun UserView(
 
 @Composable
 private fun ConfirmButton(
+    userViewModel: UserViewModel,
     qqNumber: String,
     userName: String,
     studentNumber: String,
     mainNavController: NavHostController
 ) {
-    val userViewModel: UserViewModel = hiltViewModel()
     FilledTonalButton(
         onClick = {
             if (qqNumber.isBlank()) {

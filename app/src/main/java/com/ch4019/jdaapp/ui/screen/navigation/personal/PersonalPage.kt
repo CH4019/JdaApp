@@ -27,8 +27,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.State
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -37,7 +35,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.navigation.NavHostController
@@ -45,11 +42,11 @@ import coil.compose.AsyncImage
 import com.ch4019.jdaapp.R
 import com.ch4019.jdaapp.config.MainNavRoute
 import com.ch4019.jdaapp.model.NavigationItem
-import com.ch4019.jdaapp.model.UserViewModel
 import com.ch4019.jdaapp.ui.components.CardListView
 
 @Composable
 fun PersonalPage(
+    userState:UserState,
     navHostController: NavHostController
 ) {
     val cardListSchoolItems = createSchoolItem()
@@ -59,7 +56,7 @@ fun PersonalPage(
         modifier = Modifier
             .fillMaxSize()
     ) {
-        UserCard(navHostController)
+        UserCard(userState,navHostController)
         CardListView(navHostController, cardListSchoolItems)
         CardListView(navHostController, cardListPersonalItems)
     }
@@ -112,10 +109,9 @@ private fun createSchoolItem() = listOf(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun UserCard(
+    userState:UserState,
     navController: NavHostController
 ) {
-    val userViewModel = hiltViewModel<UserViewModel>()
-    val userState by userViewModel.userState.collectAsState()
     val lifecycleState = LocalLifecycleOwner.current.lifecycle.observeAsState()
 
     Card(

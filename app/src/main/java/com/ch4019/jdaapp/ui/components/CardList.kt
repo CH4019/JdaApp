@@ -40,7 +40,6 @@ private fun CardListComponent(
     navigationItems.forEach {
         Row(
             modifier = Modifier
-                .padding(16.dp)
                 .fillMaxWidth()
                 .clickable {
                     mainNavController.navigate(it.routerId) {
@@ -48,7 +47,8 @@ private fun CardListComponent(
                             inclusive = true
                         }
                     }
-                },
+                }
+                .padding(16.dp),
         ) {
             Icon(
                 imageVector = it.icon,

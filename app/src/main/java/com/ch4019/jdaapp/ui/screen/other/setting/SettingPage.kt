@@ -4,8 +4,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBackIosNew
 import androidx.compose.material.icons.outlined.AssignmentLate
@@ -39,9 +37,7 @@ fun SettingPage(
                 title = { Text("设置") },
                 navigationIcon = {
                     IconButton(
-                        onClick = {
-                            mainNavController.navigateUp()
-                        }
+                        onClick = { mainNavController.navigateUp() }
                     ) {
                         Icon(
                             imageVector = Icons.Filled.ArrowBackIosNew,
@@ -87,7 +83,6 @@ fun SettingView(
         modifier = Modifier
             .fillMaxSize()
             .padding(paddingValues)
-            .verticalScroll(rememberScrollState()),
     ) {
         CardListView(mainNavController, cardListSettingItems)
     }

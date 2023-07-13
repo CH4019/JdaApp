@@ -39,8 +39,7 @@ fun WebComponent(
         }
         WebView(
             state = urlState,
-            modifier = Modifier
-                .weight(1f),
+            modifier = Modifier.fillMaxSize(),
             navigator = navigator,
             onCreated = { webView ->
                 webView.settings.javaScriptEnabled = true
@@ -49,4 +48,3 @@ fun WebComponent(
         )
     }
 }
-

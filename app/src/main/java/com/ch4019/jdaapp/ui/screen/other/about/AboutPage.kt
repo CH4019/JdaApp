@@ -1,8 +1,8 @@
 package com.ch4019.jdaapp.ui.screen.other.about
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -14,9 +14,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBackIosNew
 import androidx.compose.material3.ButtonDefaults.buttonColors
@@ -31,32 +30,32 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.core.content.pm.PackageInfoCompat.getLongVersionCode
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.ch4019.jdaapp.R
 import com.ch4019.jdaapp.model.UserIntent
 import com.ch4019.jdaapp.model.UserViewModel
-import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AboutPage(
-    userViewModel: UserViewModel,
-    appState: AppState,
-    mainNavController: NavHostController
-) {
+fun AboutPage(mainNavController: NavHostController) {
     val context = LocalContext.current
     val packageInfo = context.packageManager.getPackageInfo(context.packageName, 0)
     val versionName = packageInfo.versionName
@@ -64,18 +63,16 @@ fun AboutPage(
     val isShow0 = remember {
         mutableStateOf(false)
     }
+    val userViewModel: UserViewModel = hiltViewModel()
+    val appState by userViewModel.appState.collectAsState()
     UpDataAppDialog(appState, versionName, isShow0)
     Scaffold(
         topBar = {
             TopAppBar(
-                title = {
-                    Text(text = "关于")
-                },
+                title = { Text("关于") },
                 navigationIcon = {
                     IconButton(
-                        onClick = {
-                            mainNavController.popBackStack()
-                        }
+                        onClick = { mainNavController.popBackStack() }
                     ) {
                         Icon(
                             imageVector = Icons.Filled.ArrowBackIosNew,
@@ -179,23 +176,21 @@ fun AboutView(
     versionCode: Long,
     isShow0: MutableState<Boolean>
 ) {
-    val logo = ImageBitmap.imageResource(R.drawable.app_icon)
     Column(
         modifier = Modifier
             .padding(paddingValues)
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
-            .verticalScroll(rememberScrollState()),
+            .background(MaterialTheme.colorScheme.background),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Spacer(modifier = Modifier.size(32.dp))
         Image(
-            bitmap = logo,
-            contentDescription = "logo"
+            bitmap = ImageBitmap.imageResource(R.drawable.app_icon),
+            contentDescription = "logo",
+            Modifier.padding(top = 32.dp)
         )
-        Spacer(modifier = Modifier.size(16.dp))
         Text(
             text = "JdaApp",
+            Modifier.padding(top = 16.dp),
             fontWeight = FontWeight.Bold
         )
         Spacer(modifier = Modifier.size(32.dp))
@@ -216,40 +211,47 @@ fun AboutBottomPromise() {
             .padding(16.dp),
         horizontalArrangement = Arrangement.Center
     ) {
-        Text(
-            text = "开源许可证",
-            color = MaterialTheme.colorScheme.inversePrimary,
-            modifier = Modifier
-                .clickable {
-                }
-        )
-        Text(text = "和")
-        Text(
-            text = "隐私政策",
-            color = MaterialTheme.colorScheme.inversePrimary,
-            modifier = Modifier
-                .clickable {
-                }
-        )
+        val annotatedString = buildAnnotatedString {
+            pushStringAnnotation(tag = "policy", annotation = "https://google.com/policy")
+            withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.inversePrimary)) {
+                append("开源许可证")
+            }
+            pop()
+
+            append("和")
+
+            pushStringAnnotation(tag = "terms", annotation = "https://google.com/terms")
+            withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.inversePrimary)) {
+                append("隐私政策")
+            }
+
+            pop()
+        }
+        ClickableText(annotatedString) { offset ->
+            annotatedString.getStringAnnotations(tag = "policy", start = offset, end = offset).firstOrNull()?.let {
+                Log.d("policy URL", it.item)
+            }
+
+            annotatedString.getStringAnnotations(tag = "terms", start = offset, end = offset).firstOrNull()?.let {
+                Log.d("terms URL", it.item)
+            }
+        }
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun UpDateView(
+private fun UpDateView(
     userViewModel: UserViewModel,
     appState: AppState,
     versionName: String,
     versionCode: Long,
     isShow0: MutableState<Boolean>
 ) {
-    val scope = rememberCoroutineScope()
     Card(
         onClick = {
-            scope.launch {
-                userViewModel.updateAppState(UserIntent.ChangeAppState(versionCode))
-                isShow0.value = appState.isUpdateApp
-            }
+            userViewModel.updateAppState(UserIntent.ChangeAppState(versionCode))
+            isShow0.value = appState.isUpdateApp
         },
         shape = RoundedCornerShape(15.dp),
         modifier = Modifier
@@ -258,13 +260,12 @@ fun UpDateView(
     ) {
         Row(
             modifier = Modifier
-                .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 16.dp)
+                .padding(16.dp)
                 .fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(text = "当前版本")
-            Spacer(modifier = Modifier.weight(1f))
-            Text(text = versionName)
+            Text("当前版本")
+            Spacer(Modifier.weight(1f))
+            Text(versionName)
         }
     }
 }

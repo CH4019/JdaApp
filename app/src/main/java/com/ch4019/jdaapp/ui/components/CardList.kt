@@ -46,7 +46,7 @@ fun CardListComponent(
         cardListItems.forEach {
             Card(
                 onClick = {
-                    mainNavController.navigate(it.routerPageId) {
+                    mainNavController.navigate(it.routerId) {
                         // 重新选择同一项目时避免同一目标的多个副本
                         launchSingleTop = true
                         // 重新选择先前选定的项目时恢复状态
@@ -63,11 +63,11 @@ fun CardListComponent(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Icon(
-                        imageVector = it.imageResourceId,
+                        imageVector = it.icon,
                         contentDescription = null
                     )
                     Spacer(modifier = Modifier.size(16.dp))
-                    Text(text = it.stringResourceId)
+                    Text(text = it.title)
                     Spacer(modifier = Modifier.weight(1f))
                     Icon(
                         imageVector = Icons.Outlined.ArrowForwardIos,

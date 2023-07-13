@@ -65,24 +65,24 @@ fun SettingView(
 ) {
     val cardListSettingItems = listOf(
         CardListItem(
-            stringResourceId = "检查更新",
-            imageResourceId = Icons.Outlined.UploadFile,
-            routerPageId = MainNavRoute.ABOUT_PAGE
+            title = "检查更新",
+            icon = Icons.Outlined.UploadFile,
+            routerId = MainNavRoute.ABOUT_PAGE
         ),
         CardListItem(
-            stringResourceId = "语言",
-            imageResourceId = Icons.Outlined.Language,
-            routerPageId = MainNavRoute.ABOUT_PAGE
+            title = "语言",
+            icon = Icons.Outlined.Language,
+            routerId = MainNavRoute.ABOUT_PAGE
         ),
         CardListItem(
-            stringResourceId = "问题反馈",
-            imageResourceId = Icons.Outlined.BugReport,
-            routerPageId = MainNavRoute.ABOUT_PAGE
+            title = "问题反馈",
+            icon = Icons.Outlined.BugReport,
+            routerId = MainNavRoute.ABOUT_PAGE
         ),
         CardListItem(
-            stringResourceId = "关于",
-            imageResourceId = Icons.Outlined.AssignmentLate,
-            routerPageId = MainNavRoute.ABOUT_PAGE
+            title = "关于",
+            icon = Icons.Outlined.AssignmentLate,
+            routerId = MainNavRoute.ABOUT_PAGE
         ),
     )
     Column(

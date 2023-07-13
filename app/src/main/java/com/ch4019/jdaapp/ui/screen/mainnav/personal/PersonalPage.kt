@@ -42,41 +42,41 @@ fun PersonalPage(
 ) {
     val cardListSchoolItems = listOf(
         CardListItem(
-            stringResourceId = "一卡通官网",
-            imageResourceId = Icons.Outlined.CreditCard,
-            routerPageId = MainNavRoute.ONE_CARD_PAGE
+            "一卡通官网",
+            Icons.Outlined.CreditCard,
+            MainNavRoute.ONE_CARD_PAGE
         ),
         CardListItem(
-            stringResourceId = "体育部通知",
-            imageResourceId = Icons.Outlined.Assignment,
-            routerPageId = MainNavRoute.SPORTS_PAGE
+            "体育部通知",
+            Icons.Outlined.Assignment,
+            MainNavRoute.SPORTS_PAGE
         ),
         CardListItem(
-            stringResourceId = "实验系统入口",
-            imageResourceId = Icons.Outlined.Cable,
-            routerPageId = MainNavRoute.LIMS_PAGE
+            "实验系统入口",
+            Icons.Outlined.Cable,
+            MainNavRoute.LIMS_PAGE
         ),
         CardListItem(
-            stringResourceId = "教务系统备用入口",
-            imageResourceId = Icons.Outlined.Bookmarks,
-            routerPageId = MainNavRoute.SETTING_PAGE
+            "教务系统备用入口",
+            Icons.Outlined.Bookmarks,
+            MainNavRoute.SETTING_PAGE
         ),
     )
     val cardListPersonalItems = listOf(
         CardListItem(
-            stringResourceId = "软件官网",
-            imageResourceId = Icons.Outlined.DesktopWindows,
-            routerPageId = MainNavRoute.SETTING_PAGE
+            "软件官网",
+            Icons.Outlined.DesktopWindows,
+            MainNavRoute.SETTING_PAGE
         ),
         CardListItem(
-            stringResourceId = "问题反馈",
-            imageResourceId = Icons.Outlined.BugReport,
-            routerPageId = MainNavRoute.SETTING_PAGE
+            "问题反馈",
+            Icons.Outlined.BugReport,
+            MainNavRoute.SETTING_PAGE
         ),
         CardListItem(
-            stringResourceId = "设置",
-            imageResourceId = Icons.Outlined.AssignmentLate,
-            routerPageId = MainNavRoute.SETTING_PAGE
+            "设置",
+            Icons.Outlined.AssignmentLate,
+            MainNavRoute.SETTING_PAGE
         ),
     )
     Column(

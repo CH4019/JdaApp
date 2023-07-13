@@ -1,0 +1,89 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues></ManuallySuppressedIssues>
+  <CurrentIssues>
+    <ID>BlockCommentInitialStarAlignment:Type.kt$/* Other default text styles to override titleLarge = TextStyle( fontFamily = FontFamily.Default, fontWeight = FontWeight.Normal, fontSize = 22.sp, lineHeight = 28.sp, letterSpacing = 0.sp ), labelSmall = TextStyle( fontFamily = FontFamily.Default, fontWeight = FontWeight.Medium, fontSize = 11.sp, lineHeight = 16.sp, letterSpacing = 0.5.sp ) */</ID>
+    <ID>CommentSpacing:MainActivity.kt$MainActivity$//指定起始页面 startDestination = AppRoute.START_SCREEN</ID>
+    <ID>CommentSpacing:MainActivity.kt$MainActivity$//设置全屏</ID>
+    <ID>FinalNewline:ExampleInstrumentedTest.kt$com.ch4019.jdaapp.ExampleInstrumentedTest.kt</ID>
+    <ID>FinalNewline:ExampleUnitTest.kt$com.ch4019.jdaapp.ExampleUnitTest.kt</ID>
+    <ID>FinalNewline:MainActivity.kt$com.ch4019.jdaapp.MainActivity.kt</ID>
+    <ID>FinalNewline:OneCard.kt$com.ch4019.jdaapp.ui.screen.other.OneCard.kt</ID>
+    <ID>FinalNewline:Sports.kt$com.ch4019.jdaapp.ui.screen.other.Sports.kt</ID>
+    <ID>FinalNewline:Theme.kt$com.ch4019.jdaapp.ui.theme.Theme.kt</ID>
+    <ID>FinalNewline:Type.kt$com.ch4019.jdaapp.ui.theme.Type.kt</ID>
+    <ID>FinalNewline:UserState.kt$com.ch4019.jdaapp.ui.screen.navigation.personal.UserState.kt</ID>
+    <ID>ForbiddenComment:build.gradle.kts$// TODO: Remove once KTIJ-19369 is fixed</ID>
+    <ID>ImportOrdering:ExampleInstrumentedTest.kt$import androidx.test.platform.app.InstrumentationRegistry import androidx.test.ext.junit.runners.AndroidJUnit4 import org.junit.Test import org.junit.runner.RunWith import org.junit.Assert.*</ID>
+    <ID>ImportOrdering:ExampleUnitTest.kt$import org.junit.Test import org.junit.Assert.*</ID>
+    <ID>LongMethod:StartPageView.kt$@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter") @OptIn(ExperimentalMaterial3Api::class) @Composable fun StartPageView(appNavHostController: NavHostController)</ID>
+    <ID>LongMethod:TopBar.kt$@OptIn(ExperimentalFoundationApi::class) @Composable fun RowScope.Actions( pagerState: PagerState, urlState1: WebViewState, urlState2: WebViewState, navigator1: WebViewNavigator, navigator2: WebViewNavigator, topIcon: List&lt;ImageVector?&gt;, topIcon1: List&lt;ImageVector?&gt;, topIcon2: List&lt;ImageVector?&gt; )</ID>
+    <ID>LongMethod:UserPage.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable fun UserView( paddingValues: PaddingValues, mainNavController: NavHostController, userViewModel: UserViewModel, userState: UserState )</ID>
+    <ID>LongParameterList:TopBar.kt$( pagerState: PagerState, titles: List&lt;String&gt;, urlState1: WebViewState, urlState2: WebViewState, navigator1: WebViewNavigator, navigator2: WebViewNavigator, topIcon: List&lt;ImageVector?&gt;, topIcon1: List&lt;ImageVector?&gt;, topIcon2: List&lt;ImageVector?&gt; )</ID>
+    <ID>LongParameterList:TopBar.kt$( pagerState: PagerState, urlState1: WebViewState, urlState2: WebViewState, navigator1: WebViewNavigator, navigator2: WebViewNavigator, topIcon: List&lt;ImageVector?&gt;, topIcon1: List&lt;ImageVector?&gt;, topIcon2: List&lt;ImageVector?&gt; )</ID>
+    <ID>LongParameterList:ViewPager.kt$( paddingValues: PaddingValues, pagerState: PagerState, urlState1: WebViewState, urlState2: WebViewState, navigator1: WebViewNavigator, navigator2: WebViewNavigator, mainNavController: NavHostController, userState: UserState )</ID>
+    <ID>MagicNumber:BottomBar.kt$400</ID>
+    <ID>MagicNumber:Color.kt$DarkColor$0xFF625b71</ID>
+    <ID>MagicNumber:Color.kt$DarkColor$0xFF6650a4</ID>
+    <ID>MagicNumber:Color.kt$DarkColor$0xFF7D5260</ID>
+    <ID>MagicNumber:Color.kt$LightColor$0xFFCCC2DC</ID>
+    <ID>MagicNumber:Color.kt$LightColor$0xFFD0BCFF</ID>
+    <ID>MagicNumber:Color.kt$LightColor$0xFFEFB8C8</ID>
+    <ID>MagicNumber:ContentUiView.kt$3</ID>
+    <ID>MagicNumber:StartPageView.kt$1000</ID>
+    <ID>MagicNumber:StartPageView.kt$500</ID>
+    <ID>MagicNumber:StartPageView.kt$750</ID>
+    <ID>MagicNumber:UserIntent.kt$UserViewModel$1000</ID>
+    <ID>ModifierMissing:AboutPage.kt$AboutBottomPromise</ID>
+    <ID>ModifierMissing:AboutPage.kt$AboutPage</ID>
+    <ID>ModifierMissing:AboutPage.kt$AboutView</ID>
+    <ID>ModifierMissing:AboutPage.kt$UpDateView</ID>
+    <ID>ModifierMissing:BottomBar.kt$NavigationItem</ID>
+    <ID>ModifierMissing:CardList.kt$CardListComponent</ID>
+    <ID>ModifierMissing:CardList.kt$CardListView</ID>
+    <ID>ModifierMissing:CoilUserIcon.kt$UserIcon</ID>
+    <ID>ModifierMissing:ContentUiView.kt$ContentUiView</ID>
+    <ID>ModifierMissing:HomePage.kt$HomePage</ID>
+    <ID>ModifierMissing:LazyCardList.kt$LazyCardListComponent</ID>
+    <ID>ModifierMissing:LazyCardList.kt$LazyCardListView</ID>
+    <ID>ModifierMissing:PersonalPage.kt$PersonalPage</ID>
+    <ID>ModifierMissing:PersonalPage.kt$UserCard</ID>
+    <ID>ModifierMissing:SecondPage.kt$SecondPage</ID>
+    <ID>ModifierMissing:SettingPage.kt$SettingPage</ID>
+    <ID>ModifierMissing:SettingPage.kt$SettingView</ID>
+    <ID>ModifierMissing:StartPageView.kt$StartPageView</ID>
+    <ID>ModifierMissing:TopBar.kt$Actions</ID>
+    <ID>ModifierMissing:TopBar.kt$TopBar</ID>
+    <ID>ModifierMissing:TopBarBrowse.kt$BrowseView</ID>
+    <ID>ModifierMissing:TopBarBrowse.kt$TopBarBrowseView</ID>
+    <ID>ModifierMissing:UserPage.kt$UserPage</ID>
+    <ID>ModifierMissing:UserPage.kt$UserView</ID>
+    <ID>ModifierMissing:ViewPager.kt$ViewPager</ID>
+    <ID>ModifierMissing:WebComponent.kt$WebComponent</ID>
+    <ID>NewLineAtEndOfFile:ExampleInstrumentedTest.kt$com.ch4019.jdaapp.ExampleInstrumentedTest.kt</ID>
+    <ID>NewLineAtEndOfFile:ExampleUnitTest.kt$com.ch4019.jdaapp.ExampleUnitTest.kt</ID>
+    <ID>NewLineAtEndOfFile:MainActivity.kt$com.ch4019.jdaapp.MainActivity.kt</ID>
+    <ID>NewLineAtEndOfFile:OneCard.kt$com.ch4019.jdaapp.ui.screen.other.OneCard.kt</ID>
+    <ID>NewLineAtEndOfFile:Sports.kt$com.ch4019.jdaapp.ui.screen.other.Sports.kt</ID>
+    <ID>NewLineAtEndOfFile:Theme.kt$com.ch4019.jdaapp.ui.theme.Theme.kt</ID>
+    <ID>NewLineAtEndOfFile:Type.kt$com.ch4019.jdaapp.ui.theme.Type.kt</ID>
+    <ID>NewLineAtEndOfFile:UserState.kt$com.ch4019.jdaapp.ui.screen.navigation.personal.UserState.kt</ID>
+    <ID>NoConsecutiveBlankLines:MainActivity.kt$ </ID>
+    <ID>NoConsecutiveBlankLines:WebComponent.kt$ </ID>
+    <ID>NoWildcardImports:ExampleInstrumentedTest.kt$import org.junit.Assert.*</ID>
+    <ID>NoWildcardImports:ExampleUnitTest.kt$import org.junit.Assert.*</ID>
+    <ID>PublicComposablePreview:AboutPage.kt$@Preview(showBackground = true) @Composable fun AboutPagePreview()</ID>
+    <ID>PublicComposablePreview:SettingPage.kt$@Preview(showBackground = true) @Composable fun SettingPagePreview()</ID>
+    <ID>PublicComposablePreview:StartPageView.kt$@Preview(showBackground = true) @Composable fun StartPreview()</ID>
+    <ID>TooManyFunctions:UserIntent.kt$UserViewModel : ViewModel</ID>
+    <ID>UnstableCollections:BottomBar.kt$List&lt;NavigationBarItem&gt;</ID>
+    <ID>UnstableCollections:CardList.kt$List&lt;CardListItem&gt;</ID>
+    <ID>UnstableCollections:LazyCardList.kt$List&lt;CardListItem&gt;</ID>
+    <ID>UnstableCollections:TopBar.kt$List&lt;ImageVector?&gt;</ID>
+    <ID>UnstableCollections:TopBar.kt$List&lt;String&gt;</ID>
+    <ID>UnusedPrivateMember:UserIntent.kt$UserViewModel$private fun updateUserState()</ID>
+    <ID>ViewModelInjection:MainNavView.kt$userViewModel</ID>
+    <ID>WildcardImport:ExampleInstrumentedTest.kt$import org.junit.Assert.*</ID>
+    <ID>WildcardImport:ExampleUnitTest.kt$import org.junit.Assert.*</ID>
+  </CurrentIssues>
+</SmellBaseline>

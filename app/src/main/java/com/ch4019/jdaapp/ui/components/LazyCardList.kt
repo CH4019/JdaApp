@@ -20,12 +20,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.ch4019.jdaapp.model.CardListItem
+import com.ch4019.jdaapp.model.NavigationItem
 
 @Composable
 fun LazyCardListView(
     mainNavController: NavHostController,
-    cardListItems: List<CardListItem>,
+    navigationItems: List<NavigationItem>,
 ) {
     Card(
         modifier = Modifier
@@ -33,7 +33,7 @@ fun LazyCardListView(
             .fillMaxWidth()
             .clip(shape = RoundedCornerShape(20.dp))
     ) {
-        LazyCardListComponent(mainNavController, cardListItems)
+        LazyCardListComponent(mainNavController, navigationItems)
     }
 }
 
@@ -41,13 +41,13 @@ fun LazyCardListView(
 @Composable
 fun LazyCardListComponent(
     mainNavController: NavHostController,
-    cardListItems: List<CardListItem>,
+    navigationItems: List<NavigationItem>,
 ) {
     LazyColumn {
-        items(cardListItems) {
+        items(navigationItems) {
             Card(
                 onClick = {
-                    mainNavController.navigate(it.routerPageId) {
+                    mainNavController.navigate(it.routerId) {
                         // 重新选择同一项目时避免同一目标的多个副本
                         launchSingleTop = true
                         // 重新选择先前选定的项目时恢复状态
@@ -64,11 +64,11 @@ fun LazyCardListComponent(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Icon(
-                        imageVector = it.imageResourceId,
+                        imageVector = it.icon,
                         contentDescription = null
                     )
                     Spacer(modifier = Modifier.size(16.dp))
-                    Text(text = it.stringResourceId)
+                    Text(text = it.title)
                     Spacer(modifier = Modifier.weight(1f))
                     Icon(
                         imageVector = Icons.Outlined.ArrowForwardIos,

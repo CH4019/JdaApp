@@ -4,7 +4,6 @@ plugins {
     alias(libs.plugins.kotlinAndroid)
     kotlin("kapt")
     id("com.google.dagger.hilt.android")
-    id("kotlin-kapt")
     kotlin("plugin.serialization") version "1.8.10"
 }
 

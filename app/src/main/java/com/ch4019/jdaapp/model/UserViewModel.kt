@@ -43,34 +43,36 @@ class UserViewModel @Inject constructor(
     fun updateAppState(userIntent: UserIntent) {
         when (userIntent) {
             is UserIntent.ChangeAppState -> {
-                val newVersionCode = 4
-                if (userIntent.versionCode < newVersionCode) {
-                    getGithubAppInfo(userIntent)
-                } else {
-                    _appState.update {
-                        it.copy(
-                            isUpdateApp = false,
-                        )
+                viewModelScope.launch(Dispatchers.IO) {
+                    val newVersionCode = _appState.value.versionCode
+                    if (userIntent.versionCode < newVersionCode) {
+//                      TODO 需要实现执行玩数据获取后才执行后续步骤
+                        getGithubAppInfo()
+                        Log.d("TAG", "UpDateView: ${appState.value.isUpdateApp}")
+                    } else {
+                        _appState.update {
+                            it.copy(
+                                isUpdateApp = false,
+                            )
+                        }
                     }
                 }
-                Log.d("TAG", "UpDateView: ${appState.value.isUpdateApp}")
             }
-
             else -> {}
         }
     }
 
-    private fun getGithubAppInfo(userIntent: UserIntent.ChangeAppState) {
+    private fun getGithubAppInfo() {
         viewModelScope.launch(Dispatchers.IO) {
             githubRepository.getRxHttp().collect { quoteList ->
+                val size = bytesToMegabytes(quoteList.assets.first().size)
                 _appState.update {
                     it.copy(
                         isUpdateApp = true,
-                        versionCode = userIntent.versionCode,
                         newVersionName = quoteList.tagName,
                         downloadUrl = quoteList.assets.first().browserDownloadUrl,
                         upDataLog = quoteList.body,
-                        downloadSize = quoteList.assets.size.toString(),
+                        downloadSize = size,
                     )
                 }
             }
@@ -88,6 +90,12 @@ class UserViewModel @Inject constructor(
                     userName = userName,
                     qqNumber = userQQ,
                     studentNumber = userStudent
+                )
+            }
+//          软件启动时获取最新版版本号
+            _appState.update {
+                it.copy(
+                    versionCode = githubRepository.getNewVersionCode().newVersionCode.toLong()
                 )
             }
         }

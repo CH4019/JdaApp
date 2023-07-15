@@ -273,6 +273,7 @@ private fun UpDateView(
 ) {
     Card(
         onClick = {
+//          需要实现先执行数据获取，再执行isShow0赋值显示
             userViewModel.updateAppState(UserIntent.ChangeAppState(versionCode))
             isShow0.value = appState.isUpdateApp
         },

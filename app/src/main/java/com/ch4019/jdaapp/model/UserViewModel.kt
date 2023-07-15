@@ -27,7 +27,7 @@ sealed class UserIntent {
 @HiltViewModel
 class UserViewModel @Inject constructor(
     private val preferencesRepository: PreferencesRepository,
-    private val rxHttpRepository: RxHttpRepository
+    private val githubRepository: RxHttpRepository
 ) : ViewModel() {
     private val _userState = MutableStateFlow(UserState())
     val userState = _userState.asStateFlow()
@@ -39,34 +39,41 @@ class UserViewModel @Inject constructor(
         initUserState()
     }
 
-//检查更新部分
+    // 检查更新部分
     fun updateAppState(userIntent: UserIntent) {
         when (userIntent) {
-            is UserIntent.ChangeAppState ->
-                viewModelScope.launch(Dispatchers.IO) {
-                    val newVersionCode = 4
-                    if (userIntent.versionCode < newVersionCode) {
-                        _appState.update {
-                            it.copy(
-                                isUpdateApp = true,
-                                versionCode = userIntent.versionCode,
-                                newVersionName = rxHttpRepository.getRxHttp().tag_name,
-                                downloadUrl = rxHttpRepository.getRxHttp().assets[0].browser_download_url,
-                                upDataLog = rxHttpRepository.getRxHttp().body,
-                                downloadSize = rxHttpRepository.getRxHttp().assets.size.toString()
-                            )
-                        }
-                    } else {
-                        _appState.update {
-                            it.copy(
-                                isUpdateApp = false,
-                            )
-                        }
+            is UserIntent.ChangeAppState -> {
+                val newVersionCode = 4
+                if (userIntent.versionCode < newVersionCode) {
+                    getGithubAppInfo(userIntent)
+                } else {
+                    _appState.update {
+                        it.copy(
+                            isUpdateApp = false,
+                        )
                     }
-                    Log.d("TAG", "UpDateView: ${appState.value.isUpdateApp}")
                 }
+                Log.d("TAG", "UpDateView: ${appState.value.isUpdateApp}")
+            }
 
             else -> {}
+        }
+    }
+
+    private fun getGithubAppInfo(userIntent: UserIntent.ChangeAppState) {
+        viewModelScope.launch(Dispatchers.IO) {
+            githubRepository.getRxHttp().collect { quoteList ->
+                _appState.update {
+                    it.copy(
+                        isUpdateApp = true,
+                        versionCode = userIntent.versionCode,
+                        newVersionName = quoteList.tagName,
+                        downloadUrl = quoteList.assets.first().browserDownloadUrl,
+                        upDataLog = quoteList.body,
+                        downloadSize = quoteList.assets.size.toString(),
+                    )
+                }
+            }
         }
     }
 

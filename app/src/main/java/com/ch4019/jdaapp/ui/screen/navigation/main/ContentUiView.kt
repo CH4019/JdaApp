@@ -24,7 +24,7 @@ import com.google.accompanist.web.rememberWebViewState
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
 fun ContentUiView(
-    userState:UserState,
+    userState: UserState,
     navController: NavHostController,
     currentPage: MutableIntState
 ) {

@@ -22,7 +22,7 @@ import com.ch4019.jdaapp.ui.screen.other.user.UserPage
 fun MainNavController() {
     val navController = rememberNavController()
 //    使用currentPage来进行pager导航，解决切换问题,在这里提升状态
-    val currentPage = remember{ mutableIntStateOf(0) }
+    val currentPage = remember { mutableIntStateOf(0) }
 //    提升状态，解决页面数据不同步
     val userViewModel: UserViewModel = hiltViewModel()
     val userState by userViewModel.userState.collectAsState()
@@ -31,7 +31,7 @@ fun MainNavController() {
         startDestination = MainNavRoute.MAIN_NAV
     ) {
         composable(MainNavRoute.MAIN_NAV) {
-            ContentUiView(userState,navController,currentPage)
+            ContentUiView(userState, navController, currentPage)
         }
         composable(MainNavRoute.SETTING_PAGE) {
             SettingPage(navController)
@@ -49,7 +49,7 @@ fun MainNavController() {
             LIMSPage(navController)
         }
         composable(MainNavRoute.USER_PAGE) {
-            UserPage(userViewModel,navController)
+            UserPage(userViewModel, navController)
         }
     }
 }

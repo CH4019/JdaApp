@@ -5,6 +5,7 @@ plugins {
     kotlin("kapt")
     id("com.google.dagger.hilt.android")
     id("kotlin-kapt")
+    kotlin("plugin.serialization") version "1.8.10"
 }
 
 android {
@@ -54,7 +55,6 @@ android {
     }
 }
 
-
 kapt {
     correctErrorTypes = true
 }
@@ -91,7 +91,11 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.4.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
 
-    implementation ("com.squareup.okhttp3:okhttp:4.11.0")
-    implementation ("com.github.liujingxing.rxhttp:rxhttp:3.1.0")
-    kapt ("com.github.liujingxing.rxhttp:rxhttp-compiler:3.1.0")
+    implementation("com.squareup.okhttp3:okhttp:4.11.0")
+    implementation("com.github.liujingxing.rxhttp:rxhttp:3.1.0")
+    implementation("com.github.liujingxing.rxhttp:converter-serialization:3.1.0")
+    kapt("com.github.liujingxing.rxhttp:rxhttp-compiler:3.1.0")
+
+    debugImplementation("com.github.leavesCZY.Monitor:monitor:1.2.1")
+    releaseImplementation("com.github.leavesCZY.Monitor:monitor-no-op:1.2.1")
 }

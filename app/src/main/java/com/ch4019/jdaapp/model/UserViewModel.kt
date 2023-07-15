@@ -27,6 +27,7 @@ sealed class UserIntent {
 @HiltViewModel
 class UserViewModel @Inject constructor(
     private val preferencesRepository: PreferencesRepository,
+    private val rxHttpRepository: RxHttpRepository
 ) : ViewModel() {
     private val _userState = MutableStateFlow(UserState())
     val userState = _userState.asStateFlow()
@@ -38,26 +39,27 @@ class UserViewModel @Inject constructor(
         initUserState()
     }
 
+//检查更新部分
     fun updateAppState(userIntent: UserIntent) {
-        val newVersionCode = 4
-        val newVersionName = "2.0.0"
         when (userIntent) {
             is UserIntent.ChangeAppState ->
                 viewModelScope.launch(Dispatchers.IO) {
+                    val newVersionCode = 4
                     if (userIntent.versionCode < newVersionCode) {
                         _appState.update {
                             it.copy(
                                 isUpdateApp = true,
                                 versionCode = userIntent.versionCode,
-                                newVersionName = newVersionName
+                                newVersionName = rxHttpRepository.getRxHttp().tag_name,
+                                downloadUrl = rxHttpRepository.getRxHttp().assets[0].browser_download_url,
+                                upDataLog = rxHttpRepository.getRxHttp().body,
+                                downloadSize = rxHttpRepository.getRxHttp().assets.size.toString()
                             )
                         }
                     } else {
                         _appState.update {
                             it.copy(
                                 isUpdateApp = false,
-                                versionCode = userIntent.versionCode,
-                                newVersionName = newVersionName
                             )
                         }
                     }

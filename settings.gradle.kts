@@ -7,6 +7,7 @@ pluginManagement {
         maven("https://repo.eclipse.org/content/groups/releases/")
         maven("https://maven.aliyun.com/nexus/content/groups/public/")
         maven("https://jitpack.io")
+
         gradlePluginPortal()
     }
 }

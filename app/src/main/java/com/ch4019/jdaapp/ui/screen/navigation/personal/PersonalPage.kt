@@ -25,18 +25,11 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleEventObserver
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.ch4019.jdaapp.R
@@ -112,7 +105,7 @@ private fun UserCard(
     userState:UserState,
     navController: NavHostController
 ) {
-    val lifecycleState = LocalLifecycleOwner.current.lifecycle.observeAsState()
+//    val lifecycleState = LocalLifecycleOwner.current.lifecycle.observeAsState()
 
     Card(
         onClick = { navController.navigate(MainNavRoute.USER_PAGE) },
@@ -148,20 +141,20 @@ private fun UserCard(
     }
 }
 
-@Composable
-fun Lifecycle.observeAsState(): State<Lifecycle.Event> {
-    val state = remember { mutableStateOf(Lifecycle.Event.ON_ANY) }
-    DisposableEffect(this) {
-        val observer = LifecycleEventObserver { _, event ->
-            state.value = event
-        }
-        this@observeAsState.addObserver(observer)
-        onDispose {
-            this@observeAsState.removeObserver(observer)
-        }
-    }
-    return state
-}
+//@Composable
+//fun Lifecycle.observeAsState(): State<Lifecycle.Event> {
+//    val state = remember { mutableStateOf(Lifecycle.Event.ON_ANY) }
+//    DisposableEffect(this) {
+//        val observer = LifecycleEventObserver { _, event ->
+//            state.value = event
+//        }
+//        this@observeAsState.addObserver(observer)
+//        onDispose {
+//            this@observeAsState.removeObserver(observer)
+//        }
+//    }
+//    return state
+//}
 
 @Composable
 private fun UserAvatar(

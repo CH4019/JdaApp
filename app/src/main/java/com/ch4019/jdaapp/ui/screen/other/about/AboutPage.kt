@@ -136,7 +136,7 @@ fun UpDataAppDialog(
                                 fontWeight = FontWeight.Bold
                             )
                             Row {
-                                Text(text = "2.45MB")
+                                Text(text = "${appState.downloadSize}MB")
                                 Text(text = " | ")
                                 Text(text = "$versionName -> ${appState.newVersionName}")
                             }
@@ -148,30 +148,24 @@ fun UpDataAppDialog(
                             .padding(horizontal = 8.dp,vertical = 4.dp)
                     ) {
                         Text(text = "更新日志:")
-                        Text(text = "测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试")
+                        Text(text = appState.upDataLog)
+                    }
+                    FilledTonalButton(
+                        onClick = {
+                            isShow0.value = false
+//                          TODO 执行下载更新操作，url为：appState.downloadUrl
+                        },
+                        colors = ButtonDefaults.elevatedButtonColors(),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 8.dp)
+                    ) {
+                        Text(
+                            text = "确认更新",
+                            color = MaterialTheme.colorScheme.primary
+                        )
                     }
                     Spacer(modifier = Modifier.height(4.dp))
-                    Row {
-                        FilledTonalButton(
-                            onClick = {isShow0.value = false},
-                            colors = ButtonDefaults.outlinedButtonColors()
-                        ) {
-                            Text(
-                                text = "取消",
-                                color = MaterialTheme.colorScheme.error
-                            )
-                        }
-                        Spacer(modifier = Modifier.width(32.dp))
-                        FilledTonalButton(
-                            onClick = { isShow0.value = false },
-                            colors = ButtonDefaults.outlinedButtonColors()
-                        ) {
-                            Text(
-                                text = "确认",
-                                color = MaterialTheme.colorScheme.primary
-                            )
-                        }
-                    }
                 }
             }
         }
@@ -185,7 +179,10 @@ fun AboutPreview() {
             appState = AppState(
                 isUpdateApp = false,
                 versionCode = 0,
-                newVersionName = "2.0.0"
+                newVersionName = "2.0.0",
+                downloadUrl = "",
+                upDataLog = "测试测试测试测试测试测试测试测试测试测试测试测试测试测试",
+                downloadSize = "2.45"
             ),
             versionName = "1.0.0",
             isShow0 = remember { mutableStateOf(true) }

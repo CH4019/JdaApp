@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlinAndroid)
     kotlin("kapt")
     id("com.google.dagger.hilt.android")
+    id("kotlin-kapt")
 }
 
 android {
@@ -53,6 +54,7 @@ android {
     }
 }
 
+
 kapt {
     correctErrorTypes = true
 }
@@ -88,4 +90,8 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.6.0-alpha08")
     implementation("io.coil-kt:coil-compose:2.4.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
+
+    implementation ("com.squareup.okhttp3:okhttp:4.11.0")
+    implementation ("com.github.liujingxing.rxhttp:rxhttp:3.1.0")
+    kapt ("com.github.liujingxing.rxhttp:rxhttp-compiler:3.1.0")
 }

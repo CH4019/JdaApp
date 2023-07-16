@@ -65,7 +65,7 @@ class UserViewModel @Inject constructor(
     private fun getGithubAppInfo() {
         viewModelScope.launch(Dispatchers.IO) {
             githubRepository.getRxHttp().collect { quoteList ->
-                val size = bytesToMegabytes(quoteList.assets.first().size)
+                val size = githubRepository.bytesToMegabytes(quoteList.assets.first().size)
                 _appState.update {
                     it.copy(
                         isUpdateApp = true,

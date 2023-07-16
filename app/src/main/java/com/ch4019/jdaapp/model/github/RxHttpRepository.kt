@@ -1,7 +1,6 @@
 package com.ch4019.jdaapp.model.github
 
 import android.util.Log
-import com.ch4019.jdaapp.model.QuoteList
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.retry

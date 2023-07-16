@@ -15,9 +15,9 @@ import androidx.compose.runtime.MutableIntState
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import com.ch4019.jdaapp.model.NavigationBarItem
+import com.ch4019.jdaapp.model.user.UserState
 import com.ch4019.jdaapp.ui.components.LoadWeb
 import com.ch4019.jdaapp.ui.screen.navigation.personal.PersonalPage
-import com.ch4019.jdaapp.ui.screen.navigation.personal.UserState
 import com.google.accompanist.web.rememberWebViewNavigator
 import com.google.accompanist.web.rememberWebViewState
 

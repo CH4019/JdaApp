@@ -28,8 +28,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.ch4019.jdaapp.model.UserIntent
-import com.ch4019.jdaapp.model.UserViewModel
+import com.ch4019.jdaapp.model.user.UserState
+import com.ch4019.jdaapp.model.user.UserViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -125,7 +125,7 @@ private fun ConfirmButton(
         onClick = {
             if (qqNumber.isBlank()) {
                 userViewModel.refreshUserIntent(
-                    UserIntent.ChangeUserState(
+                    UserState(
                         userName,
                         qqNumber,
                         studentNumber,
@@ -134,7 +134,7 @@ private fun ConfirmButton(
                 )
             } else {
                 userViewModel.refreshUserIntent(
-                    UserIntent.ChangeUserState(
+                    UserState(
                         userName,
                         qqNumber,
                         studentNumber,

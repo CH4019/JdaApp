@@ -1,4 +1,4 @@
-package com.ch4019.jdaapp.ui.screen.other.about
+package com.ch4019.jdaapp.model.github
 
 data class AppState(
     val isUpdateApp: Boolean = false,

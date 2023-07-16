@@ -1,13 +1,7 @@
-package com.ch4019.jdaapp.model
+package com.ch4019.jdaapp.model.github
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-
-@Serializable
-data class VersionCode(
-    @SerialName("newVersionCode")
-    val newVersionCode: Int = 0
-)
 
 @Serializable
 data class QuoteList(

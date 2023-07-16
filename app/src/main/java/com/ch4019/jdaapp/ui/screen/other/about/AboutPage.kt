@@ -3,11 +3,14 @@ package com.ch4019.jdaapp.ui.screen.other.about
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -47,34 +50,26 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import androidx.core.content.pm.PackageInfoCompat.getLongVersionCode
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.ch4019.jdaapp.R
-import com.ch4019.jdaapp.model.UserIntent
-import com.ch4019.jdaapp.model.UserViewModel
+import com.ch4019.jdaapp.model.github.AppState
+import com.ch4019.jdaapp.model.github.GithubViewModel
 import com.ch4019.jdaapp.ui.theme.JdaAppTheme
+import com.ch4019.jdaapp.util.getPackageInfoCompat
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AboutPage(mainNavController: NavHostController) {
-    val context = LocalContext.current
-    val packageInfo = context.packageManager.getPackageInfo(context.packageName, 0)
-    val versionName = packageInfo.versionName
-    val versionCode = getLongVersionCode(packageInfo)
-    val isShow0 = remember {
-        mutableStateOf(false)
-    }
-    val userViewModel: UserViewModel = hiltViewModel()
-    val appState by userViewModel.appState.collectAsState()
-    UpDataAppDialog(appState, versionName, isShow0)
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { Text("关于") },
                 navigationIcon = {
                     IconButton(
-                        onClick = { mainNavController.popBackStack() }
+                        onClick = { mainNavController.navigateUp() }
                     ) {
                         Icon(
                             imageVector = Icons.Filled.ArrowBackIosNew,
@@ -87,95 +82,122 @@ fun AboutPage(mainNavController: NavHostController) {
         bottomBar = {
             AboutBottomPromise()
         }
-    ) {
-        AboutView(it, userViewModel, appState, versionName, versionCode, isShow0)
+    ) { paddingValues ->
+        AboutView(modifier = Modifier.padding(paddingValues))
     }
 }
 
 @Composable
-fun UpDataAppDialog(
+private fun UpDataAppDialog(
+    showDialog: MutableState<Boolean>,
     appState: AppState,
-    versionName: String,
-    isShow0: MutableState<Boolean>
+    versionName: String
 ) {
-    if (isShow0.value) {
-        Dialog(onDismissRequest = { isShow0.value = false }) {
-            Card(
-                shape = RoundedCornerShape(15.dp),
+    DynamicHeightDialog(onDismissRequest = { showDialog.value = !showDialog.value }) {
+        Card(
+            shape = RoundedCornerShape(15.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+        ) {
+            Column(
                 modifier = Modifier
                     .fillMaxWidth()
+                    .padding(8.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
             ) {
-                Column(
+                Text(text = "发现新版本")
+                Spacer(modifier = Modifier.height(8.dp))
+                Row(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(8.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Center
                 ) {
-                    Text(text = "发现新版本")
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Row(
+                    Image(
+                        painter = painterResource(R.drawable.app_icon),
+                        contentDescription = null,
                         modifier = Modifier
-                            .fillMaxWidth(),
-                        horizontalArrangement = Arrangement.Center
-                    ) {
-                        Image(
-                            painter = painterResource(R.drawable.app_icon),
-                            contentDescription = null,
-                            modifier = Modifier
-                                .size(50.dp)
-                        )
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Column(
-                            modifier = Modifier
-                                .height(50.dp),
-                            verticalArrangement = Arrangement.Center
-                        ) {
-                            Text(
-                                text = "JdaApp",
-                                fontWeight = FontWeight.Bold
-                            )
-                            Row {
-                                Text(text = "${appState.downloadSize}MB")
-                                Text(text = " | ")
-                                Text(text = "$versionName -> ${appState.newVersionName}")
-                            }
-                        }
-                    }
-                    Spacer(modifier = Modifier.height(4.dp))
+                            .size(50.dp)
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
                     Column(
                         modifier = Modifier
-                            .padding(horizontal = 8.dp,vertical = 4.dp)
-                    ) {
-                        Text(text = "更新日志:")
-                        Text(text = appState.upDataLog)
-                    }
-                    FilledTonalButton(
-                        onClick = {
-                            isShow0.value = false
-//                          TODO 执行下载更新操作，url为：appState.downloadUrl
-                        },
-                        colors = ButtonDefaults.elevatedButtonColors(),
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 8.dp)
+                            .height(50.dp),
+                        verticalArrangement = Arrangement.Center
                     ) {
                         Text(
-                            text = "确认更新",
-                            color = MaterialTheme.colorScheme.primary
+                            text = "JdaApp",
+                            fontWeight = FontWeight.Bold
                         )
+                        Row {
+                            Text(text = "${appState.downloadSize}MB")
+                            Text(text = " | ")
+                            Text(text = "$versionName -> ${appState.newVersionName}")
+                        }
                     }
-                    Spacer(modifier = Modifier.height(4.dp))
                 }
+                Spacer(modifier = Modifier.height(4.dp))
+                Column(
+                    modifier = Modifier
+                        .padding(horizontal = 8.dp, vertical = 4.dp)
+                ) {
+                    Text(text = "更新日志:")
+                    Text(text = appState.upDataLog)
+                }
+                FilledTonalButton(
+                    onClick = {
+                        // TODO 执行下载更新操作，url为：appState.downloadUrl
+                        showDialog.value = !showDialog.value
+                    },
+                    colors = ButtonDefaults.elevatedButtonColors(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 8.dp)
+                ) {
+                    Text(
+                        text = "确认更新",
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                }
+                Spacer(modifier = Modifier.height(4.dp))
             }
         }
     }
 }
+
+@Composable
+fun DynamicHeightDialog(
+    onDismissRequest: () -> Unit,
+    properties: DialogProperties = DialogProperties(),
+    content: @Composable () -> Unit,
+) {
+    Dialog(
+        onDismissRequest = onDismissRequest,
+        properties = properties,
+    ) {
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier
+                .fillMaxHeight()
+                .clickable(
+                    interactionSource = remember { MutableInteractionSource() },
+                    indication = null,
+                    onClick = onDismissRequest,
+                )
+        ) {
+            content()
+        }
+    }
+}
+
 @Preview(showBackground = true)
 @Composable
 fun AboutPreview() {
     JdaAppTheme {
         UpDataAppDialog(
+            showDialog = remember {
+                mutableStateOf(true)
+            },
             appState = AppState(
                 isUpdateApp = false,
                 versionCode = 0,
@@ -184,24 +206,17 @@ fun AboutPreview() {
                 upDataLog = "测试测试测试测试测试测试测试测试测试测试测试测试测试测试",
                 downloadSize = "2.45"
             ),
-            versionName = "1.0.0",
-            isShow0 = remember { mutableStateOf(true) }
+            versionName = "1.0.0"
         )
     }
 }
 
 @Composable
-fun AboutView(
-    paddingValues: PaddingValues,
-    userViewModel: UserViewModel,
-    appState: AppState,
-    versionName: String,
-    versionCode: Long,
-    isShow0: MutableState<Boolean>
+private fun AboutView(
+    modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier = Modifier
-            .padding(paddingValues)
+        modifier = modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -213,11 +228,10 @@ fun AboutView(
         )
         Text(
             text = "JdaApp",
-            Modifier.padding(top = 16.dp),
+            Modifier.padding(top = 16.dp, bottom = 32.dp),
             fontWeight = FontWeight.Bold
         )
-        Spacer(modifier = Modifier.size(32.dp))
-        UpDateView(userViewModel, appState, versionName, versionCode, isShow0)
+        CurrentVersion()
         Spacer(modifier = Modifier.weight(1f))
         Text(
             text = "纵然世间黑暗      仍有一点星光",
@@ -227,7 +241,7 @@ fun AboutView(
 }
 
 @Composable
-fun AboutBottomPromise() {
+private fun AboutBottomPromise() {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -264,18 +278,20 @@ fun AboutBottomPromise() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun UpDateView(
-    userViewModel: UserViewModel,
-    appState: AppState,
-    versionName: String,
-    versionCode: Long,
-    isShow0: MutableState<Boolean>
-) {
+private fun CurrentVersion() {
+    val context = LocalContext.current
+    val packageInfo = context.packageManager.getPackageInfoCompat(context.packageName, 0)
+    val versionName = packageInfo.versionName
+    val versionCode = getLongVersionCode(packageInfo)
+    val githubViewModel: GithubViewModel = hiltViewModel()
+    val appState by githubViewModel.appState.collectAsState()
+    val showDialog = remember { mutableStateOf(false) }
+
     Card(
         onClick = {
 //          需要实现先执行数据获取，再执行isShow0赋值显示
-            userViewModel.updateAppState(UserIntent.ChangeAppState(versionCode))
-            isShow0.value = appState.isUpdateApp
+            githubViewModel.updateAppState(AppState(versionCode = versionCode))
+            showDialog.value = !showDialog.value
         },
         shape = RoundedCornerShape(15.dp),
         modifier = Modifier
@@ -291,5 +307,8 @@ private fun UpDateView(
             Spacer(Modifier.weight(1f))
             Text(versionName)
         }
+    }
+    if (showDialog.value) {
+        UpDataAppDialog(showDialog, appState = appState, versionName = versionName)
     }
 }

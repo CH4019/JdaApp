@@ -1,15 +1,13 @@
 package com.ch4019.jdaapp.model
 
 import android.util.Log
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.retry
 import rxhttp.toFlow
 import rxhttp.wrapper.coroutines.CallFlow
 import rxhttp.wrapper.param.RxHttp
-import java.text.DecimalFormat
 import javax.inject.Inject
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.retry
-
 
 // 从指定api获取json数据并转为kotlin,传递给viewModel的检查更新部分
 class RxHttpRepository @Inject constructor() {

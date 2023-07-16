@@ -1,6 +1,7 @@
-package com.ch4019.jdaapp.model
+package com.ch4019.jdaapp.model.github
 
 import android.util.Log
+import com.ch4019.jdaapp.model.QuoteList
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.retry
@@ -25,12 +26,4 @@ class RxHttpRepository @Inject constructor() {
         return RxHttp.get("https://api.github.com/repos/CH4019/xinximenhu/releases/latest")
             .toFlow()
     }
-}
-
-// 文件大小格式转换
-fun bytesToMegabytes(bytes: Int): String {
-    val megabyte:Double = (1024 * 1024).toDouble()
-    val megabytes = bytes.toDouble() / megabyte
-    val formatter = DecimalFormat("#0.00")
-    return formatter.format(megabytes)
 }

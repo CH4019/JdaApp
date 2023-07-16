@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -128,7 +129,7 @@ fun StartPageView(appNavHostController: NavHostController) {
                 ),
             ) {
                 Column {
-                    Spacer(modifier = Modifier.size(8.dp))
+                    Spacer(modifier = Modifier.height(8.dp))
                     Text(
                         text = "Jda助手",
                         fontWeight = FontWeight.Bold,

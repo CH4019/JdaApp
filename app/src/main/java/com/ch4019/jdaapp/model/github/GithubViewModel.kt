@@ -27,8 +27,8 @@ class GithubViewModel @Inject constructor(private val githubRepository: RxHttpRe
     private fun initAppState() {
         viewModelScope.launch(Dispatchers.IO) {
             _appState.update {
-//                it.copy(versionCode = githubRepository.getNewVersionCode().newVersionCode)
-                it.copy(versionCode = 100)
+                it.copy(versionCode = githubRepository.getNewVersionCode().newVersionCode)
+//                it.copy(versionCode = 100)
             }
         }
     }
@@ -36,32 +36,31 @@ class GithubViewModel @Inject constructor(private val githubRepository: RxHttpRe
     /**
      *检查更新
      * */
-    fun updateAppState(app: AppState) {
-        val newVersionCode = 4
-        if (app.versionCode < newVersionCode) {
-            getGithubAppInfo(app)
+    fun updateAppState(nowVersionCode: Long) {
+        if (appState.value.versionCode > nowVersionCode) {
+            getGithubAppInfo()
         } else {
             _appState.update { it.copy(isUpdateApp = false) }
         }
         Log.d("TAG", "UpDateView: ${appState.value.isUpdateApp}")
     }
 
-    private fun getGithubAppInfo(app: AppState) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val newVersionCode = _appState.value.versionCode
-            if (app.versionCode < newVersionCode) {
-//                      TODO 需要实现执行玩数据获取后才执行后续步骤
-                getGithubAppInfo()
-                Log.d("TAG", "UpDateView: ${appState.value.isUpdateApp}")
-            } else {
-                _appState.update {
-                    it.copy(
-                        isUpdateApp = false,
-                    )
-                }
-            }
-        }
-    }
+//    private fun getGithubAppInfo(app: AppState) {
+//        viewModelScope.launch(Dispatchers.IO) {
+//            val newVersionCode = _appState.value.versionCode
+//            if (app.versionCode < newVersionCode) {
+////                      TODO 需要实现执行玩数据获取后才执行后续步骤
+//                getGithubAppInfo()
+//                Log.d("TAG", "UpDateView: ${appState.value.isUpdateApp}")
+//            } else {
+//                _appState.update {
+//                    it.copy(
+//                        isUpdateApp = false,
+//                    )
+//                }
+//            }
+//        }
+//    }
 
     private fun getGithubAppInfo() {
         viewModelScope.launch(Dispatchers.IO) {

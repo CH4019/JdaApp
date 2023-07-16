@@ -1,6 +1,7 @@
 package com.ch4019.jdaapp.ui.screen.other.about
 
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -17,8 +18,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBackIosNew
 import androidx.compose.material3.ButtonDefaults
@@ -32,6 +35,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -140,6 +144,8 @@ private fun UpDataAppDialog(
                 Column(
                     modifier = Modifier
                         .padding(horizontal = 8.dp, vertical = 4.dp)
+                        .fillMaxHeight(0.25f)
+                        .verticalScroll(rememberScrollState())
                 ) {
                     Text(text = "更新日志:")
                     Text(text = appState.upDataLog)
@@ -286,12 +292,51 @@ private fun CurrentVersion() {
     val githubViewModel: GithubViewModel = hiltViewModel()
     val appState by githubViewModel.appState.collectAsState()
     val showDialog = remember { mutableStateOf(false) }
+    val showToast = remember { mutableStateOf(false) }
+    val count = remember { mutableStateOf(false) }
 
+//    TODO 这里需要对逻辑进行处理
+//    监听是否有新版本更新
+//    当前问题：
+//      有更新后取消更新后并不能再次显示弹窗(无法再次触发更新弹窗)
+//      如果没有更新无法判断(没有返回无更新的值，因为appState.isUpdateApp默认为false)
+//      接口有每小时60次访问限制，还需有无网络时提示
+//     解决方案一：
+//        获取githubViewModel.updateAppState(versionCode)是否执行完成，当执行完后可以
+//        通过appState.isUpdateApp判断是否有无更新
+
+//    当前解决方案：对appState.isUpdateApp进行监听，并使用count来排除初始情况
+//    出现无版本更新时无提示出现
+    LaunchedEffect(appState.isUpdateApp){
+//        此协程当无更新时只执行一次，导致无法出现toast提示
+        if (appState.isUpdateApp){
+//            若有更新则点击出现弹窗，取消后点击仍需可点击显示
+            showDialog.value = true
+            showToast.value = false
+        }else {
+//            若无更新，则出现提示无版本更新
+            Log.d("count", count.value.toString())
+            if (!count.value){
+                count.value = true
+            }else if (count.value){
+                showToast.value = true
+            }
+            Log.d("showToast", showToast.value.toString())
+        }
+    }
     Card(
         onClick = {
 //          需要实现先执行数据获取，再执行isShow0赋值显示
-            githubViewModel.updateAppState(AppState(versionCode = versionCode))
-            showDialog.value = !showDialog.value
+            githubViewModel.updateAppState(versionCode)
+//          需要确定上面事件执行完后再执行下面操作
+            showDialog.value = appState.isUpdateApp
+            if (showToast.value){
+                Toast.makeText(
+                    context,
+                    "无新版本可用",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         },
         shape = RoundedCornerShape(15.dp),
         modifier = Modifier

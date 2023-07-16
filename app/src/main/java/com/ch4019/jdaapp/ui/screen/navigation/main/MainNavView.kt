@@ -10,7 +10,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.ch4019.jdaapp.config.MainNavRoute
-import com.ch4019.jdaapp.model.UserViewModel
+import com.ch4019.jdaapp.model.user.UserViewModel
 import com.ch4019.jdaapp.ui.screen.other.LIMSPage
 import com.ch4019.jdaapp.ui.screen.other.OneCardPage
 import com.ch4019.jdaapp.ui.screen.other.SportsPage

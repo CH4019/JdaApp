@@ -35,11 +35,12 @@ import coil.compose.AsyncImage
 import com.ch4019.jdaapp.R
 import com.ch4019.jdaapp.config.MainNavRoute
 import com.ch4019.jdaapp.model.NavigationItem
+import com.ch4019.jdaapp.model.user.UserState
 import com.ch4019.jdaapp.ui.components.CardListView
 
 @Composable
 fun PersonalPage(
-    userState:UserState,
+    userState: UserState,
     navHostController: NavHostController
 ) {
     val cardListSchoolItems = createSchoolItem()
@@ -49,7 +50,7 @@ fun PersonalPage(
         modifier = Modifier
             .fillMaxSize()
     ) {
-        UserCard(userState,navHostController)
+        UserCard(userState, navHostController)
         CardListView(navHostController, cardListSchoolItems)
         CardListView(navHostController, cardListPersonalItems)
     }
@@ -102,11 +103,9 @@ private fun createSchoolItem() = listOf(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun UserCard(
-    userState:UserState,
+    userState: UserState,
     navController: NavHostController
 ) {
-//    val lifecycleState = LocalLifecycleOwner.current.lifecycle.observeAsState()
-
     Card(
         onClick = { navController.navigate(MainNavRoute.USER_PAGE) },
         modifier = Modifier
@@ -140,21 +139,6 @@ private fun UserCard(
         }
     }
 }
-
-//@Composable
-//fun Lifecycle.observeAsState(): State<Lifecycle.Event> {
-//    val state = remember { mutableStateOf(Lifecycle.Event.ON_ANY) }
-//    DisposableEffect(this) {
-//        val observer = LifecycleEventObserver { _, event ->
-//            state.value = event
-//        }
-//        this@observeAsState.addObserver(observer)
-//        onDispose {
-//            this@observeAsState.removeObserver(observer)
-//        }
-//    }
-//    return state
-//}
 
 @Composable
 private fun UserAvatar(

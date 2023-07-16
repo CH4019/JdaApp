@@ -1,13 +1,14 @@
-package com.ch4019.jdaapp.model
+package com.ch4019.jdaapp.model.user
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
+import com.ch4019.jdaapp.model.DataStoreCont
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class PreferencesRepository @Inject constructor(
+class UserRepository @Inject constructor(
     private val dataStore: DataStore<Preferences>
 ) {
     suspend fun getIsLogin() = getValue(DataStoreCont.IS_LOGIN) ?: false

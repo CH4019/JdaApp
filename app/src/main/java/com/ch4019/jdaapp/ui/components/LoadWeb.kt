@@ -11,8 +11,8 @@ import com.google.accompanist.web.WebViewNavigator
 import com.google.accompanist.web.WebViewState
 
 @Composable
-fun LoadWeb(urlState: WebViewState, navigator: WebViewNavigator) {
-    Column(modifier = Modifier.fillMaxSize()) {
+fun LoadWeb(urlState: WebViewState, navigator: WebViewNavigator, modifier: Modifier = Modifier) {
+    Column(modifier = modifier.fillMaxSize()) {
         val loadingState = urlState.loadingState
         if (loadingState is LoadingState.Loading) {
             LinearProgressIndicator(

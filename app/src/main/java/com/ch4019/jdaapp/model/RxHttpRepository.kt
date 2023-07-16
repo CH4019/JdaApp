@@ -10,9 +10,6 @@ import javax.inject.Inject
 // 从指定api获取json数据并转为kotlin,传递给viewModel的检查更新部分
 class RxHttpRepository @Inject constructor() {
 
-//    private val baseUrl="https://mock.apifox.cn/m1/3019870-0-default/start/list"
-//    private val baseUrl1="https://jdaassistant.ch4019.fun/newApp.json"
-//    private val githubUrl="https://api.github.com/repos/CH4019/xinximenhu/releases/latest"
 
     suspend fun getNewVersionCode(): VersionCode{
         return RxHttp.get("https://jdaassistant.ch4019.fun/newApp.json")

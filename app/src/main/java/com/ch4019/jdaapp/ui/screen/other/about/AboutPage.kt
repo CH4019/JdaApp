@@ -35,12 +35,12 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ImageBitmap
@@ -51,7 +51,6 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
@@ -61,8 +60,10 @@ import androidx.navigation.NavHostController
 import com.ch4019.jdaapp.R
 import com.ch4019.jdaapp.model.github.AppState
 import com.ch4019.jdaapp.model.github.GithubViewModel
-import com.ch4019.jdaapp.ui.theme.JdaAppTheme
+import com.ch4019.jdaapp.model.github.IsUpdateApp
 import com.ch4019.jdaapp.util.getPackageInfoCompat
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -196,27 +197,6 @@ fun DynamicHeightDialog(
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun AboutPreview() {
-    JdaAppTheme {
-        UpDataAppDialog(
-            showDialog = remember {
-                mutableStateOf(true)
-            },
-            appState = AppState(
-                isUpdateApp = false,
-                versionCode = 0,
-                newVersionName = "2.0.0",
-                downloadUrl = "",
-                upDataLog = "测试测试测试测试测试测试测试测试测试测试测试测试测试测试",
-                downloadSize = "2.45"
-            ),
-            versionName = "1.0.0"
-        )
-    }
-}
-
 @Composable
 private fun AboutView(
     modifier: Modifier = Modifier,
@@ -292,51 +272,32 @@ private fun CurrentVersion() {
     val githubViewModel: GithubViewModel = hiltViewModel()
     val appState by githubViewModel.appState.collectAsState()
     val showDialog = remember { mutableStateOf(false) }
-    val showToast = remember { mutableStateOf(false) }
-    val count = remember { mutableStateOf(false) }
-
+    val scope = rememberCoroutineScope()
 //    TODO 这里需要对逻辑进行处理
 //    监听是否有新版本更新
 //    当前问题：
-//      有更新后取消更新后并不能再次显示弹窗(无法再次触发更新弹窗)
-//      如果没有更新无法判断(没有返回无更新的值，因为appState.isUpdateApp默认为false)
-//      接口有每小时60次访问限制，还需有无网络时提示
-//     解决方案一：
-//        获取githubViewModel.updateAppState(versionCode)是否执行完成，当执行完后可以
-//        通过appState.isUpdateApp判断是否有无更新
-
-//    当前解决方案：对appState.isUpdateApp进行监听，并使用count来排除初始情况
-//    出现无版本更新时无提示出现
-    LaunchedEffect(appState.isUpdateApp){
-//        此协程当无更新时只执行一次，导致无法出现toast提示
-        if (appState.isUpdateApp){
-//            若有更新则点击出现弹窗，取消后点击仍需可点击显示
-            showDialog.value = true
-            showToast.value = false
-        }else {
-//            若无更新，则出现提示无版本更新
-            Log.d("count", count.value.toString())
-            if (!count.value){
-                count.value = true
-            }else if (count.value){
-                showToast.value = true
-            }
-            Log.d("showToast", showToast.value.toString())
-        }
-    }
+//      点击俩次按钮才会出现弹窗(猜测问题出现在viewModel中的RxHttp中的协程的异步的问题,viewModel执行完但是RxHttp没有执行完)
+//      接口有每小时60次访问限制，还需有无网络时提示(注意无网络时会闪退)
     Card(
         onClick = {
 //          需要实现先执行数据获取，再执行isShow0赋值显示
-            githubViewModel.updateAppState(versionCode)
-//          需要确定上面事件执行完后再执行下面操作
-            showDialog.value = appState.isUpdateApp
-            if (showToast.value){
-                Toast.makeText(
-                    context,
-                    "无新版本可用",
-                    Toast.LENGTH_SHORT
-                ).show()
+            runBlocking {
+                githubViewModel.updateAppState(versionCode)
             }
+//          需要确定上面事件执行完后再执行下面操作
+            scope.launch {
+                Log.d("count", appState.isUpdateApp.toString())
+                showDialog.value = appState.isUpdateApp== IsUpdateApp.UPDATE
+                if (appState.isUpdateApp==IsUpdateApp.NO){
+                    Toast.makeText(
+                        context,
+                        "无新版本可用",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+
+
         },
         shape = RoundedCornerShape(15.dp),
         modifier = Modifier

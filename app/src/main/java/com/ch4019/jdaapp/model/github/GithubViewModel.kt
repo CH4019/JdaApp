@@ -8,6 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -28,7 +29,6 @@ class GithubViewModel @Inject constructor(private val githubRepository: RxHttpRe
         viewModelScope.launch(Dispatchers.IO) {
             _appState.update {
                 it.copy(versionCode = githubRepository.getNewVersionCode().newVersionCode)
-//                it.copy(versionCode = 100)
             }
         }
     }
@@ -37,43 +37,22 @@ class GithubViewModel @Inject constructor(private val githubRepository: RxHttpRe
      *检查更新
      * */
     fun updateAppState(nowVersionCode: Long) {
-        if (appState.value.versionCode > nowVersionCode) {
-            getGithubAppInfo()
-        } else {
-            _appState.update { it.copy(isUpdateApp = false) }
-        }
-        Log.d("TAG", "UpDateView: ${appState.value.isUpdateApp}")
-    }
-
-//    private fun getGithubAppInfo(app: AppState) {
-//        viewModelScope.launch(Dispatchers.IO) {
-//            val newVersionCode = _appState.value.versionCode
-//            if (app.versionCode < newVersionCode) {
-////                      TODO 需要实现执行玩数据获取后才执行后续步骤
-//                getGithubAppInfo()
-//                Log.d("TAG", "UpDateView: ${appState.value.isUpdateApp}")
-//            } else {
-//                _appState.update {
-//                    it.copy(
-//                        isUpdateApp = false,
-//                    )
-//                }
-//            }
-//        }
-//    }
-
-    private fun getGithubAppInfo() {
-        viewModelScope.launch(Dispatchers.IO) {
-            githubRepository.getRxHttp().collect { quoteList ->
+        viewModelScope.launch {
+            if (appState.value.versionCode > nowVersionCode) {
+                Log.d("TAG", "getGithubAppInfo: 开始执行版本信息获取")
+                val quoteList = githubRepository.getRxHttp().first()
                 _appState.update {
                     it.copy(
-                        isUpdateApp = true,
+                        isUpdateApp = IsUpdateApp.UPDATE,
                         newVersionName = quoteList.tagName,
                         downloadUrl = quoteList.assets.first().browserDownloadUrl,
                         upDataLog = quoteList.body,
                         downloadSize = bytesToMegabytes(quoteList.assets.first().size),
                     )
                 }
+                Log.d("TAG", "getGithubAppInfo: 结束执行版本信息获取")
+            } else {
+                _appState.update { it.copy(isUpdateApp = IsUpdateApp.NO) }
             }
         }
     }

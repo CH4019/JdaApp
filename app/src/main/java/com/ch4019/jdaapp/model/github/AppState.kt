@@ -1,7 +1,7 @@
 package com.ch4019.jdaapp.model.github
 
 data class AppState(
-    val isUpdateApp: Boolean = false,
+    val isUpdateApp: IsUpdateApp = IsUpdateApp.NULL,
     val versionCode: Long = 0,
     val newVersionName: String = "",
     val downloadUrl: String = "",

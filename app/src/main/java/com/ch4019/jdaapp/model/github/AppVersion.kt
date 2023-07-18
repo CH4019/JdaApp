@@ -8,3 +8,7 @@ data class AppVersion(
     @SerialName("newVersionCode")
     val newVersionCode: Long = 0
 )
+
+enum class IsUpdateApp {
+    NULL, UPDATE, NO
+}

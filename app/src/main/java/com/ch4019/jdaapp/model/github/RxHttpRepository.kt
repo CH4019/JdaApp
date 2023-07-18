@@ -19,7 +19,7 @@ class RxHttpRepository @Inject constructor() {
     private val githubUrl="https://api.github.com/repos/CH4019/xinximenhu/releases/latest"
 
     suspend fun getNewVersionCode(): AppVersion {
-        return RxHttp.get(baseUrl)
+        return RxHttp.get(baseUrl1)
             .toFlow<AppVersion>()
             .catch {
                 Log.e("RxHttpRepository", "getNewVersionCode: ${it.message}")

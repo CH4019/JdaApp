@@ -35,12 +35,14 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ImageBitmap
@@ -61,9 +63,11 @@ import com.ch4019.jdaapp.R
 import com.ch4019.jdaapp.model.github.AppState
 import com.ch4019.jdaapp.model.github.GithubViewModel
 import com.ch4019.jdaapp.model.github.IsUpdateApp
+import com.ch4019.jdaapp.network.ConnectionState
+import com.ch4019.jdaapp.network.currentConnectivityState
+import com.ch4019.jdaapp.network.observeConnectivityAsFlow
 import com.ch4019.jdaapp.util.getPackageInfoCompat
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -94,79 +98,79 @@ fun AboutPage(mainNavController: NavHostController) {
 
 @Composable
 private fun UpDataAppDialog(
-    showDialog: MutableState<Boolean>,
+    onDismiss: () -> Unit,
+    showDialog: Boolean,
     appState: AppState,
     versionName: String
 ) {
-    DynamicHeightDialog(onDismissRequest = { showDialog.value = !showDialog.value }) {
-        Card(
-            shape = RoundedCornerShape(15.dp),
-            modifier = Modifier
-                .fillMaxWidth()
-        ) {
-            Column(
+    if (showDialog) {
+        DynamicHeightDialog(onDismissRequest = onDismiss) {
+            Card(
+                shape = RoundedCornerShape(15.dp),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(8.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
             ) {
-                Text(text = "发现新版本")
-                Spacer(modifier = Modifier.height(8.dp))
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    Image(
-                        painter = painterResource(R.drawable.app_icon),
-                        contentDescription = null,
-                        modifier = Modifier
-                            .size(50.dp)
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Column(
-                        modifier = Modifier
-                            .height(50.dp),
-                        verticalArrangement = Arrangement.Center
-                    ) {
-                        Text(
-                            text = "JdaApp",
-                            fontWeight = FontWeight.Bold
-                        )
-                        Row {
-                            Text(text = "${appState.downloadSize}MB")
-                            Text(text = " | ")
-                            Text(text = "$versionName -> ${appState.newVersionName}")
-                        }
-                    }
-                }
-                Spacer(modifier = Modifier.height(4.dp))
                 Column(
                     modifier = Modifier
-                        .padding(horizontal = 8.dp, vertical = 4.dp)
-                        .fillMaxHeight(0.25f)
-                        .verticalScroll(rememberScrollState())
-                ) {
-                    Text(text = "更新日志:")
-                    Text(text = appState.upDataLog)
-                }
-                FilledTonalButton(
-                    onClick = {
-                        // TODO 执行下载更新操作，url为：appState.downloadUrl
-                        showDialog.value = !showDialog.value
-                    },
-                    colors = ButtonDefaults.elevatedButtonColors(),
-                    modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 8.dp)
+                        .padding(8.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
                 ) {
-                    Text(
-                        text = "确认更新",
-                        color = MaterialTheme.colorScheme.primary
-                    )
+                    Text(text = "发现新版本")
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Center
+                    ) {
+                        Image(
+                            painter = painterResource(R.drawable.app_icon),
+                            contentDescription = null,
+                            modifier = Modifier
+                                .size(50.dp)
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Column(
+                            modifier = Modifier
+                                .height(50.dp),
+                            verticalArrangement = Arrangement.Center
+                        ) {
+                            Text(
+                                text = "JdaApp",
+                                fontWeight = FontWeight.Bold
+                            )
+                            Row {
+                                Text(text = "${appState.downloadSize}MB")
+                                Text(text = " | ")
+                                Text(text = "$versionName -> ${appState.newVersionName}")
+                            }
+                        }
+                    }
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Column(
+                        modifier = Modifier
+                            .padding(horizontal = 8.dp, vertical = 4.dp)
+                            .fillMaxHeight(0.25f)
+                            .verticalScroll(rememberScrollState())
+                    ) {
+                        Text(text = "更新日志:")
+                        Text(text = appState.upDataLog)
+                    }
+                    FilledTonalButton(
+                        onClick = onDismiss,
+                        colors = ButtonDefaults.elevatedButtonColors(),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 8.dp)
+                    ) {
+                        Text(
+                            text = "确认更新",
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                        Spacer(modifier = Modifier.height(4.dp))
+                    }
                 }
-                Spacer(modifier = Modifier.height(4.dp))
             }
         }
     }
@@ -262,7 +266,7 @@ private fun AboutBottomPromise() {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalCoroutinesApi::class)
 @Composable
 private fun CurrentVersion() {
     val context = LocalContext.current
@@ -271,8 +275,16 @@ private fun CurrentVersion() {
     val versionCode = getLongVersionCode(packageInfo)
     val githubViewModel: GithubViewModel = hiltViewModel()
     val appState by githubViewModel.appState.collectAsState()
-    val showDialog = remember { mutableStateOf(false) }
-    val scope = rememberCoroutineScope()
+    var showDialog by remember(appState.isUpdateApp) { mutableStateOf(appState.isUpdateApp == IsUpdateApp.UPDATE ) }
+    /**
+     * sideEffect 只会在重组结束后执行一次
+     */
+    SideEffect {
+        Log.d("count", appState.isUpdateApp.toString())
+        if (appState.isUpdateApp == IsUpdateApp.NO) {
+            Toast.makeText(context, "无新版本可用", Toast.LENGTH_SHORT).show()
+        }
+    }
 //    TODO 这里需要对逻辑进行处理
 //    监听是否有新版本更新
 //    当前问题：
@@ -280,24 +292,7 @@ private fun CurrentVersion() {
 //      接口有每小时60次访问限制，还需有无网络时提示(注意无网络时会闪退)
     Card(
         onClick = {
-//          需要实现先执行数据获取，再执行isShow0赋值显示
-            runBlocking {
-                githubViewModel.updateAppState(versionCode)
-            }
-//          需要确定上面事件执行完后再执行下面操作
-            scope.launch {
-                Log.d("count", appState.isUpdateApp.toString())
-                showDialog.value = appState.isUpdateApp== IsUpdateApp.UPDATE
-                if (appState.isUpdateApp==IsUpdateApp.NO){
-                    Toast.makeText(
-                        context,
-                        "无新版本可用",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-
-
+            githubViewModel.updateAppState(versionCode)
         },
         shape = RoundedCornerShape(15.dp),
         modifier = Modifier
@@ -314,7 +309,7 @@ private fun CurrentVersion() {
             Text(versionName)
         }
     }
-    if (showDialog.value) {
-        UpDataAppDialog(showDialog, appState = appState, versionName = versionName)
-    }
+    UpDataAppDialog({ showDialog = false }, showDialog, appState = appState, versionName = versionName)
 }
+
+

@@ -36,11 +36,9 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
-import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -63,11 +61,7 @@ import com.ch4019.jdaapp.R
 import com.ch4019.jdaapp.model.github.AppState
 import com.ch4019.jdaapp.model.github.GithubViewModel
 import com.ch4019.jdaapp.model.github.IsUpdateApp
-import com.ch4019.jdaapp.network.ConnectionState
-import com.ch4019.jdaapp.network.currentConnectivityState
-import com.ch4019.jdaapp.network.observeConnectivityAsFlow
 import com.ch4019.jdaapp.util.getPackageInfoCompat
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -266,7 +260,7 @@ private fun AboutBottomPromise() {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalCoroutinesApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun CurrentVersion() {
     val context = LocalContext.current
@@ -277,22 +271,22 @@ private fun CurrentVersion() {
     val appState by githubViewModel.appState.collectAsState()
     var showDialog by remember(appState.isUpdateApp) { mutableStateOf(appState.isUpdateApp == IsUpdateApp.UPDATE ) }
     /**
-     * sideEffect 只会在重组结束后执行一次
-     */
+     * 第一次运行无更新使用此提示
+    **/
     SideEffect {
-        Log.d("count", appState.isUpdateApp.toString())
-        if (appState.isUpdateApp == IsUpdateApp.NO) {
+        if (appState.isUpdateApp == IsUpdateApp.NO){
             Toast.makeText(context, "无新版本可用", Toast.LENGTH_SHORT).show()
         }
     }
-//    TODO 这里需要对逻辑进行处理
-//    监听是否有新版本更新
-//    当前问题：
-//      点击俩次按钮才会出现弹窗(猜测问题出现在viewModel中的RxHttp中的协程的异步的问题,viewModel执行完但是RxHttp没有执行完)
-//      接口有每小时60次访问限制，还需有无网络时提示(注意无网络时会闪退)
     Card(
         onClick = {
             githubViewModel.updateAppState(versionCode)
+//          第二次及以后点击时通过下面来实现提示
+            if (appState.isUpdateApp == IsUpdateApp.UPDATE){
+                showDialog = true
+            }else if (appState.isUpdateApp == IsUpdateApp.NO) {
+                Toast.makeText(context, "无新版本可用", Toast.LENGTH_SHORT).show()
+            }
         },
         shape = RoundedCornerShape(15.dp),
         modifier = Modifier

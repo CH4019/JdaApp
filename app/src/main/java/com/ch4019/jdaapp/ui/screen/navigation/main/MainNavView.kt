@@ -49,7 +49,7 @@ fun MainNavController() {
             LIMSPage(navController)
         }
         composable(MainNavRoute.USER_PAGE) {
-            UserPage(userViewModel, navController)
+            UserPage(userState, userViewModel, navController)
         }
     }
 }

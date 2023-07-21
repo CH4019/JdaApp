@@ -127,7 +127,7 @@ private fun UserCard(
                     style = MaterialTheme.typography.bodyLarge
                 )
                 Text(
-                    text = "QQ号:${userState.qqNumber}",
+                    text = "学号:${userState.studentNumber}",
                     style = MaterialTheme.typography.bodySmall
                 )
             }

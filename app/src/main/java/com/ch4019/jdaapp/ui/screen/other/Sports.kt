@@ -11,6 +11,6 @@ fun SportsPage(
     mainNavController: NavHostController
 ) {
     val urlState = rememberWebViewState("https://www.ahjzu.edu.cn/tyb/zxgg/list.htm")
-    val navigator = rememberWebViewNavigator()
-    TopBarBrowseView(mainNavController, "体育部官网", urlState, navigator)
+    val webViewNavigator = rememberWebViewNavigator()
+    TopBarBrowseView(mainNavController, "体育部官网", urlState, webViewNavigator)
 }

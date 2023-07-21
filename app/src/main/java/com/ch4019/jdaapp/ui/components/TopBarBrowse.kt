@@ -3,6 +3,7 @@ package com.ch4019.jdaapp.ui.components
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBackIosNew
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -39,6 +40,11 @@ fun TopBarBrowseView(
                         )
                     }
                 },
+                actions ={
+                    IconButton(onClick = {
+                        navigator.reload()
+                    }) { Icon(Icons.Default.Refresh, null) }
+                }
             )
         }
     ) { paddingValues ->

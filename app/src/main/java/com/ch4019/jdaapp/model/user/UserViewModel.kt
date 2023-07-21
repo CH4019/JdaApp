@@ -21,7 +21,7 @@ class UserViewModel @Inject constructor(private val userRepository: UserReposito
 
     private fun initUserState() {
         viewModelScope.launch(Dispatchers.IO) {
-            val userName = userRepository.getUserName().ifBlank { "请绑定QQ昵称" }
+            val userName = userRepository.getUserName().ifBlank { "" }
             val userQQ = userRepository.getUserQQ().ifBlank { "" }
             val userStudent = userRepository.getUserStudent().ifBlank { "" }
             _userState.update {

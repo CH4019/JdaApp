@@ -34,6 +34,7 @@ import com.ch4019.jdaapp.model.user.UserViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun UserPage(
+    userState: UserState,
     userViewModel: UserViewModel,
     navController: NavHostController
 ) {
@@ -56,7 +57,7 @@ fun UserPage(
             )
         }
     ) {
-        UserView(it, userViewModel, navController)
+        UserView(it, userState, userViewModel, navController)
     }
 }
 
@@ -64,12 +65,13 @@ fun UserPage(
 @Composable
 private fun UserView(
     paddingValues: PaddingValues,
+    userState: UserState,
     userViewModel: UserViewModel,
     navController: NavHostController,
 ) {
-    var userName by remember { mutableStateOf("") }
-    var qqNumber by remember { mutableStateOf("") }
-    var studentNumber by remember { mutableStateOf("") }
+    var userName by remember { mutableStateOf(userState.userName) }
+    var qqNumber by remember { mutableStateOf(userState.qqNumber) }
+    var studentNumber by remember { mutableStateOf(userState.studentNumber) }
     Column(
         modifier = Modifier
             .padding(paddingValues)
@@ -82,8 +84,8 @@ private fun UserView(
             value = userName,
             onValueChange = { userName = it },
             modifier = Modifier.fillMaxWidth(),
-            label = { Text("昵称") },
-            placeholder = { Text("请绑定QQ昵称") }
+            label = { Text("用户名") },
+            placeholder = { Text("请输入QQ昵称") }
         )
         OutlinedTextField(
             value = qqNumber,

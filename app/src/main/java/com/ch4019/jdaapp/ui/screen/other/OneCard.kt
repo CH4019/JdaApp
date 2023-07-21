@@ -11,6 +11,6 @@ fun OneCardPage(
     mainNavController: NavHostController
 ) {
     val urlState = rememberWebViewState("https://10-8-0-6.webvpn.ahjzu.edu.cn/casLogin.jsp")
-    val navigator = rememberWebViewNavigator()
-    TopBarBrowseView(mainNavController, "一卡通官网", urlState, navigator)
+    val webViewNavigator = rememberWebViewNavigator()
+    TopBarBrowseView(mainNavController, "一卡通官网", urlState, webViewNavigator)
 }

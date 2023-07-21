@@ -13,6 +13,6 @@ fun LIMSPage(
     val urlState = rememberWebViewState(
         "http://sso.ahjzu.edu.cn/sso/login?service=http://219.231.0.154/sjjx/index.aspx"
     )
-    val navigator = rememberWebViewNavigator()
-    TopBarBrowseView(mainNavController, "实验系统", urlState, navigator)
+    val webViewNavigator = rememberWebViewNavigator()
+    TopBarBrowseView(mainNavController, "实验系统", urlState, webViewNavigator)
 }

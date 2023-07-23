@@ -29,14 +29,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import com.ch4019.jdaapp.R
 import com.ch4019.jdaapp.config.MainNavRoute
 import com.ch4019.jdaapp.model.NavigationItem
 import com.ch4019.jdaapp.model.user.UserState
 import com.ch4019.jdaapp.ui.components.CardListView
+import com.ch4019.jdaapp.ui.theme.JdaAppTheme
 
 @Composable
 fun PersonalPage(
@@ -51,8 +54,23 @@ fun PersonalPage(
             .fillMaxSize()
     ) {
         UserCard(userState, navHostController)
+        ListTitle("其他官网")
         CardListView(navHostController, cardListSchoolItems)
+        ListTitle("设置")
         CardListView(navHostController, cardListPersonalItems)
+    }
+}
+
+@Composable
+fun ListTitle(
+    title: String
+) {
+    Row(
+        modifier = Modifier
+            .padding(horizontal = 32.dp)
+            .fillMaxWidth(),
+    ) {
+        Text(text = title)
     }
 }
 
@@ -162,4 +180,20 @@ private fun Avatar(avatar: Any) {
             .clip(CircleShape),
         contentScale = ContentScale.Crop,
     )
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun Preview() {
+    JdaAppTheme {
+        PersonalPage(
+            userState = UserState(
+                userName = "CH4019",
+                qqNumber = "123456789",
+                studentNumber = "123456789",
+                isLogin = false,
+            ),
+            navHostController = rememberNavController()
+        )
+    }
 }

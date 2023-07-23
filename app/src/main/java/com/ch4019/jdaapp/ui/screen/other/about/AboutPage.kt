@@ -152,7 +152,10 @@ private fun UpDataAppDialog(
                         Text(text = appState.upDataLog)
                     }
                     FilledTonalButton(
-                        onClick = onDismiss,
+                        onClick = {
+                            onDismiss()
+                            Log.d("onDismiss", "下载链接${appState.downloadUrl}")
+                        },
                         colors = ButtonDefaults.elevatedButtonColors(),
                         modifier = Modifier
                             .fillMaxWidth()

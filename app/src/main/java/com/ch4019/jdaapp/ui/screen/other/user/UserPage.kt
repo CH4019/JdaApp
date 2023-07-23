@@ -85,7 +85,7 @@ private fun UserView(
             onValueChange = { userName = it },
             modifier = Modifier.fillMaxWidth(),
             label = { Text("用户名") },
-            placeholder = { Text("请输入QQ昵称") }
+            placeholder = { Text("请输入昵称") }
         )
         OutlinedTextField(
             value = qqNumber,

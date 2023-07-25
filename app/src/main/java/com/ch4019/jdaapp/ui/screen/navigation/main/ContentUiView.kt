@@ -17,6 +17,7 @@ import androidx.navigation.NavHostController
 import com.ch4019.jdaapp.model.NavigationBarItem
 import com.ch4019.jdaapp.model.user.UserState
 import com.ch4019.jdaapp.ui.components.LoadWeb
+import com.ch4019.jdaapp.ui.screen.navigation.grades.GradesPage
 import com.ch4019.jdaapp.ui.screen.navigation.personal.PersonalPage
 import com.google.accompanist.web.rememberWebViewNavigator
 import com.google.accompanist.web.rememberWebViewState
@@ -53,10 +54,11 @@ fun ContentUiView(
                         webViewNavigator
                     )
 
-                    1 -> LoadWeb(
-                        rememberWebViewState("https://219-231-0-156.webvpn.ahjzu.edu.cn/xtgl/login_slogin.html"),
-                        webViewNavigator
-                    )
+                    1 -> GradesPage()
+//                        LoadWeb(
+//                        rememberWebViewState("https://219-231-0-156.webvpn.ahjzu.edu.cn/xtgl/login_slogin.html"),
+//                        webViewNavigator
+//                    )
 
                     2 -> PersonalPage(userState, navController)
                 }

@@ -27,7 +27,7 @@ fun TopBar(
     TopAppBar(
         title = { Text(titles[pagerState.currentPage]) },
         actions = {
-            if (pagerState.currentPage != pagerState.pageCount - 1) {
+            if (pagerState.currentPage == pagerState.pageCount - 3) {
                 IconButton(onClick = {
                     navigator.reload()
                 }) { Icon(Icons.Default.Refresh, null) }

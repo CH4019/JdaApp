@@ -246,12 +246,12 @@ fun ShowDemo(
             ) {
                 if (it.sfxwkc=="是"){
                     Text(
-                        text = "${it.kcxz}|学位课程|${it.xf}学分|${it.khfsmc}",
+                        text = "${it.kcxz} • 学位课程 • ${it.xf}学分 • ${it.khfsmc}",
                         fontSize = 12.sp
                     )
                 }else {
                     Text(
-                        text = "${it.kcxz}|非学位课程|${it.xf}学分|${it.khfsmc}",
+                        text = "${it.kcxz} • 非学位课程 • ${it.xf}学分 • ${it.khfsmc}",
                         fontSize = 12.sp
                     )
                 }

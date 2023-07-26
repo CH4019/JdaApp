@@ -16,8 +16,10 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.Card
+import androidx.compose.material3.Divider
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -26,22 +28,25 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.ch4019.jdaapp.model.GridList
 import com.ch4019.jdaapp.ui.components.ChipList
+import com.ch4019.jdaapp.ui.theme.JdaAppTheme
 
 @Composable
 fun GradesPage() {
     val gridLists = listOf(
         GridList("DX121", "测试课程1", "必修", "3.0", "80", "3.0", "正常考试", "否", "否", "123", "考试"),
-        GridList("DX120", "测试课程2", "必修", "2.0", "90", "4.0", "正常考试", "否", "否", "123", "考试"),
-        GridList("DX125", "测试课程3", "必修", "2.0", "80", "3.0", "正常考试", "否", "否", "123", "考试"),
-        GridList("DX125", "测试课程4", "必修", "3.0", "80", "3.0", "正常考试", "否", "否", "123", "考试"),
+        GridList("DX120", "测试课程2", "必修", "2.0", "90", "4.0", "正常考试", "是", "是", "123", "考试"),
+        GridList("DX125", "测试课程3", "必修", "2.0", "80", "3.0", "正常考试", "否", "是", "123", "考试"),
+        GridList("DX125", "测试课程4", "必修", "3.0", "80", "3.0", "正常考试", "是", "否", "123", "考试"),
         GridList("DX129", "测试课程5", "必修", "3.0", "78", "2.8", "正常考试", "否", "否", "123", "考试"),
         GridList("DX124", "测试课程6", "选修", "2.0", "80", "3.0", "正常考试", "否", "否", "123", "考试"),
         GridList("DX163", "测试课程7", "必修", "3.0", "80", "3.0", "正常考试", "否", "否", "123", "考试"),
         GridList("DX133", "测试课程8", "必修", "1.0", "75", "2.5", "正常考试", "否", "否", "123", "考试"),
-        GridList("DX113", "测试课程9", "必修", "2.0", "99", "4.9", "正常考试", "否", "否", "123", "考试"),
+        GridList("DX113", "测试课程9", "必修", "2.0", "99", "4.9", "正常考试", "是", "否", "123", "考试"),
         GridList("DX103", "测试课程10", "校选修", "1.0", "80", "3.0", "正常考试", "否", "否", "123", "考试"),
         GridList("DX523", "测试课程11", "必修", "3.0", "80", "3.0", "正常考试", "否", "否", "123", "考试"),
         GridList("DX923", "测试课程12", "必修", "1.0", "70", "2.0", "正常考试", "否", "否", "123", "考试"),
@@ -56,11 +61,15 @@ fun GradesPage() {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .verticalScroll(rememberScrollState())
             ) {
             SelectGrades(selected1, selected2)
-            if (isShow.value){
-                ListShow(gridLists)
+            Column(
+                modifier = Modifier
+                    .verticalScroll(rememberScrollState())
+            ) {
+                if (isShow.value){
+                    ShowDemo(gridLists)
+                }
             }
         }
         FloatButton(selected1.value, selected2.value, isShow)
@@ -93,7 +102,7 @@ fun SelectGrades(
 }
 
 @Composable
-fun ListShow(
+fun ShowDemo2(
     gridLists: List<GridList>
 ) {
     gridLists.forEach {
@@ -167,6 +176,100 @@ fun ListShow(
     }
     Spacer(modifier = Modifier.height(56.dp))
 }
+
+@Composable
+fun ShowDemo(
+    gridLists: List<GridList>
+) {
+    gridLists.forEach {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = it.kcdm,
+                    fontSize = 12.sp
+                )
+                Spacer(modifier = Modifier.weight(1f))
+                Text(
+                    text = "成绩/绩点",
+                    fontSize = 12.sp
+                )
+            }
+            Spacer(modifier = Modifier.height(8.dp))
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Column {
+                    Text(
+                        text = it.kcmc,
+                        fontSize = 24.sp
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(
+                        text = it.rkjs,
+                        fontSize = 16.sp
+                    )
+                }
+                Spacer(modifier = Modifier.weight(1f))
+                Column(
+                    horizontalAlignment = Alignment.End
+                ) {
+                    Text(
+                        text = "${it.cj} / ${it.jd}",
+                        fontSize = 32.sp,
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                    if (it.sfcjzf=="是") {
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(
+                            text = "成绩作废",
+                            fontSize = 16.sp,
+                            color = MaterialTheme.colorScheme.error
+                        )
+                    }
+                }
+            }
+            Spacer(modifier = Modifier.height(8.dp))
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                if (it.sfxwkc=="是"){
+                    Text(
+                        text = "${it.kcxz}|学位课程|${it.xf}学分|${it.khfsmc}",
+                        fontSize = 12.sp
+                    )
+                }else {
+                    Text(
+                        text = "${it.kcxz}|非学位课程|${it.xf}学分|${it.khfsmc}",
+                        fontSize = 12.sp
+                    )
+                }
+                Spacer(modifier = Modifier.weight(1f))
+                Text(
+                    text = it.cjxz,
+                    fontSize = 12.sp
+                )
+            }
+        }
+        Divider(
+            thickness = 1.dp,
+            color = MaterialTheme.colorScheme.outlineVariant
+        )
+    }
+    Spacer(modifier = Modifier.height(56.dp))
+}
+
 @Composable
 fun FloatButton(
     selected1: Boolean,
@@ -193,5 +296,12 @@ fun FloatButton(
         }) {
             Icon(imageVector = Icons.Default.Check, contentDescription = null)
         }
+    }
+}
+@Preview(showBackground = true)
+@Composable
+fun GradesPagePreview() {
+    JdaAppTheme {
+        GradesPage()
     }
 }

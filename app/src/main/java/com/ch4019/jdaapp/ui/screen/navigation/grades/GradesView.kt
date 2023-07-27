@@ -4,6 +4,7 @@ import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -31,12 +32,15 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.compose.rememberNavController
 import com.ch4019.jdaapp.model.GridList
 import com.ch4019.jdaapp.ui.components.ChipList
 import com.ch4019.jdaapp.ui.theme.JdaAppTheme
 
 @Composable
-fun GradesPage() {
+fun GradesView(
+    paddingValues: PaddingValues
+) {
     val gridLists = listOf(
         GridList("DX121", "测试课程1", "必修", "3.0", "80", "3.0", "正常考试", "否", "否", "123", "考试"),
         GridList("DX120", "测试课程2", "必修", "2.0", "90", "4.0", "正常考试", "是", "是", "123", "考试"),
@@ -56,7 +60,8 @@ fun GradesPage() {
     val isShow = remember{ mutableStateOf(false) }
     Box(
         modifier = Modifier
-            .fillMaxSize(),
+            .fillMaxSize()
+            .padding(paddingValues),
     ) {
         Column(
             modifier = Modifier
@@ -302,6 +307,8 @@ fun FloatButton(
 @Composable
 fun GradesPagePreview() {
     JdaAppTheme {
-        GradesPage()
+        GradesPage(
+            rememberNavController()
+        )
     }
 }

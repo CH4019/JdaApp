@@ -11,6 +11,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.ch4019.jdaapp.config.MainNavRoute
 import com.ch4019.jdaapp.model.user.UserViewModel
+import com.ch4019.jdaapp.ui.screen.navigation.grades.GradesPage
 import com.ch4019.jdaapp.ui.screen.other.LIMSPage
 import com.ch4019.jdaapp.ui.screen.other.OneCardPage
 import com.ch4019.jdaapp.ui.screen.other.SportsPage
@@ -50,6 +51,9 @@ fun MainNavController() {
         }
         composable(MainNavRoute.USER_PAGE) {
             UserPage(userState, userViewModel, navController)
+        }
+        composable(MainNavRoute.GRADES_PAGE) {
+            GradesPage(navController)
         }
     }
 }

@@ -14,9 +14,9 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForwardIos
 import androidx.compose.material.icons.outlined.Assignment
 import androidx.compose.material.icons.outlined.AssignmentLate
-import androidx.compose.material.icons.outlined.Bookmarks
 import androidx.compose.material.icons.outlined.BugReport
 import androidx.compose.material.icons.outlined.Cable
+import androidx.compose.material.icons.outlined.ConfirmationNumber
 import androidx.compose.material.icons.outlined.CreditCard
 import androidx.compose.material.icons.outlined.DesktopWindows
 import androidx.compose.material3.Card
@@ -110,11 +110,10 @@ private fun createSchoolItem() = listOf(
         Icons.Outlined.Cable,
         MainNavRoute.LIMS_PAGE
     ),
-    // todo 这里错了
     NavigationItem(
-        "教务系统备用入口",
-        Icons.Outlined.Bookmarks,
-        MainNavRoute.SETTING_PAGE
+        "成绩查询",
+        Icons.Outlined.ConfirmationNumber,
+        MainNavRoute.GRADES_PAGE
     ),
 )
 

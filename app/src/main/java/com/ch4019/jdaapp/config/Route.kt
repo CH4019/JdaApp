@@ -13,4 +13,5 @@ object MainNavRoute {
     const val SPORTS_PAGE = "sports_page"
     const val LIMS_PAGE = "lims_page"
     const val USER_PAGE = "user_page"
+    const val GRADES_PAGE = "grades_page"
 }

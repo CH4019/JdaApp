@@ -1,14 +1,28 @@
 [versions]
-agp = "8.2.0-alpha13"
-kotlin = "1.8.10"
+agp = "8.2.0-alpha15"
+kotlin = "1.9.0"
 core-ktx = "1.11.0-beta02"
 junit = "4.13.2"
 androidx-test-ext-junit = "1.1.5"
 espresso-core = "3.5.1"
 lifecycle-runtime-ktx = "2.6.1"
 activity-compose = "1.7.2"
-compose-bom = "2023.03.00"
-
+compose-bom = "2023.06.01"
+datastore-preferences = "1.0.0"
+hilt-android = "2.47"
+hilt-navigation-compose = "1.1.0-alpha01"
+accompanist-webview = "0.31.3-beta"
+core-splashscreen = "1.0.1"
+navigation-compose = "2.6.0-alpha08"
+coil-compose = "2.4.0"
+lifecycle-viewmodel-ktx = "2.6.1"
+okhttp = "4.11.0"
+rxhttp = "3.1.0"
+converter-serialization = "3.1.0"
+rxhttp-compiler = "3.1.0"
+monitor = "1.2.1"
+monitor-no-op = "1.2.1"
+appwrite-sdk-for-android = "1.1.0"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -26,7 +40,23 @@ ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-compose-material-iconsExtended = { group = "androidx.compose.material", name = "material-icons-extended" }
-
+datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore-preferences" }
+datastore-preferences-core= { group = "androidx.datastore", name = "datastore-preferences-core", version.ref = "datastore-preferences" }
+hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt-android" }
+hilt-android-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt-android" }
+hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hilt-navigation-compose" }
+accompanist-webview = { group = "com.google.accompanist", name = "accompanist-webview", version.ref = "accompanist-webview" }
+core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "core-splashscreen" }
+navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation-compose" }
+coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil-compose" }
+lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle-viewmodel-ktx" }
+okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
+rxhttp = { group = "com.github.liujingxing.rxhttp", name = "rxhttp", version.ref = "rxhttp" }
+converter-serialization = { group = "com.github.liujingxing.rxhttp", name = "converter-serialization", version.ref = "converter-serialization" }
+rxhttp-compiler = { group = "com.github.liujingxing.rxhttp", name = "rxhttp-compiler", version.ref = "rxhttp-compiler" }
+monitor = { group = "com.github.leavesCZY.Monitor", name = "monitor", version.ref = "monitor" }
+monitor-no-op = { group = "com.github.leavesCZY.Monitor", name = "monitor-no-op", version.ref = "monitor-no-op" }
+appwrite-sdk-android = { group = "io.appwrite", name = "sdk-for-android", version.ref = "appwrite-sdk-for-android" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

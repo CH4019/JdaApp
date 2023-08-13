@@ -9,12 +9,12 @@ plugins {
 
 android {
     namespace = "com.ch4019.jdaapp"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.ch4019.jdaapp"
         minSdk = 29
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 3
         versionName = "1.0.2-beta"
 
@@ -76,25 +76,27 @@ dependencies {
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
 
-    implementation("androidx.datastore:datastore-preferences:1.0.0")
-    implementation("androidx.datastore:datastore-preferences-core:1.0.0")
+    implementation(libs.datastore.preferences)
+    implementation(libs.datastore.preferences.core)
     // Hilt
-    implementation("com.google.dagger:hilt-android:2.47")
-    kapt("com.google.dagger:hilt-android-compiler:2.47")
-    implementation("androidx.hilt:hilt-navigation-compose:1.1.0-alpha01")
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
+    implementation(libs.hilt.navigation.compose)
 
     implementation(libs.androidx.compose.material.iconsExtended)
-    implementation("com.google.accompanist:accompanist-webview:0.31.3-beta")
-    implementation("androidx.core:core-splashscreen:1.0.1")
-    implementation("androidx.navigation:navigation-compose:2.6.0-alpha08")
-    implementation("io.coil-kt:coil-compose:2.4.0")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
+    implementation(libs.accompanist.webview)
+    implementation(libs.core.splashscreen)
+    implementation(libs.navigation.compose)
+    implementation(libs.coil.compose)
+    implementation(libs.lifecycle.viewmodel.ktx)
 
-    implementation("com.squareup.okhttp3:okhttp:4.11.0")
-    implementation("com.github.liujingxing.rxhttp:rxhttp:3.1.0")
-    implementation("com.github.liujingxing.rxhttp:converter-serialization:3.1.0")
-    kapt("com.github.liujingxing.rxhttp:rxhttp-compiler:3.1.0")
+    implementation(libs.okhttp)
+    implementation(libs.rxhttp)
+    implementation(libs.converter.serialization)
+    kapt(libs.rxhttp.compiler)
 
-    debugImplementation("com.github.leavesCZY.Monitor:monitor:1.2.1")
-    releaseImplementation("com.github.leavesCZY.Monitor:monitor-no-op:1.2.1")
+    debugImplementation(libs.monitor)
+    releaseImplementation(libs.monitor.no.op)
+
+    implementation(libs.appwrite.sdk.android)
 }

@@ -98,5 +98,5 @@ dependencies {
     debugImplementation(libs.monitor)
     releaseImplementation(libs.monitor.no.op)
 
-    implementation(libs.appwrite.sdk.android)
+//    implementation(libs.appwrite.sdk.android)
 }

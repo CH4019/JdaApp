@@ -1,4 +1,4 @@
-package com.ch4019.jdaapp.model.user
+package com.ch4019.jdaapp.viewmodel.user
 
 data class UserState(
     val userName: String = "",

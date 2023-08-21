@@ -3,11 +3,20 @@ package com.ch4019.jdaapp.model
 import androidx.compose.ui.graphics.vector.ImageVector
 
 data class NavigationBarItem(
+//    底栏
     val title: String,
     val icon: ImageVector,
 )
 
+data class NavigationItem(
+//    卡片列表
+    val title: String,
+    val icon: ImageVector,
+    val routerId: String
+)
+
 data class GridList(
+//    成绩
     val kcdm: String, // 课程代码
     val kcmc: String, // 课程名称
     val kcxz: String, // 课程性质

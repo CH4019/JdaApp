@@ -8,9 +8,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.ch4019.jdaapp.config.AppRoute
-import com.ch4019.jdaapp.ui.screen.navigation.main.MainNavController
+import com.ch4019.jdaapp.ui.screen.navigation.MainNavController
 import com.ch4019.jdaapp.ui.screen.start.StartPageView
-import com.ch4019.jdaapp.ui.theme.JdaAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -22,19 +21,16 @@ class MainActivity : ComponentActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
         setContent {
-            JdaAppTheme {
-                val appNavHostController = rememberNavController()
-                //指定起始页面 startDestination = AppRoute.START_SCREEN
-                NavHost(
-                    navController = appNavHostController,
-                    startDestination = AppRoute.START_SCREEN
-                ) {
-                    composable(AppRoute.START_SCREEN) {
-                        StartPageView(appNavHostController)
-                    }
-                    composable(AppRoute.MAIN_NAV) {
-                        MainNavController()
-                    }
+            val appNavHostController = rememberNavController()
+            NavHost(
+                navController = appNavHostController,
+                startDestination = AppRoute.START_SCREEN
+            ) {
+                composable(AppRoute.START_SCREEN) {
+                    StartPageView(appNavHostController)
+                }
+                composable(AppRoute.MAIN_NAV) {
+                    MainNavController()
                 }
             }
         }

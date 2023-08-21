@@ -1,4 +1,4 @@
-package com.ch4019.jdaapp.ui.screen.navigation.main
+package com.ch4019.jdaapp.ui.screen.main
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.FastOutLinearInEasing

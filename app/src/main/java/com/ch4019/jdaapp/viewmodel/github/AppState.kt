@@ -1,4 +1,4 @@
-package com.ch4019.jdaapp.model.github
+package com.ch4019.jdaapp.viewmodel.github
 
 data class AppState(
     val isUpdateApp: IsUpdateApp = IsUpdateApp.NULL,

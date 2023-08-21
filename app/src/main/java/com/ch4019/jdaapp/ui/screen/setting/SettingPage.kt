@@ -1,4 +1,4 @@
-package com.ch4019.jdaapp.ui.screen.other.setting
+package com.ch4019.jdaapp.ui.screen.setting
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues

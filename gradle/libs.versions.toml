@@ -22,7 +22,6 @@ converter-serialization = "3.1.0"
 rxhttp-compiler = "3.1.0"
 monitor = "1.2.1"
 monitor-no-op = "1.2.1"
-appwrite-sdk-for-android = "1.1.0"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -56,7 +55,6 @@ converter-serialization = { group = "com.github.liujingxing.rxhttp", name = "con
 rxhttp-compiler = { group = "com.github.liujingxing.rxhttp", name = "rxhttp-compiler", version.ref = "rxhttp-compiler" }
 monitor = { group = "com.github.leavesCZY.Monitor", name = "monitor", version.ref = "monitor" }
 monitor-no-op = { group = "com.github.leavesCZY.Monitor", name = "monitor-no-op", version.ref = "monitor-no-op" }
-appwrite-sdk-android = { group = "io.appwrite", name = "sdk-for-android", version.ref = "appwrite-sdk-for-android" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

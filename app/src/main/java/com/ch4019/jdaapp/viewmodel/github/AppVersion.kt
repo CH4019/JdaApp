@@ -1,4 +1,4 @@
-package com.ch4019.jdaapp.model.github
+package com.ch4019.jdaapp.viewmodel.github
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

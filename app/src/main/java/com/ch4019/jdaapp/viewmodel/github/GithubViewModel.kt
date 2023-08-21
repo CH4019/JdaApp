@@ -1,4 +1,4 @@
-package com.ch4019.jdaapp.model.github
+package com.ch4019.jdaapp.viewmodel.github
 
 import android.util.Log
 import androidx.lifecycle.ViewModel

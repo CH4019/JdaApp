@@ -1,4 +1,4 @@
-package com.ch4019.jdaapp.ui.screen.other.user
+package com.ch4019.jdaapp.ui.screen.user
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
@@ -28,8 +29,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.ch4019.jdaapp.model.user.UserState
-import com.ch4019.jdaapp.model.user.UserViewModel
+import com.ch4019.jdaapp.viewmodel.user.UserState
+import com.ch4019.jdaapp.viewmodel.user.UserViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -61,7 +62,6 @@ fun UserPage(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun UserView(
     paddingValues: PaddingValues,
@@ -75,11 +75,12 @@ private fun UserView(
     Column(
         modifier = Modifier
             .padding(paddingValues)
-            .padding(start = 32.dp, top = 32.dp, end = 32.dp)
+            .padding(horizontal = 16.dp)
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        Spacer(modifier = Modifier.height(32.dp))
         OutlinedTextField(
             value = userName,
             onValueChange = { userName = it },
@@ -153,3 +154,5 @@ private fun ConfirmButton(
         Text("确认")
     }
 }
+
+

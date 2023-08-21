@@ -85,7 +85,7 @@ dependencies {
 
     implementation(libs.androidx.compose.material.iconsExtended)
     implementation(libs.accompanist.webview)
-    implementation(libs.core.splashscreen)
+    //implementation(libs.core.splashscreen)
     implementation(libs.navigation.compose)
     implementation(libs.coil.compose)
     implementation(libs.lifecycle.viewmodel.ktx)
@@ -98,5 +98,4 @@ dependencies {
     debugImplementation(libs.monitor)
     releaseImplementation(libs.monitor.no.op)
 
-//    implementation(libs.appwrite.sdk.android)
 }

@@ -1,4 +1,4 @@
-package com.ch4019.jdaapp.ui.screen.navigation.grades
+package com.ch4019.jdaapp.ui.screen.grades
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement

@@ -1,4 +1,4 @@
-package com.ch4019.jdaapp.ui.screen.navigation.grades
+package com.ch4019.jdaapp.ui.screen.grades
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBackIosNew

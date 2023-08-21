@@ -12,13 +12,6 @@ import rxhttp.wrapper.converter.SerializationConverter
 
 @HiltAndroidApp
 class JdaApp : Application() {
-//    经过检查，下面代码出现
-//      new JsonPayload exception:Unterminated object at character 79 of
-//      {pkg:com.ch4019.jdaapp,id:539166472,tag:"null",channelid:" ",
-//      channelname:Http Notif,isOnGoing:"false",importance:3,isCustomNotification:false,
-//      language:zh,style:"android.app.Notification$InboxStyle",isFromPush:"false",
-//      isNoClear:false,isForeground:false}
-//     问题
 
     override fun onCreate() {
         super.onCreate()

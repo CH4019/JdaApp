@@ -1,4 +1,4 @@
-package com.ch4019.jdaapp.ui.screen.other.about
+package com.ch4019.jdaapp.ui.screen.about
 
 import android.util.Log
 import android.widget.Toast
@@ -58,9 +58,9 @@ import androidx.core.content.pm.PackageInfoCompat.getLongVersionCode
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.ch4019.jdaapp.R
-import com.ch4019.jdaapp.model.github.AppState
-import com.ch4019.jdaapp.model.github.GithubViewModel
-import com.ch4019.jdaapp.model.github.IsUpdateApp
+import com.ch4019.jdaapp.viewmodel.github.AppState
+import com.ch4019.jdaapp.viewmodel.github.GithubViewModel
+import com.ch4019.jdaapp.viewmodel.github.IsUpdateApp
 import com.ch4019.jdaapp.util.getPackageInfoCompat
 
 @OptIn(ExperimentalMaterial3Api::class)

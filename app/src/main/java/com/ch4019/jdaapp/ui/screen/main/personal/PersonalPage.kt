@@ -1,4 +1,4 @@
-package com.ch4019.jdaapp.ui.screen.navigation.personal
+package com.ch4019.jdaapp.ui.screen.main.personal
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -37,7 +37,7 @@ import coil.compose.AsyncImage
 import com.ch4019.jdaapp.R
 import com.ch4019.jdaapp.config.MainNavRoute
 import com.ch4019.jdaapp.model.NavigationItem
-import com.ch4019.jdaapp.model.user.UserState
+import com.ch4019.jdaapp.viewmodel.user.UserState
 import com.ch4019.jdaapp.ui.components.CardListView
 import com.ch4019.jdaapp.ui.theme.JdaAppTheme
 

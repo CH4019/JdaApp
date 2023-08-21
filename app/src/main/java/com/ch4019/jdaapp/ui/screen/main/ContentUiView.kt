@@ -1,4 +1,4 @@
-package com.ch4019.jdaapp.ui.screen.navigation.main
+package com.ch4019.jdaapp.ui.screen.main
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.padding
@@ -8,20 +8,19 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Dns
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.Upcoming
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableIntState
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import com.ch4019.jdaapp.model.NavigationBarItem
-import com.ch4019.jdaapp.model.user.UserState
-import com.ch4019.jdaapp.ui.components.LoadWeb
-import com.ch4019.jdaapp.ui.screen.navigation.personal.PersonalPage
+import com.ch4019.jdaapp.viewmodel.user.UserState
+import com.ch4019.jdaapp.ui.screen.main.home.HomePage
+import com.ch4019.jdaapp.ui.screen.main.personal.PersonalPage
+import com.ch4019.jdaapp.ui.screen.main.second.SecondPage
 import com.google.accompanist.web.rememberWebViewNavigator
-import com.google.accompanist.web.rememberWebViewState
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ContentUiView(
     userState: UserState,
@@ -48,15 +47,17 @@ fun ContentUiView(
                 modifier = Modifier.padding(paddingValues),
             ) {
                 when (it) {
-                    0 -> LoadWeb(
-                        rememberWebViewState("https://portal.ahjzu.edu.cn/web/guest"),
-                        webViewNavigator
-                    )
+                    0 -> HomePage()
+//                        LoadWeb(
+//                        rememberWebViewState("https://portal.ahjzu.edu.cn/web/guest"),
+//                        webViewNavigator
+//                    )
 
-                    1 -> LoadWeb(
-                        rememberWebViewState("https://219-231-0-156.webvpn.ahjzu.edu.cn/xtgl/login_slogin.html"),
-                        webViewNavigator
-                    )
+                    1 -> SecondPage()
+//                        LoadWeb(
+//                        rememberWebViewState("https://219-231-0-156.webvpn.ahjzu.edu.cn/xtgl/login_slogin.html"),
+//                        webViewNavigator
+//                    )
 
                     2 -> PersonalPage(userState, navController)
                 }

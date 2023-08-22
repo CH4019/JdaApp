@@ -14,10 +14,10 @@ import androidx.compose.runtime.MutableIntState
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import com.ch4019.jdaapp.model.NavigationBarItem
-import com.ch4019.jdaapp.viewmodel.user.UserState
-import com.ch4019.jdaapp.ui.screen.main.home.HomePage
+import com.ch4019.jdaapp.ui.screen.login.LoginPage
 import com.ch4019.jdaapp.ui.screen.main.personal.PersonalPage
 import com.ch4019.jdaapp.ui.screen.main.second.SecondPage
+import com.ch4019.jdaapp.viewmodel.user.UserState
 import com.google.accompanist.web.rememberWebViewNavigator
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -47,7 +47,8 @@ fun ContentUiView(
                 modifier = Modifier.padding(paddingValues),
             ) {
                 when (it) {
-                    0 -> HomePage()
+                    0 -> LoginPage()
+                        //HomePage()
 //                        LoadWeb(
 //                        rememberWebViewState("https://portal.ahjzu.edu.cn/web/guest"),
 //                        webViewNavigator

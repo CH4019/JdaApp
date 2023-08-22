@@ -17,6 +17,7 @@ import com.ch4019.jdaapp.ui.screen.other.LIMSPage
 import com.ch4019.jdaapp.ui.screen.other.OneCardPage
 import com.ch4019.jdaapp.ui.screen.other.SportsPage
 import com.ch4019.jdaapp.ui.screen.about.AboutPage
+import com.ch4019.jdaapp.ui.screen.login.LoginPage
 import com.ch4019.jdaapp.ui.screen.setting.SettingPage
 import com.ch4019.jdaapp.ui.screen.user.UserPage
 import com.ch4019.jdaapp.ui.theme.JdaAppTheme
@@ -57,6 +58,9 @@ fun MainNavController() {
             }
             composable(MainNavRoute.GRADES_PAGE) {
                 GradesPage(navController)
+            }
+            composable(MainNavRoute.LOGIN_PAGE){
+                LoginPage()
             }
         }
     }

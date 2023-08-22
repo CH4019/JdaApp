@@ -14,4 +14,5 @@ object MainNavRoute {
     const val LIMS_PAGE = "lims_page"
     const val USER_PAGE = "user_page"
     const val GRADES_PAGE = "grades_page"
+    const val LOGIN_PAGE = "login_page"
 }

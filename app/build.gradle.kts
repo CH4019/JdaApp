@@ -97,5 +97,5 @@ dependencies {
 
     debugImplementation(libs.monitor)
     releaseImplementation(libs.monitor.no.op)
-
+    implementation("org.jsoup:jsoup:1.16.1")
 }

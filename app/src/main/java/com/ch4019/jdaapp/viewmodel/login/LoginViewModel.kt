@@ -13,13 +13,16 @@ import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.jsoup.Jsoup
-import org.jsoup.nodes.Document
 import java.math.BigInteger
 import java.security.SecureRandom
+
 
 class LoginViewModel : ViewModel(){
     private val _loginState = MutableStateFlow(LoginState())
     val loginState = _loginState.asStateFlow()
+
+    private val _rsaKey = MutableStateFlow(RsaKey())
+    private val rsaKey = _rsaKey.asStateFlow()
     init {
         initLoginState()
     }
@@ -50,6 +53,8 @@ class LoginViewModel : ViewModel(){
             }
         }
     }
+
+
 //    TODO 从getCsrfToken()拿到csrfToken
 //    从getTime()获得时间戳
 //    从getPassWord()获得加密后的密码
@@ -82,17 +87,19 @@ class LoginViewModel : ViewModel(){
         }
     }
 
+
+
     private fun loginCookie(loginIntent: LoginState) : String{
+        val client = OkHttpClient()
+        val time = getTime()
         val yhm = loginIntent.userName
         Log.d("yhm",yhm)
         try {
-            val client = OkHttpClient()
-            val time = getTime()
-            val csrfToken = getCsrfToken()
+            val csrfToken = getCsrfToken(client)
             Log.d("csrfToken",csrfToken)
-//            TODO 这里的加密结果不对，需要重新编写
             val passWord = getPassWord(client,time, loginIntent.passWord)
             Log.d("passWord",passWord)
+
             val formBody = FormBody.Builder()
                 .add("csrfToken", csrfToken)
                 .add("yhm", yhm)
@@ -107,6 +114,7 @@ class LoginViewModel : ViewModel(){
                 .build()
             val response = client.newCall(request).execute()
             Log.d("httpCode", response.code.toString())
+            Log.d("response",response.toString())
             return if (response.isSuccessful) {
                 val setCookie = response.headers("Set-Cookie")
                 val jsEsSionId = setCookie.map { it.split(";")[0] }
@@ -125,51 +133,125 @@ class LoginViewModel : ViewModel(){
     private fun getTime() : String {
         return System.currentTimeMillis().toString()
     }
-    private fun getCsrfToken(): String {
-        val parse: Document =
-            Jsoup.connect("https://219-231-0-156.webvpn.ahjzu.edu.cn/xtgl/login_slogin.html").cookie("SERVERID2","Server3").get()
-        return parse.getElementsByAttributeValue("id", "csrftoken").first()?.attr("value") ?: ""
+    private fun getCsrfToken(client:OkHttpClient): String {
+        val request = Request.Builder()
+            .url("https://219-231-0-156.webvpn.ahjzu.edu.cn/xtgl/login_slogin.html")
+            .header("User-Agent","Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Mobile Safari/537.36 Edg/115.0.1901.203")
+            .header("Cookie","SERVERID2=Server3")
+            .build()
+        val response = client.newCall(request).execute()
+        val document = response.body?.string()?.let { Jsoup.parse(it) }
+        return if (document != null) {
+            document.select("#csrftoken").`val`()
+        }else{
+            ""
+        }
     }
     private fun getPassWord(client:OkHttpClient,time: String, passWord: String): String {
         val time2 = (time.toLong()-50).toString()
         val url = "https://219-231-0-156.webvpn.ahjzu.edu.cn/xtgl/login_getPublicKey.html?time=$time&_=$time2"
         Log.d("url",url)
-        val request1 = Request.Builder()
+        val request = Request.Builder()
             .url(url)
             .header("User-Agent","Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Mobile Safari/537.36 Edg/115.0.1901.203")
-            .header("Accept","text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7")
-            .header("Accept-Language","zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6")
+            //.header("Accept","text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7")
+            //.header("Accept-Language","zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6")
             .header("Cookie","SERVERID2=Server3")
             .build()
-        val response1 = client.newCall(request1).execute()
-        val responseBody = response1.body?.string() ?: "{}"
-        Log.d("response",response1.toString())
+        val response = client.newCall(request).execute()
+        val responseBody = response.body?.string() ?: "{}"
+        Log.d("response",response.toString())
         Log.d("responseBody",responseBody)
        val data = Json.decodeFromString<PublicKeyList>(responseBody)
         Log.d("modulus",data.modulus)
-//        TODO 似乎是从这下面开始不对的
         setPublic(b64ToHex(data.modulus), b64ToHex(data.exponent))
-        return hex2b64(rsaEncrypt(passWord))
+        return hex2b64(rSAEncrypt(passWord))
     }
 
-    private var n: BigInteger? = null
-    private var e: Int = 0
-
-    private fun setPublic(key1: String?, key2: String?) {
-        if (key1 != null && key2 != null && key1.isNotEmpty() && key2.isNotEmpty()) {
-            n = key1.toBigInteger(16)
-            e = key2.toInt(16)
-        } else {
-            throw IllegalArgumentException("Invalid RSA public key")
+    private fun setPublic(key1 : String, key2 : String){
+        if (key1.isNotEmpty() && key2.isNotEmpty()){
+            viewModelScope.launch(Dispatchers.IO) {
+                _rsaKey.update {
+                    it.copy(
+                        keyN = key1.toBigInteger(16).toString(),
+                        keyE = key2.toLong(16)
+                    )
+                }
+            }
+        }else{
+            println("初始化失败")
         }
     }
 
-    private fun rsaEncrypt(text: String): String {
-        val m = pkCs1Pad2(text, ((n?.bitLength() ?: 0) + 7) shr 3)
-        val c = m?.let { rsaDoPublic(it) } ?: return ""
+    private fun rSAEncrypt(
+        passWord: String
+    ): String{
+        val m = pKcs1Pad2(passWord, (rsaKey.value.keyN?.toBigInteger()?.bitLength()?:0) + 7 shr 3) ?: return ""
+        val c = doPublic(m)
         val h = c.toString(16)
-        return if (h.length and 1 == 0) h else "0$h"
+        return if (h.length % 2 == 0) h else "0$h"
     }
+//    Todo 当前加密函数待解决：pKcs1Pad2()函数和doPublic()函数，
+//    pKcs1Pad2()函数需要解决类型是否正确
+//    doPublic()函数需要重头编写
+    private fun doPublic(
+        key: String
+    ):BigInteger {
+
+        val z =  if (rsaKey.value.keyE < 256 || rsaKey.value.keyN?.toBigInteger()?.isEven() == true){
+            ("").toBigInteger()
+        }else{
+            ("").toBigInteger()
+        }
+//    Todo 这里的指摸处理需要使用自定义函数来处理，不能使用modPow()函数，否则结果不对
+        return key.toBigInteger().modPow(
+            rsaKey.value.keyE.toBigInteger(),
+            z
+        )
+    }
+    private fun BigInteger.isEven(): Boolean {
+        return when {
+            this.signum() < 0 -> false
+            else -> this.and(BigInteger.ONE) == BigInteger.ZERO
+        }
+    }
+
+    private fun pKcs1Pad2(
+        key1: String,
+        key2: Int
+    ): String? {
+        var n = key2
+        if (key2 < key1.length + 11) {
+            return null
+        }
+        val ba = emptyArray<Any>()
+        var i = key1.length - 1
+        while (i >= 0 && n > 0) {
+            val c = key1[i--].code
+            if (c < 128) { // encode using utf-8
+                ba[--n] = c
+            } else if (c in 128..2047) {
+                ba[--n] = c and 63 or 128
+                ba[--n] = c shr 6 or 192
+            } else {
+                ba[--n] = c and 63 or 128
+                ba[--n] = c shr 6 and 63 or 128
+                ba[--n] = c shr 12 or 224
+            }
+        }
+        ba[--n] = 0
+        val rng = SecureRandom()
+        val x = byteArrayOf()
+        while (n > 2) { // random non-zero pad
+            x[0] = 0
+            while (x[0] == 0.toByte()) rng.nextBytes(x)
+            ba[--n] = x[0]
+        }
+        ba[--n] = 2
+        ba[--n] = 0
+        return  ba.toString()
+    }
+
 
     private fun pkCs1Pad2(key1: String, key2: Int): BigInteger? {
         if (key2 < key1.length + 11) {
@@ -207,11 +289,7 @@ class LoginViewModel : ViewModel(){
         return BigInteger(ba)
     }
 
-    private fun rsaDoPublic(x: BigInteger): BigInteger? {
-        return n?.let { x.modPow(e.toBigInteger(), it) }
-    }
-
-
+//  类型转换函数
     private val b64map = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
     private val b64pad = "="
      private fun hex2b64(key: String): String {

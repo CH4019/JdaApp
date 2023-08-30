@@ -1,6 +1,7 @@
 package com.ch4019.jdaapp.viewmodel.login
 
 import kotlinx.serialization.Serializable
+import java.math.BigInteger
 
 @Serializable
 data class PublicKeyList(
@@ -8,6 +9,10 @@ data class PublicKeyList(
     val exponent: String
 )
 data class RsaKey(
-    val keyN : String? = null,
-    val keyE : Long = 0
+    val keyN : BigInteger? = null,
+    val keyE : BigInteger? = null
+)
+
+data class RequestCookie(
+    val cookie : String = ""
 )

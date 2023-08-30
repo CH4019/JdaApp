@@ -2,8 +2,10 @@ package com.ch4019.jdaapp.ui.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
@@ -27,7 +29,7 @@ fun CardButton(
     elevation: CardElevation = CardDefaults.cardElevation(),
     border: BorderStroke? = null,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    content: @Composable ColumnScope.() -> Unit
+    content: @Composable RowScope.() -> Unit
 ) {
     Card(
         onClick = onClick,
@@ -39,8 +41,11 @@ fun CardButton(
         border = border,
         interactionSource = interactionSource,
     ) {
-        Column(
-            modifier = Modifier.padding(horizontal = 24.dp, vertical = 8.dp)
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 24.dp, vertical = 8.dp),
+            horizontalArrangement = Arrangement.Center,
         ) {
             content()
         }

@@ -53,7 +53,7 @@ fun StartPageView(appNavHostController: NavHostController) {
             iconVisibleShow = true
         }
         withContext(Dispatchers.IO) {
-            delay(1000)
+            delay(500)
             contentVisibleShow = true
         }
         delay(1000)
@@ -83,15 +83,15 @@ fun StartPageView(appNavHostController: NavHostController) {
                 AnimatedVisibility(
                     visible = iconVisibleShow,
                     enter = fadeIn(
-                        animationSpec = tween(1000),
-                        initialAlpha = 0f
+                        animationSpec = tween(500),
+                        initialAlpha = 0.2f
                     ),
                 ) {
                     Image(
                         bitmap = logo,
                         contentDescription = null,
                         modifier = Modifier
-                            .size(150.dp)
+                            .size(120.dp)
                     )
                 }
                 AnimatedVisibility(
@@ -106,7 +106,7 @@ fun StartPageView(appNavHostController: NavHostController) {
                     Text(
                         text = "Jda助手",
                         fontWeight = FontWeight.Bold,
-                        style = MaterialTheme.typography.displaySmall
+                        style = MaterialTheme.typography.headlineLarge
                     )
                 }
             }

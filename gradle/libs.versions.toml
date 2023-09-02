@@ -1,19 +1,19 @@
 [versions]
 agp = "8.2.0-alpha15"
-kotlin = "1.8.10"
+kotlin = "1.8.22"
 core-ktx = "1.11.0-beta02"
 junit = "4.13.2"
 androidx-test-ext-junit = "1.1.5"
 espresso-core = "3.5.1"
 lifecycle-runtime-ktx = "2.6.1"
 activity-compose = "1.7.2"
-compose-bom = "2023.06.01"
+compose-bom = "2023.08.00"
 datastore-preferences = "1.0.0"
 hilt-android = "2.47"
 hilt-navigation-compose = "1.1.0-alpha01"
 accompanist-webview = "0.31.3-beta"
 core-splashscreen = "1.0.1"
-navigation-compose = "2.6.0-alpha08"
+navigation-compose = "2.7.1"
 coil-compose = "2.4.0"
 lifecycle-viewmodel-ktx = "2.6.1"
 okhttp = "4.11.0"
@@ -22,6 +22,7 @@ converter-serialization = "3.1.0"
 rxhttp-compiler = "3.1.0"
 monitor = "1.2.1"
 monitor-no-op = "1.2.1"
+jsoup = "1.16.1"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -55,6 +56,7 @@ converter-serialization = { group = "com.github.liujingxing.rxhttp", name = "con
 rxhttp-compiler = { group = "com.github.liujingxing.rxhttp", name = "rxhttp-compiler", version.ref = "rxhttp-compiler" }
 monitor = { group = "com.github.leavesCZY.Monitor", name = "monitor", version.ref = "monitor" }
 monitor-no-op = { group = "com.github.leavesCZY.Monitor", name = "monitor-no-op", version.ref = "monitor-no-op" }
+jsoup = { group = "org.jsoup", name = "jsoup", version.ref = "jsoup" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

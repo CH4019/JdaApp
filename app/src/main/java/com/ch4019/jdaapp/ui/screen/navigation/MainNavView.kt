@@ -1,5 +1,8 @@
 package com.ch4019.jdaapp.ui.screen.navigation
 
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -17,7 +20,10 @@ import com.ch4019.jdaapp.ui.screen.other.LIMSPage
 import com.ch4019.jdaapp.ui.screen.other.OneCardPage
 import com.ch4019.jdaapp.ui.screen.other.SportsPage
 import com.ch4019.jdaapp.ui.screen.about.AboutPage
+import com.ch4019.jdaapp.ui.screen.language.LanguageConfiguration
 import com.ch4019.jdaapp.ui.screen.login.LoginPage
+import com.ch4019.jdaapp.ui.screen.other.Feedback
+import com.ch4019.jdaapp.ui.screen.other.OfficialWebsite
 import com.ch4019.jdaapp.ui.screen.setting.SettingPage
 import com.ch4019.jdaapp.ui.screen.user.UserPage
 import com.ch4019.jdaapp.ui.theme.JdaAppTheme
@@ -33,7 +39,31 @@ fun MainNavController() {
     JdaAppTheme {
         NavHost(
             navController = navController,
-            startDestination = MainNavRoute.MAIN_NAV
+            startDestination = MainNavRoute.MAIN_NAV,
+            enterTransition = {
+                slideInHorizontally(
+                    animationSpec = tween(500),
+                    initialOffsetX = { it }
+                )
+            },
+            exitTransition = {
+                slideOutHorizontally(
+                    animationSpec = tween(500),
+                    targetOffsetX = { -it }
+                )
+            },
+            popEnterTransition = {
+                slideInHorizontally(
+                    animationSpec = tween(500),
+                    initialOffsetX = { -it }
+                )
+            },
+            popExitTransition = {
+                slideOutHorizontally(
+                    animationSpec = tween(500),
+                    targetOffsetX = { it }
+                )
+            }
         ) {
             composable(MainNavRoute.MAIN_NAV) {
                 ContentUiView(userState, navController, currentPage)
@@ -53,8 +83,17 @@ fun MainNavController() {
             composable(MainNavRoute.LIMS_PAGE) {
                 LIMSPage(navController)
             }
+            composable(MainNavRoute.OFFICIAL_WEBSITE) {
+                OfficialWebsite(navController)
+            }
+            composable(MainNavRoute.FEEDBACK) {
+                Feedback(navController)
+            }
             composable(MainNavRoute.USER_PAGE) {
                 UserPage(userState, userViewModel, navController)
+            }
+            composable(MainNavRoute.LANGUAGE_PAGE){
+                LanguageConfiguration(navController)
             }
             composable(MainNavRoute.GRADES_PAGE) {
                 GradesPage(navController)

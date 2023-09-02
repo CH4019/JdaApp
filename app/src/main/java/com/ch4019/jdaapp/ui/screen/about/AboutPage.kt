@@ -55,13 +55,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.core.content.pm.PackageInfoCompat.getLongVersionCode
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.ch4019.jdaapp.R
+import com.ch4019.jdaapp.util.getPackageInfoCompat
 import com.ch4019.jdaapp.viewmodel.github.AppState
 import com.ch4019.jdaapp.viewmodel.github.GithubViewModel
 import com.ch4019.jdaapp.viewmodel.github.IsUpdateApp
-import com.ch4019.jdaapp.util.getPackageInfoCompat
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -94,9 +94,11 @@ fun AboutPage(mainNavController: NavHostController) {
 private fun UpDataAppDialog(
     onDismiss: () -> Unit,
     showDialog: Boolean,
+    githubViewModel:GithubViewModel,
     appState: AppState,
     versionName: String
 ) {
+    val context = LocalContext.current
     if (showDialog) {
         DynamicHeightDialog(onDismissRequest = onDismiss) {
             Card(
@@ -155,6 +157,7 @@ private fun UpDataAppDialog(
                         onClick = {
                             onDismiss()
                             Log.d("onDismiss", "下载链接${appState.downloadUrl}")
+                            githubViewModel.upDateDownload(context)
                         },
                         colors = ButtonDefaults.elevatedButtonColors(),
                         modifier = Modifier
@@ -229,6 +232,7 @@ private fun AboutView(
 
 @Composable
 private fun AboutBottomPromise() {
+    val context = LocalContext.current
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -254,10 +258,12 @@ private fun AboutBottomPromise() {
         ClickableText(annotatedString) { offset ->
             annotatedString.getStringAnnotations(tag = "policy", start = offset, end = offset).firstOrNull()?.let {
                 Log.d("policy URL", it.item)
+                Toast.makeText(context, "用户点击开源许可证", Toast.LENGTH_SHORT).show()
             }
 
             annotatedString.getStringAnnotations(tag = "terms", start = offset, end = offset).firstOrNull()?.let {
                 Log.d("terms URL", it.item)
+                Toast.makeText(context, "用户点击隐私政策", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -270,7 +276,7 @@ private fun CurrentVersion() {
     val packageInfo = context.packageManager.getPackageInfoCompat(context.packageName, 0)
     val versionName = packageInfo.versionName
     val versionCode = getLongVersionCode(packageInfo)
-    val githubViewModel: GithubViewModel = hiltViewModel()
+    val githubViewModel: GithubViewModel = viewModel()
     val appState by githubViewModel.appState.collectAsState()
     var showDialog by remember(appState.isUpdateApp) { mutableStateOf(appState.isUpdateApp == IsUpdateApp.UPDATE ) }
     /**
@@ -306,7 +312,7 @@ private fun CurrentVersion() {
             Text(versionName)
         }
     }
-    UpDataAppDialog({ showDialog = false }, showDialog, appState = appState, versionName = versionName)
+    UpDataAppDialog({ showDialog = false }, showDialog, githubViewModel,appState = appState, versionName = versionName)
 }
 
 

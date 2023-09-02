@@ -9,11 +9,11 @@ import java.util.Random
  */
 object RSAEncoder {
     private var n: BigInteger? = null
-    private var e: BigInteger? = null
+    private var e: Long = 1099511627777
 
     fun rsaEncrypt(pwd: String, nStr: String, eStr: String): String {
         n = BigInteger(nStr, 16)
-        e = BigInteger(eStr, 16)
+        e = 1099511627777
 
         val r = rsaDoPublic(pkcs1pad2(pwd, (n!!.bitLength() + 7) shr 3)?:BigInteger.ZERO)
         var sp = r.toString(16)
@@ -22,16 +22,15 @@ object RSAEncoder {
     }
 
     private fun rsaDoPublic(x: BigInteger): BigInteger {
-        if (e != null && n != null) {
-            return x.modPow(e, n)
-        } else {
-            throw IllegalStateException("e or n is null")
+        if (e < 256 || n!!.bitLength() > 512) {
+            return x.modPow(e.toBigInteger(), n!!)
         }
+        return BigInteger.ZERO
     }
 
 
-    private fun pkcs1pad2(s: String, n: Int): BigInteger? {
-        var n = n
+    private fun pkcs1pad2(s: String, m: Int): BigInteger? {
+        var n = m
         if (n < s.length + 11) {
             System.err.println("Message too long for RSAEncoder")
             return null

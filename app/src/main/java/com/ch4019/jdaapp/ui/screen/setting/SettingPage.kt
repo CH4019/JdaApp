@@ -9,7 +9,6 @@ import androidx.compose.material.icons.filled.ArrowBackIosNew
 import androidx.compose.material.icons.outlined.AssignmentLate
 import androidx.compose.material.icons.outlined.BugReport
 import androidx.compose.material.icons.outlined.Language
-import androidx.compose.material.icons.outlined.UploadFile
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -58,20 +57,20 @@ fun SettingView(
     mainNavController: NavHostController
 ) {
     val cardListSettingItems = listOf(
-        NavigationItem(
-            title = "检查更新",
-            icon = Icons.Outlined.UploadFile,
-            routerId = MainNavRoute.ABOUT_PAGE
-        ),
+//        NavigationItem(
+//            title = "检查更新",
+//            icon = Icons.Outlined.UploadFile,
+//            routerId = MainNavRoute.ABOUT_PAGE
+//        ),
         NavigationItem(
             title = "语言",
             icon = Icons.Outlined.Language,
-            routerId = MainNavRoute.ABOUT_PAGE
+            routerId = MainNavRoute.LANGUAGE_PAGE
         ),
         NavigationItem(
             title = "问题反馈",
             icon = Icons.Outlined.BugReport,
-            routerId = MainNavRoute.ABOUT_PAGE
+            routerId = MainNavRoute.FEEDBACK
         ),
         NavigationItem(
             title = "关于",

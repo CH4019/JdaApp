@@ -79,12 +79,12 @@ private fun createSettingItem() = listOf(
     NavigationItem(
         "软件官网",
         Icons.Outlined.DesktopWindows,
-        MainNavRoute.SETTING_PAGE
+        MainNavRoute.OFFICIAL_WEBSITE
     ),
     NavigationItem(
         "问题反馈",
         Icons.Outlined.BugReport,
-        MainNavRoute.SETTING_PAGE
+        MainNavRoute.FEEDBACK
     ),
     NavigationItem(
         "设置",

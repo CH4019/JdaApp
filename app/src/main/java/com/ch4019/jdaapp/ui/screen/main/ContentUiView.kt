@@ -14,11 +14,14 @@ import androidx.compose.runtime.MutableIntState
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import com.ch4019.jdaapp.model.NavigationBarItem
+import com.ch4019.jdaapp.ui.components.LoadWeb
 import com.ch4019.jdaapp.ui.screen.login.LoginPage
+import com.ch4019.jdaapp.ui.screen.main.home.HomePage
 import com.ch4019.jdaapp.ui.screen.main.personal.PersonalPage
 import com.ch4019.jdaapp.ui.screen.main.second.SecondPage
 import com.ch4019.jdaapp.viewmodel.user.UserState
 import com.google.accompanist.web.rememberWebViewNavigator
+import com.google.accompanist.web.rememberWebViewState
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -35,9 +38,10 @@ fun ContentUiView(
     val pagerState = rememberPagerState { navigationBarItems.size }
 
     val webViewNavigator = rememberWebViewNavigator()
-
+    val webViewState1 = rememberWebViewState("https://portal.ahjzu.edu.cn/web/guest")
+    val webViewState2 = rememberWebViewState("https://219-231-0-156.webvpn.ahjzu.edu.cn/xtgl/login_slogin.html")
     Scaffold(
-        topBar = { TopBar(pagerState, webViewNavigator) },
+        topBar = { TopBar(pagerState, webViewNavigator, webViewState1, webViewState2) },
         content = { paddingValues ->
             HorizontalPager(
                 state = pagerState,
@@ -47,18 +51,12 @@ fun ContentUiView(
                 modifier = Modifier.padding(paddingValues),
             ) {
                 when (it) {
-                    0 -> LoginPage()
+                    0 -> //LoginPage()
                         //HomePage()
-//                        LoadWeb(
-//                        rememberWebViewState("https://portal.ahjzu.edu.cn/web/guest"),
-//                        webViewNavigator
-//                    )
+                        LoadWeb(webViewState1, webViewNavigator)
 
-                    1 -> SecondPage()
-//                        LoadWeb(
-//                        rememberWebViewState("https://219-231-0-156.webvpn.ahjzu.edu.cn/xtgl/login_slogin.html"),
-//                        webViewNavigator
-//                    )
+                    1 -> //SecondPage()
+                        LoadWeb(webViewState2, webViewNavigator)
 
                     2 -> PersonalPage(userState, navController)
                 }

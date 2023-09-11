@@ -15,4 +15,6 @@ object DataStoreCont {
     val USER_NAME = stringPreferencesKey("user_Name")
     val USER_QQ = stringPreferencesKey("user_QQ")
     val USER_STUDENT = stringPreferencesKey("user_Student")
+    val IS_GRANTED = booleanPreferencesKey("isGranted")
 }
+

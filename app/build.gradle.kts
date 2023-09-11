@@ -45,7 +45,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.8"
+        kotlinCompilerExtensionVersion = "1.5.3"
     }
     packaging {
         resources {
@@ -98,4 +98,5 @@ dependencies {
     debugImplementation(libs.monitor)
     releaseImplementation(libs.monitor.no.op)
     implementation(libs.jsoup)
+    implementation("com.google.accompanist:accompanist-permissions:0.33.1-alpha")
 }

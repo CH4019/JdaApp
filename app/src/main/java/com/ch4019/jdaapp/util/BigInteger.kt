@@ -45,10 +45,10 @@ class BigIntegerKotlin {
         var sh = 0
         while (--i >= 0) {
             val x = if(k == 8)  a[i].code and 0xff else intAt(a,i)
-                if (x < 0) {
-                    if (a[i] == '-') mi = true
-                    continue
-                }
+            if (x < 0) {
+                if (a[i] == '-') mi = true
+                continue
+            }
             mi = false
             if (sh == 0) {
             }

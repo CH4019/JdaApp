@@ -55,7 +55,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.core.content.pm.PackageInfoCompat.getLongVersionCode
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.ch4019.jdaapp.R
 import com.ch4019.jdaapp.util.getPackageInfoCompat
@@ -276,7 +276,7 @@ private fun CurrentVersion() {
     val packageInfo = context.packageManager.getPackageInfoCompat(context.packageName, 0)
     val versionName = packageInfo.versionName
     val versionCode = getLongVersionCode(packageInfo)
-    val githubViewModel: GithubViewModel = viewModel()
+    val githubViewModel: GithubViewModel = hiltViewModel()
     val appState by githubViewModel.appState.collectAsState()
     var showDialog by remember(appState.isUpdateApp) { mutableStateOf(appState.isUpdateApp == IsUpdateApp.UPDATE ) }
     /**

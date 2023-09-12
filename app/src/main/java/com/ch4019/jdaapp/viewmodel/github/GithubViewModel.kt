@@ -8,17 +8,17 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ch4019.jdaapp.util.bytesToMegabytes
-import com.ch4019.jdaapp.util.getNewVersionCode
-import com.ch4019.jdaapp.util.upData
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-
-class GithubViewModel : ViewModel() {
+@HiltViewModel
+class GithubViewModel @Inject constructor(private val githubRepository: GithubRepository) : ViewModel() {
     private val _appState = MutableStateFlow(AppState())
     val appState = _appState.asStateFlow()
     init {
@@ -32,12 +32,11 @@ class GithubViewModel : ViewModel() {
 //        更换okhttp来获取数据
         viewModelScope.launch(Dispatchers.IO) {
             _appState.update {
-                it.copy(versionCode = getNewVersionCode().newVersionCode)
+                it.copy(versionCode = githubRepository.getNewVersionCode().newVersionCode)
             }
             if (appState.value.isUpdateApp == IsUpdateApp.NULL){
                 Log.i("GithubViewModel", "No new version available")
-                val upDataList = upData()
-//                val quoteList = githubRepository.getRxHttp().first()
+                val upDataList = githubRepository.upData()
                 _appState.update {
                     it.copy(
                         newVersionName = upDataList.tagName,

@@ -1,5 +1,5 @@
 [versions]
-agp = "8.2.0-alpha15"
+agp = "8.3.0-alpha03"
 kotlin = "1.9.10"
 core-ktx = "1.12.0"
 junit = "4.13.2"
@@ -9,7 +9,7 @@ lifecycle-runtime-ktx = "2.6.1"
 activity-compose = "1.7.2"
 compose-bom = "2023.08.00"
 datastore-preferences = "1.0.0"
-hilt-android = "2.47"
+hilt-android = "2.48"
 hilt-navigation-compose = "1.1.0-alpha01"
 accompanist-webview = "0.31.3-beta"
 core-splashscreen = "1.0.1"
@@ -17,9 +17,7 @@ navigation-compose = "2.7.1"
 coil-compose = "2.4.0"
 lifecycle-viewmodel-ktx = "2.6.1"
 okhttp = "4.11.0"
-rxhttp = "3.1.0"
 converter-serialization = "3.1.0"
-rxhttp-compiler = "3.1.0"
 monitor = "1.2.1"
 monitor-no-op = "1.2.1"
 jsoup = "1.16.1"
@@ -51,9 +49,7 @@ navigation-compose = { group = "androidx.navigation", name = "navigation-compose
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil-compose" }
 lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle-viewmodel-ktx" }
 okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
-rxhttp = { group = "com.github.liujingxing.rxhttp", name = "rxhttp", version.ref = "rxhttp" }
 converter-serialization = { group = "com.github.liujingxing.rxhttp", name = "converter-serialization", version.ref = "converter-serialization" }
-rxhttp-compiler = { group = "com.github.liujingxing.rxhttp", name = "rxhttp-compiler", version.ref = "rxhttp-compiler" }
 monitor = { group = "com.github.leavesCZY.Monitor", name = "monitor", version.ref = "monitor" }
 monitor-no-op = { group = "com.github.leavesCZY.Monitor", name = "monitor-no-op", version.ref = "monitor-no-op" }
 jsoup = { group = "org.jsoup", name = "jsoup", version.ref = "jsoup" }

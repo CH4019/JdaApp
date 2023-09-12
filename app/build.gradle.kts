@@ -3,7 +3,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
     id("com.google.dagger.hilt.android")
-    kotlin("plugin.serialization") version "1.8.10"
+    kotlin("plugin.serialization") version "1.9.10"
     kotlin("kapt")
 }
 
@@ -91,9 +91,7 @@ dependencies {
     implementation(libs.lifecycle.viewmodel.ktx)
 
     implementation(libs.okhttp)
-    implementation(libs.rxhttp)
     implementation(libs.converter.serialization)
-    kapt(libs.rxhttp.compiler)
 
     debugImplementation(libs.monitor)
     releaseImplementation(libs.monitor.no.op)

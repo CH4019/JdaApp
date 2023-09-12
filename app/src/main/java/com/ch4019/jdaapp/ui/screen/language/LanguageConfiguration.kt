@@ -13,6 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -47,6 +48,7 @@ fun LanguageView(
 ) {
     Column (
         modifier = Modifier.padding(paddingValues)
+            .padding(horizontal = 16.dp)
     ){
         Text(text = "待补充")
     }

@@ -41,6 +41,8 @@ import com.ch4019.jdaapp.ui.theme.JdaAppTheme
 fun GradesView(
     paddingValues: PaddingValues
 ) {
+//    成绩接口地址
+//    https://219-231-0-156.webvpn.ahjzu.edu.cn/cjcx/cjcx_cxDgXscj.html?doType=query&gnmkdm=N305005
     val gridLists = listOf(
         GridList("DX121", "测试课程1", "必修", "3.0", "80", "3.0", "正常考试", "否", "否", "123", "考试"),
         GridList("DX120", "测试课程2", "必修", "2.0", "90", "4.0", "正常考试", "是", "是", "123", "考试"),
@@ -285,7 +287,7 @@ fun FloatButton(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 16.dp, vertical = 16.dp),
+            .padding(horizontal = 32.dp, vertical = 32.dp),
         contentAlignment = Alignment.BottomEnd
     ) {
         FloatingActionButton(onClick = {
